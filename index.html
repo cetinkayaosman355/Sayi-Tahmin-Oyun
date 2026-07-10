@@ -8,425 +8,335 @@
 <body>
 <style>
   :root {
-    --bp-900: #071626;
-    --bp-850: #0a2036;
-    --bp-800: #0d2b45;
-    --bp-700: #133a5c;
-    --line: rgba(150, 197, 224, 0.55);
-    --line-soft: rgba(150, 197, 224, 0.18);
-    --ink: #e2eef7;
-    --ink-dim: #8fb2cc;
-    --ink-faint: #5d829c;
-    --brass: #e6a13c;
-    --brass-2: #f6c76e;
-    --patina: #58c39e;
-    --oxblood: #e07470;
+    --ink-900: #0a0e1c;
+    --ink-850: #0d1428;
+    --ink-800: #111a33;
+    --ink-750: #16203d;
+    --gold:   #c9a24b;
+    --gold-2: #e7cd86;
+    --gold-3: #f3e4bd;
+    --parchment: #ece1c8;
+    --txt:    #eef1f8;
+    --dim:    #9aa6bf;
+    --faint:  #5f6c8a;
+    --hair:   rgba(201,162,75,0.22);
+    --hair-soft: rgba(201,162,75,0.12);
+    --emerald: #5cb999;
+    --rose:    #dd8c88;
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
     --mono: ui-monospace, "SFMono-Regular", "DejaVu Sans Mono", "Courier New", monospace;
     --sans: "Segoe UI", "Helvetica Neue", system-ui, sans-serif;
   }
 
   * { box-sizing: border-box; }
-
   html, body { height: 100%; }
 
   body {
     margin: 0;
     font-family: var(--sans);
-    color: var(--ink);
-    background: var(--bp-900);
+    color: var(--txt);
+    background: var(--ink-900);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 22px 16px;
+    padding: 26px 16px;
     overflow-x: hidden;
   }
 
-  #bp {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    display: block;
-  }
-  /* paper/cyanotype grain */
+  #veil { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
   body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.05;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>");
+    content: ""; position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.035;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
   }
 
-  .app { position: relative; z-index: 2; width: 100%; max-width: 700px; }
+  .app { position: relative; z-index: 2; width: 100%; max-width: 660px; }
 
-  /* ---- DOSSIER SHEET ---- */
-  .sheet {
+  /* ---- CARD ---- */
+  .card {
     position: relative;
     background:
-      linear-gradient(180deg, rgba(19,58,92,0.30), rgba(10,32,54,0.55)),
-      var(--bp-800);
-    border: 1px solid var(--line-soft);
-    border-radius: 4px;
-    padding: 30px 30px 28px;
+      radial-gradient(120% 90% at 50% -10%, rgba(201,162,75,0.08), transparent 60%),
+      linear-gradient(180deg, rgba(22,32,61,0.72), rgba(13,20,40,0.82));
+    border: 1px solid var(--hair-soft);
+    border-radius: 14px;
+    padding: 38px 40px 34px;
     box-shadow:
-      0 30px 70px rgba(0,0,0,0.55),
-      inset 0 0 0 1px rgba(150,197,224,0.06),
-      inset 0 1px 0 rgba(255,255,255,0.04);
+      0 40px 90px rgba(0,0,0,0.6),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+    backdrop-filter: blur(6px);
   }
-  /* double-rule frame */
-  .sheet::before {
-    content: "";
-    position: absolute;
-    inset: 9px;
-    border: 1px solid var(--line-soft);
-    border-radius: 2px;
-    pointer-events: none;
+  .card::before {
+    content: ""; position: absolute; inset: 12px;
+    border: 1px solid var(--hair-soft); border-radius: 8px; pointer-events: none;
   }
-  /* corner registration crosshairs */
-  .reg { position: absolute; width: 16px; height: 16px; z-index: 3; pointer-events: none; opacity: 0.75; }
-  .reg::before, .reg::after { content: ""; position: absolute; background: var(--brass); }
-  .reg::before { left: 50%; top: 0; width: 1px; height: 100%; transform: translateX(-0.5px); }
-  .reg::after { top: 50%; left: 0; height: 1px; width: 100%; transform: translateY(-0.5px); }
-  .reg.tl { top: 4px; left: 4px; } .reg.tr { top: 4px; right: 4px; }
-  .reg.bl { bottom: 4px; left: 4px; } .reg.br { bottom: 4px; right: 4px; }
+  /* gold corner filigree */
+  .corner { position: absolute; width: 26px; height: 26px; z-index: 3; pointer-events: none; }
+  .corner::before, .corner::after { content: ""; position: absolute; background: var(--gold); opacity: 0.6; }
+  .corner::before { width: 26px; height: 1px; }
+  .corner::after { width: 1px; height: 26px; }
+  .corner.tl { top: 8px; left: 8px; } .corner.tl::before { top:0; left:0; } .corner.tl::after { top:0; left:0; }
+  .corner.tr { top: 8px; right: 8px; } .corner.tr::before { top:0; right:0; } .corner.tr::after { top:0; right:0; }
+  .corner.bl { bottom: 8px; left: 8px; } .corner.bl::before { bottom:0; left:0; } .corner.bl::after { bottom:0; left:0; }
+  .corner.br { bottom: 8px; right: 8px; } .corner.br::before { bottom:0; right:0; } .corner.br::after { bottom:0; right:0; }
 
-  /* title block (top-right technical stamp) */
-  .titleblock {
-    position: absolute;
-    top: 18px; right: 22px;
-    font-family: var(--mono);
-    font-size: 9.5px;
-    line-height: 1.5;
-    letter-spacing: 0.5px;
-    color: var(--ink-faint);
-    text-align: right;
-    text-transform: uppercase;
-    z-index: 3;
-  }
-  .titleblock b { color: var(--brass); font-weight: 600; }
+  /* ---- CREST / EMBLEM ---- */
+  .crest { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .emblem { width: 74px; height: 74px; margin-bottom: 16px; }
+  .emblem .spin { transform-origin: 50% 50%; animation: turn 60s linear infinite; }
+  @keyframes turn { to { transform: rotate(360deg); } }
 
-  .eyebrow {
+  .kicker {
     font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--brass);
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    margin-bottom: 16px;
+    font-size: 10.5px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 14px;
   }
-  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 10px var(--brass); animation: blink 2.2s infinite; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+  .kicker .sep { opacity: 0.5; margin: 0 7px; }
 
   h1 {
-    margin: 0 0 10px;
-    font-family: var(--sans);
-    font-weight: 800;
-    font-size: clamp(30px, 8vw, 46px);
-    line-height: 0.98;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    margin: 0 0 6px;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(38px, 9vw, 58px);
+    line-height: 1.0;
+    letter-spacing: 0.5px;
     text-wrap: balance;
-    color: var(--ink);
-    text-shadow: 0 2px 0 rgba(0,0,0,0.3);
+    color: var(--gold-3);
   }
-  h1 .ct { color: var(--brass); }
+  h1 .amp { font-style: italic; color: var(--gold); font-weight: 400; }
 
-  .subtitle { color: var(--ink-dim); font-size: 14.5px; line-height: 1.65; margin: 0 0 22px; max-width: 52ch; }
+  .rule { display:flex; align-items:center; justify-content:center; gap:12px; margin: 14px 0 18px; color: var(--gold); }
+  .rule::before, .rule::after { content:""; height:1px; width:64px; background: linear-gradient(90deg, transparent, var(--gold)); opacity:0.6; }
+  .rule::after { background: linear-gradient(90deg, var(--gold), transparent); }
+  .rule .diamond { width:6px; height:6px; background: var(--gold); transform: rotate(45deg); }
 
-  /* transmission / briefing */
-  .transmission {
-    font-family: var(--mono);
-    font-size: 12.5px;
-    line-height: 1.75;
-    color: #bcd6e8;
-    background: repeating-linear-gradient(180deg, rgba(150,197,224,0.05) 0 26px, transparent 26px 27px);
-    border: 1px solid var(--line-soft);
-    border-left: 3px solid var(--brass);
-    border-radius: 3px;
-    padding: 14px 16px;
-    margin-bottom: 24px;
-    position: relative;
+  .subtitle {
+    color: var(--dim); font-family: var(--serif); font-size: 16px; font-style: italic;
+    line-height: 1.7; margin: 0 auto 26px; max-width: 46ch; text-align: center;
   }
-  .transmission .tlabel { color: var(--brass); letter-spacing: 1px; display:block; margin-bottom: 6px; font-size: 10.5px; }
-  .transmission strong { color: var(--brass-2); }
+
+  /* briefing */
+  .brief {
+    font-family: var(--mono); font-size: 12.5px; line-height: 1.8; color: #c6cee0;
+    border-top: 1px solid var(--hair-soft); border-bottom: 1px solid var(--hair-soft);
+    padding: 16px 4px; margin-bottom: 26px; text-align: left;
+  }
+  .brief .bl { color: var(--gold); letter-spacing: 2px; display:block; margin-bottom: 8px; font-size: 10px; text-transform: uppercase; }
+  .brief strong { color: var(--gold-2); font-weight: 600; }
 
   .field-label {
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    margin-bottom: 11px;
-    display: flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--faint); margin-bottom: 12px; text-align:center;
   }
-  .field-label::after { content:""; flex:1; height:1px; background: var(--line-soft); }
 
-  /* clearance / difficulty */
-  .clearance { display: flex; gap: 9px; margin-bottom: 26px; }
+  /* clearance */
+  .clearance { display: flex; gap: 10px; margin-bottom: 28px; }
   .cl-opt {
-    flex: 1;
-    text-align: center;
-    padding: 13px 6px 11px;
-    border: 1px solid var(--line-soft);
-    border-radius: 3px;
-    cursor: pointer;
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--ink-dim);
-    transition: all 0.18s ease;
-    user-select: none;
-    position: relative;
-    background: rgba(7,22,38,0.4);
+    flex: 1; text-align: center; padding: 15px 6px 13px;
+    border: 1px solid var(--hair-soft); border-radius: 9px; cursor: pointer;
+    font-family: var(--mono); font-size: 13px; color: var(--dim);
+    transition: all 0.2s ease; user-select: none; background: rgba(10,14,28,0.4);
   }
-  .cl-opt .lv { display:block; font-size:9.5px; letter-spacing:2px; color: var(--ink-faint); margin-bottom:4px; }
-  .cl-opt small { display: block; font-size: 10px; margin-top: 4px; color: var(--ink-faint); }
-  .cl-opt:hover { border-color: var(--brass); color: var(--ink); }
+  .cl-opt .lv { display:block; font-size:9px; letter-spacing:2px; color: var(--faint); margin-bottom:5px; }
+  .cl-opt .nm { font-family: var(--serif); font-size: 15px; color: var(--txt); }
+  .cl-opt small { display: block; font-size: 10px; margin-top: 5px; color: var(--faint); }
+  .cl-opt:hover { border-color: var(--gold); transform: translateY(-2px); }
   .cl-opt.active {
-    color: #10243a;
-    background: linear-gradient(180deg, var(--brass-2), var(--brass));
-    border-color: var(--brass);
-    font-weight: 700;
-    box-shadow: 0 6px 18px rgba(230,161,60,0.28);
+    border-color: var(--gold);
+    background: linear-gradient(180deg, rgba(201,162,75,0.18), rgba(201,162,75,0.06));
+    box-shadow: 0 8px 22px rgba(201,162,75,0.14), inset 0 0 0 1px rgba(201,162,75,0.3);
   }
-  .cl-opt.active .lv, .cl-opt.active small { color: #2a3d16; }
+  .cl-opt.active .nm { color: var(--gold-3); }
+  .cl-opt.active .lv { color: var(--gold); }
 
   /* buttons */
   .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: 15px 20px;
-    font-family: var(--mono);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #10243a;
-    background: linear-gradient(180deg, var(--brass-2), var(--brass));
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: transform 0.12s ease, box-shadow 0.2s, filter 0.2s;
-    box-shadow: 0 8px 22px rgba(230,161,60,0.3), inset 0 1px 0 rgba(255,255,255,0.4);
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+    padding: 16px 22px; font-family: var(--mono); font-size: 13px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase; color: #1a1405;
+    background: linear-gradient(180deg, var(--gold-2), var(--gold));
+    border: none; border-radius: 9px; cursor: pointer;
+    transition: transform 0.14s ease, box-shadow 0.25s, filter 0.2s;
+    box-shadow: 0 10px 26px rgba(201,162,75,0.28), inset 0 1px 0 rgba(255,255,255,0.5);
   }
-  .btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+  .btn:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 14px 32px rgba(201,162,75,0.36), inset 0 1px 0 rgba(255,255,255,0.5); }
   .btn:active { transform: translateY(0); }
-  .btn:focus-visible { outline: 2px solid var(--brass-2); outline-offset: 3px; }
-  .btn.ghost {
-    background: transparent;
-    color: var(--brass);
-    border: 1px solid var(--line-soft);
-    box-shadow: none;
-  }
-  .btn.ghost:hover { border-color: var(--brass); }
+  .btn:focus-visible { outline: 2px solid var(--gold-3); outline-offset: 3px; }
+  .btn.ghost { background: transparent; color: var(--gold); border: 1px solid var(--hair); box-shadow: none; }
+  .btn.ghost:hover { border-color: var(--gold); background: rgba(201,162,75,0.06); }
 
-  /* ---- QUIZ HUD ---- */
-  .qtop { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-  .chrono { position: relative; width: 84px; height: 84px; flex-shrink: 0; }
+  /* ---- QUIZ ---- */
+  .qtop { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; }
+  .chrono { position: relative; width: 88px; height: 88px; flex-shrink: 0; }
   .chrono svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-  .chrono .trk { fill: none; stroke: rgba(150,197,224,0.14); stroke-width: 5; }
-  .chrono .prg { fill: none; stroke: var(--brass); stroke-width: 5; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(230,161,60,0.6)); transition: stroke 0.3s; }
-  .chrono .ticks line { stroke: rgba(150,197,224,0.3); stroke-width: 1; }
-  .chrono .num {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--mono); font-size: 24px; font-weight: 700;
-    color: var(--ink);
-  }
-  .chrono .sec { position:absolute; bottom:16px; left:0; right:0; text-align:center; font-family:var(--mono); font-size:8px; letter-spacing:2px; color: var(--ink-faint); }
+  .chrono .trk { fill: none; stroke: rgba(201,162,75,0.14); stroke-width: 3.5; }
+  .chrono .prg { fill: none; stroke: var(--gold); stroke-width: 3.5; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(201,162,75,0.5)); transition: stroke 0.3s; }
+  .chrono .ticks line { stroke: rgba(201,162,75,0.35); stroke-width: 1; }
+  .chrono .num { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 27px; font-weight: 700; color: var(--txt); }
+  .chrono .sec { position:absolute; bottom:17px; left:0; right:0; text-align:center; font-family:var(--mono); font-size:7.5px; letter-spacing:2px; color: var(--faint); }
 
-  .qmeters { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .meter {
-    font-family: var(--mono);
-    background: rgba(7,22,38,0.5);
-    border: 1px solid var(--line-soft);
-    border-radius: 3px;
-    padding: 7px 11px;
-  }
-  .meter .k { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-faint); display:block; }
-  .meter .v { font-size: 17px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
-  .meter .v.brass { color: var(--brass); }
+  .qmeters { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+  .meter { font-family: var(--mono); background: rgba(10,14,28,0.5); border: 1px solid var(--hair-soft); border-radius: 8px; padding: 8px 12px; }
+  .meter .k { font-size: 8.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--faint); display:block; margin-bottom: 2px; }
+  .meter .v { font-size: 18px; font-weight: 700; color: var(--txt); font-variant-numeric: tabular-nums; }
+  .meter .v.gold { color: var(--gold-2); }
 
   .caseline {
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    font-family: var(--mono); font-size: 10.5px; letter-spacing: 1px;
-    color: var(--ink-faint); text-transform: uppercase;
-    border-top: 1px solid var(--line-soft);
-    border-bottom: 1px solid var(--line-soft);
-    padding: 8px 2px; margin-bottom: 18px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--faint);
+    text-transform: uppercase; border-bottom: 1px solid var(--hair-soft); padding-bottom: 12px; margin-bottom: 20px;
   }
-  .stamp-file {
-    color: var(--brass); border: 1px solid var(--brass);
-    padding: 2px 8px; border-radius: 2px; letter-spacing: 2px;
-    transform: rotate(-2deg); font-weight: 700;
-  }
+  .caseline .era { color: var(--gold); }
+  .caseline .file { color: var(--dim); }
 
   .question {
-    font-size: clamp(18px, 4.6vw, 22px);
-    line-height: 1.4; font-weight: 600; color: var(--ink);
-    margin-bottom: 22px; text-wrap: pretty;
+    font-family: var(--serif); font-size: clamp(20px, 4.8vw, 25px); line-height: 1.4;
+    font-weight: 400; color: var(--txt); margin-bottom: 24px; text-wrap: pretty;
   }
 
   .options { display: grid; gap: 11px; }
   .option {
-    text-align: left;
-    padding: 14px 16px;
-    background: rgba(7,22,38,0.45);
-    border: 1px solid var(--line-soft);
-    border-radius: 3px;
-    color: var(--ink);
-    font-size: 15px;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex; align-items: center; gap: 13px;
-    font-family: var(--sans);
+    text-align: left; padding: 15px 17px; background: rgba(10,14,28,0.45);
+    border: 1px solid var(--hair-soft); border-radius: 9px; color: var(--txt);
+    font-size: 15.5px; cursor: pointer; transition: all 0.16s;
+    display: flex; align-items: center; gap: 14px; font-family: var(--sans);
   }
   .option .key {
-    flex-shrink: 0; width: 30px; height: 30px;
-    display: grid; place-items: center; border-radius: 3px;
-    background: rgba(230,161,60,0.14);
-    color: var(--brass-2);
-    font-family: var(--mono); font-weight: 700; font-size: 13px;
-    border: 1px solid rgba(230,161,60,0.3);
+    flex-shrink: 0; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%;
+    background: transparent; color: var(--gold-2); font-family: var(--serif); font-weight: 700; font-size: 15px;
+    border: 1px solid var(--hair);
   }
-  .option:hover:not(.disabled) { border-color: var(--brass); background: rgba(230,161,60,0.08); transform: translateX(3px); }
-  .option:focus-visible { outline: 2px solid var(--brass-2); outline-offset: 2px; }
-  .option.correct { border-color: var(--patina); background: rgba(88,195,158,0.14); }
-  .option.correct .key { background: var(--patina); color: #06251b; border-color: var(--patina); }
-  .option.wrong { border-color: var(--oxblood); background: rgba(224,116,112,0.13); }
-  .option.wrong .key { background: var(--oxblood); color: #350f0e; border-color: var(--oxblood); }
+  .option:hover:not(.disabled) { border-color: var(--gold); background: rgba(201,162,75,0.07); transform: translateX(4px); }
+  .option:hover:not(.disabled) .key { border-color: var(--gold); }
+  .option:focus-visible { outline: 2px solid var(--gold-3); outline-offset: 2px; }
+  .option.correct { border-color: var(--emerald); background: rgba(92,185,153,0.13); }
+  .option.correct .key { background: var(--emerald); color: #052018; border-color: var(--emerald); }
+  .option.wrong { border-color: var(--rose); background: rgba(221,140,136,0.12); }
+  .option.wrong .key { background: var(--rose); color: #320f0e; border-color: var(--rose); }
   .option.disabled { cursor: default; }
 
-  .feedback {
-    margin-top: 18px; padding: 13px 15px; border-radius: 3px;
-    font-size: 13.5px; line-height: 1.6; display: none;
-    font-family: var(--sans);
-  }
+  .feedback { margin-top: 20px; padding: 15px 17px; border-radius: 9px; font-size: 14px; line-height: 1.65; display: none; }
   .feedback.show { display: block; }
-  .feedback.ok { background: rgba(88,195,158,0.1); border: 1px solid rgba(88,195,158,0.4); }
-  .feedback.no { background: rgba(224,116,112,0.1); border: 1px solid rgba(224,116,112,0.4); }
-  .feedback .lead { font-family: var(--mono); font-weight: 700; letter-spacing: 1px; }
-  .feedback.ok .lead { color: var(--patina); }
-  .feedback.no .lead { color: var(--oxblood); }
-  .feedback .info { color: var(--ink-dim); display:block; margin-top: 5px; }
+  .feedback.ok { background: rgba(92,185,153,0.09); border: 1px solid rgba(92,185,153,0.35); }
+  .feedback.no { background: rgba(221,140,136,0.09); border: 1px solid rgba(221,140,136,0.35); }
+  .feedback .lead { font-family: var(--mono); font-weight: 700; letter-spacing: 1.5px; font-size: 12px; }
+  .feedback.ok .lead { color: var(--emerald); }
+  .feedback.no .lead { color: var(--rose); }
+  .feedback .info { color: var(--dim); display:block; margin-top: 7px; font-family: var(--serif); font-style: italic; font-size: 14.5px; }
 
-  .next-row { margin-top: 18px; display: none; }
+  .next-row { margin-top: 20px; display: none; }
   .next-row.show { display: block; }
 
-  /* rubber stamp overlay */
-  .stamp {
-    position: absolute; top: 42%; left: 50%;
-    transform: translate(-50%, -50%) rotate(-16deg) scale(0.4);
-    font-family: var(--mono); font-weight: 800; font-size: 34px;
-    letter-spacing: 3px; text-transform: uppercase;
-    padding: 8px 20px; border: 4px solid;
-    border-radius: 6px; opacity: 0; pointer-events: none; z-index: 6;
-    text-align: center;
+  /* wax seal stamp */
+  .seal {
+    position: absolute; top: 40%; left: 50%;
+    transform: translate(-50%,-50%) scale(0.3); opacity: 0;
+    width: 128px; height: 128px; pointer-events: none; z-index: 6;
   }
-  .stamp.show { animation: stampin 0.5s cubic-bezier(.2,1.4,.4,1) forwards; }
-  .stamp.ok { color: var(--patina); border-color: var(--patina); }
-  .stamp.no { color: var(--oxblood); border-color: var(--oxblood); }
-  @keyframes stampin {
-    0% { opacity: 0; transform: translate(-50%,-50%) rotate(-16deg) scale(1.6); }
-    55% { opacity: 0.95; transform: translate(-50%,-50%) rotate(-16deg) scale(0.92); }
-    70% { transform: translate(-50%,-50%) rotate(-16deg) scale(1.02); }
-    100% { opacity: 0.9; transform: translate(-50%,-50%) rotate(-16deg) scale(1); }
+  .seal.show { animation: sealin 0.55s cubic-bezier(.2,1.3,.35,1) forwards; }
+  @keyframes sealin {
+    0% { opacity:0; transform: translate(-50%,-50%) scale(1.5) rotate(-14deg); }
+    60% { opacity:0.96; transform: translate(-50%,-50%) scale(0.94) rotate(-8deg); }
+    100% { opacity:0.94; transform: translate(-50%,-50%) scale(1) rotate(-8deg); }
   }
+  .seal .stxt { font-family: var(--mono); font-weight: 800; font-size: 15px; letter-spacing: 1px; }
 
   /* ---- RESULT ---- */
-  .r-stamp {
-    text-align:center; font-family: var(--mono); font-weight: 800;
-    font-size: 15px; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--brass); border: 2px solid var(--brass);
-    display: inline-block; padding: 6px 18px; border-radius: 4px;
-    transform: rotate(-3deg); margin: 4px auto 18px;
-  }
   .r-wrap { text-align:center; }
-  .r-icon { font-size: 52px; margin-bottom: 6px; }
-  .r-title { font-family: var(--sans); font-weight:800; font-size: 25px; letter-spacing:1px; text-transform:uppercase; color: var(--ink); margin-bottom: 6px; }
-  .r-rank { color: var(--ink-dim); font-family: var(--mono); font-size: 12.5px; line-height:1.65; margin-bottom: 22px; max-width: 46ch; margin-left:auto; margin-right:auto; }
-  .r-score { font-family: var(--mono); font-size: 52px; font-weight: 800; color: var(--brass); line-height:1; font-variant-numeric: tabular-nums; }
-  .r-sub { font-family: var(--mono); color: var(--ink-faint); font-size: 11px; letter-spacing: 3px; margin-bottom: 24px; text-transform:uppercase; }
-  .r-stats { display: flex; justify-content: center; gap: 14px; margin-bottom: 24px; }
-  .r-stats .rs { flex:1; max-width:130px; background: rgba(7,22,38,0.5); border:1px solid var(--line-soft); border-radius:3px; padding:12px 6px; }
-  .r-stats .rs b { display:block; font-family:var(--mono); font-size: 22px; color: var(--ink); font-variant-numeric: tabular-nums; }
-  .r-stats .rs span { font-family:var(--mono); font-size: 9.5px; letter-spacing:1.5px; color: var(--ink-faint); text-transform:uppercase; }
+  .r-medal { width: 78px; height: 78px; margin: 0 auto 12px; }
+  .r-title { font-family: var(--serif); font-weight:700; font-size: 30px; letter-spacing:0.5px; color: var(--gold-3); margin-bottom: 8px; }
+  .r-rank { color: var(--dim); font-family: var(--mono); font-size: 12px; line-height:1.7; margin-bottom: 24px; max-width: 44ch; margin-left:auto; margin-right:auto; }
+  .r-score { font-family: var(--serif); font-size: 60px; font-weight: 700; color: var(--gold-2); line-height:1; }
+  .r-sub { font-family: var(--mono); color: var(--faint); font-size: 10px; letter-spacing: 4px; margin: 6px 0 26px; text-transform:uppercase; }
+  .r-stats { display: flex; justify-content: center; gap: 12px; margin-bottom: 26px; }
+  .r-stats .rs { flex:1; max-width:130px; background: rgba(10,14,28,0.5); border:1px solid var(--hair-soft); border-radius:9px; padding:14px 6px; }
+  .r-stats .rs b { display:block; font-family:var(--serif); font-size: 26px; color: var(--txt); }
+  .r-stats .rs span { font-family:var(--mono); font-size: 9px; letter-spacing:1.5px; color: var(--faint); text-transform:uppercase; }
 
   .hidden { display: none !important; }
 
-  @keyframes sheetin { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
-  .anim { animation: sheetin 0.35s ease; }
+  @keyframes rise { 0% { opacity: 0; transform: translateY(14px); } 100% { opacity: 1; transform: translateY(0); } }
+  .anim { animation: rise 0.45s cubic-bezier(.2,.7,.3,1); }
 
   @media (prefers-reduced-motion: reduce) {
-    .anim, .stamp.show, .eyebrow .dot { animation: none; }
-    .stamp.show { opacity: 0.9; transform: translate(-50%,-50%) rotate(-16deg) scale(1); }
-    .btn, .option, .chrono .prg { transition: none; }
+    .anim, .seal.show, .emblem .spin { animation: none; }
+    .seal.show { opacity: 0.94; transform: translate(-50%,-50%) scale(1) rotate(-8deg); }
+    .btn, .option, .chrono .prg, .cl-opt { transition: none; }
   }
 
   @media (max-width: 520px) {
-    .sheet { padding: 24px 18px 22px; }
-    .titleblock { position: static; text-align: left; margin-bottom: 14px; }
+    .card { padding: 28px 20px 24px; }
     .qmeters { grid-template-columns: 1fr 1fr; }
   }
 </style>
 
-<canvas id="bp"></canvas>
+<canvas id="veil"></canvas>
 
 <div class="app">
 
   <!-- START -->
-  <div id="screen-start" class="sheet anim">
-    <span class="reg tl"></span><span class="reg tr"></span><span class="reg bl"></span><span class="reg br"></span>
-    <div class="titleblock">
-      DOSYA NO · <b>TA-1923</b><br>
-      BÜRO · <b>CHRONOS</b><br>
-      GİZLİLİK · <b>ÇOK GİZLİ</b>
+  <div id="screen-start" class="card anim">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <div class="crest">
+      <svg class="emblem" viewBox="0 0 100 100" aria-hidden="true">
+        <g class="spin">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="#c9a24b" stroke-width="1" opacity="0.5"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#c9a24b" stroke-width="0.5" opacity="0.35"/>
+          <g id="emb-ticks"></g>
+        </g>
+        <!-- hourglass -->
+        <g stroke="#e7cd86" stroke-width="2.2" fill="none" stroke-linejoin="round">
+          <path d="M36 32 H64 M36 68 H64"/>
+          <path d="M36 32 C36 46 64 54 64 68"/>
+          <path d="M64 32 C64 46 36 54 36 68"/>
+        </g>
+        <path d="M50 50 L44 40 H56 Z" fill="#e7cd86" opacity="0.85"/>
+        <path d="M50 50 L44 60 H56 Z" fill="#c9a24b" opacity="0.7"/>
+      </svg>
+      <div class="kicker">CHRONOS<span class="sep">◆</span>ZAMAN İSTİHBARAT BÜROSU</div>
+      <h1>Tarih <span class="amp">Ajanı</span></h1>
+      <div class="rule"><span class="diamond"></span></div>
+      <p class="subtitle">Zaman çizgisinde kayıtlar bozuluyor. Sapmaları düzeltmekle görevli saha ajanı sensin — her doğru cevap tarihi yerine oturtur.</p>
     </div>
 
-    <div class="eyebrow"><span class="dot"></span> CHRONOS BÜROSU · ZAMAN İSTİHBARATI</div>
-    <h1>Tarih <span class="ct">Ajanı</span></h1>
-    <p class="subtitle">Zaman çizgisinde kayıtlar bozuluyor. Sen, bu sapmaları düzeltmekle görevli saha ajanısın. Her doğru cevap tarihi yerine oturtur; her hata çizgide yeni bir çatlak açar.</p>
-
-    <div class="transmission">
-      <span class="tlabel">▸ GELEN TELSİZ · ŞİFRE ÇÖZÜLDÜ</span>
-      Ajan, saha hazır. Sana iletilen dosyaları doğru yanıtla ve zaman çizgisini <strong>stabilize et</strong>. Kronometre işliyor — ne kadar hızlıysan o kadar çok <strong>puan</strong>. Üst üste doğrular <strong>seri bonusu</strong> kazandırır. Görev sonunda rütben tescillenecek.
+    <div class="brief">
+      <span class="bl">◈ Gelen Telsiz · Şifre Çözüldü</span>
+      Ajan, saha hazır. İletilen dosyaları doğru yanıtla ve zaman çizgisini <strong>stabilize et</strong>. Kronometre işliyor — ne kadar hızlıysan o kadar çok <strong>puan</strong>. Üst üste doğrular <strong>seri bonusu</strong> kazandırır; görev sonunda rütben tescillenir.
     </div>
 
-    <div class="field-label">Yetki Seviyesi Seç</div>
+    <div class="field-label">— Yetki Seviyesi Seç —</div>
     <div class="clearance" id="clearance">
-      <div class="cl-opt active" data-diff="kolay"><span class="lv">SEVİYE 1</span>Çaylak<small>20 sn</small></div>
-      <div class="cl-opt" data-diff="orta"><span class="lv">SEVİYE 2</span>Saha Ajanı<small>15 sn</small></div>
-      <div class="cl-opt" data-diff="zor"><span class="lv">SEVİYE 3</span>Efsane<small>10 sn</small></div>
+      <div class="cl-opt active" data-diff="kolay"><span class="lv">SEVİYE I</span><span class="nm">Çaylak</span><small>20 saniye</small></div>
+      <div class="cl-opt" data-diff="orta"><span class="lv">SEVİYE II</span><span class="nm">Saha Ajanı</span><small>15 saniye</small></div>
+      <div class="cl-opt" data-diff="zor"><span class="lv">SEVİYE III</span><span class="nm">Efsane</span><small>10 saniye</small></div>
     </div>
 
-    <button class="btn" id="btn-start">▸ Görevi Aç</button>
+    <button class="btn" id="btn-start">◈ Görevi Aç</button>
   </div>
 
   <!-- QUIZ -->
-  <div id="screen-quiz" class="sheet hidden">
-    <span class="reg tl"></span><span class="reg tr"></span><span class="reg bl"></span><span class="reg br"></span>
-    <div class="stamp" id="stamp"></div>
+  <div id="screen-quiz" class="card hidden">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <svg class="seal" id="seal" viewBox="0 0 128 128" aria-hidden="true">
+      <circle cx="64" cy="64" r="60" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+      <circle cx="64" cy="64" r="52" fill="none" stroke="currentColor" stroke-width="3"/>
+      <circle cx="64" cy="64" r="44" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+      <g id="seal-ticks"></g>
+      <text class="stxt" id="seal-text" x="64" y="70" text-anchor="middle" fill="currentColor"></text>
+    </svg>
 
     <div class="qtop">
       <div class="chrono">
-        <svg viewBox="0 0 84 84">
+        <svg viewBox="0 0 88 88">
           <g class="ticks" id="ticks"></g>
-          <circle class="trk" cx="42" cy="42" r="34"></circle>
-          <circle class="prg" id="chrono-prg" cx="42" cy="42" r="34"></circle>
+          <circle class="trk" cx="44" cy="44" r="37"></circle>
+          <circle class="prg" id="chrono-prg" cx="44" cy="44" r="37"></circle>
         </svg>
         <div class="num" id="chrono-num">20</div>
         <div class="sec">SANİYE</div>
       </div>
       <div class="qmeters">
-        <div class="meter"><span class="k">Puan</span><span class="v brass" id="hud-score">0</span></div>
+        <div class="meter"><span class="k">Puan</span><span class="v gold" id="hud-score">0</span></div>
         <div class="meter"><span class="k">Seri</span><span class="v" id="hud-streak">0</span></div>
         <div class="meter"><span class="k">Can</span><span class="v" id="hud-lives">♦ ♦ ♦</span></div>
         <div class="meter"><span class="k">Dosya</span><span class="v" id="hud-prog">1/15</span></div>
@@ -434,25 +344,28 @@
     </div>
 
     <div class="caseline">
-      <span id="qera">DÖNEM</span>
-      <span class="stamp-file" id="qfile">DOSYA 01</span>
+      <span class="era" id="qera">DÖNEM</span>
+      <span class="file" id="qfile">DOSYA 01</span>
     </div>
 
     <div class="question" id="question">…</div>
     <div class="options" id="options"></div>
 
     <div class="feedback" id="feedback"></div>
-    <div class="next-row" id="next-row">
-      <button class="btn" id="btn-next">▸ Sonraki Dosya</button>
-    </div>
+    <div class="next-row" id="next-row"><button class="btn" id="btn-next">◈ Sonraki Dosya</button></div>
   </div>
 
   <!-- RESULT -->
-  <div id="screen-result" class="sheet hidden">
-    <span class="reg tl"></span><span class="reg tr"></span><span class="reg bl"></span><span class="reg br"></span>
+  <div id="screen-result" class="card hidden">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
     <div class="r-wrap">
-      <div class="r-stamp">GÖREV RAPORU</div>
-      <div class="r-icon" id="result-icon">🎖️</div>
+      <svg class="r-medal" id="r-medal" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="34" fill="none" stroke="#c9a24b" stroke-width="2"/>
+        <circle cx="50" cy="50" r="27" fill="none" stroke="#e7cd86" stroke-width="1" opacity="0.7"/>
+        <path id="medal-ribbon" d="M40 78 L34 96 L50 88 L66 96 L60 78 Z" fill="#c9a24b" opacity="0.85"/>
+        <text id="medal-icon" x="50" y="60" text-anchor="middle" font-size="30">🎖️</text>
+      </svg>
+      <div class="kicker">Görev Raporu</div>
       <div class="r-title" id="result-title">Görev Tamamlandı</div>
       <div class="r-rank" id="result-rank"></div>
       <div class="r-score" id="result-score">0</div>
@@ -462,8 +375,8 @@
         <div class="rs"><b id="rs-wrong">0</b><span>Yanlış</span></div>
         <div class="rs"><b id="rs-best">0</b><span>En İyi Seri</span></div>
       </div>
-      <button class="btn" id="btn-restart">▸ Yeni Görev</button>
-      <div style="height:10px"></div>
+      <button class="btn" id="btn-restart">◈ Yeni Görev</button>
+      <div style="height:11px"></div>
       <button class="btn ghost" id="btn-menu">◂ Ana Menü</button>
     </div>
   </div>
@@ -471,119 +384,94 @@
 </div>
 
 <script>
-/* ============ BLUEPRINT BACKGROUND (canvas) ============ */
+/* ===== GUILLOCHÉ VEIL (canvas) ===== */
 (function () {
-  const c = document.getElementById("bp");
-  const ctx = c.getContext("2d");
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const c = document.getElementById("veil"), ctx = c.getContext("2d");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   let w, h, dpr, cx, cy;
   function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    dpr = Math.min(devicePixelRatio || 1, 2);
     w = c.width = Math.floor(innerWidth * dpr);
     h = c.height = Math.floor(innerHeight * dpr);
-    c.style.width = innerWidth + "px";
-    c.style.height = innerHeight + "px";
+    c.style.width = innerWidth + "px"; c.style.height = innerHeight + "px";
     cx = w / 2; cy = h / 2;
   }
-  resize();
-  addEventListener("resize", resize);
+  resize(); addEventListener("resize", resize);
 
-  function grid() {
+  // hypotrochoid rosette (banknote/passport guilloché)
+  function rosette(R, r, d, alpha, rot) {
+    ctx.beginPath();
+    const steps = 1400, diff = R - r;
+    for (let i = 0; i <= steps; i++) {
+      const t = (i / steps) * Math.PI * 2 * r; // enough turns to close
+      const x = diff * Math.cos(t) + d * Math.cos((diff / r) * t);
+      const y = diff * Math.sin(t) - d * Math.sin((diff / r) * t);
+      const ca = Math.cos(rot), sa = Math.sin(rot);
+      const px = x * ca - y * sa, py = x * sa + y * ca;
+      if (i === 0) ctx.moveTo(cx + px, cy + py); else ctx.lineTo(cx + px, cy + py);
+    }
+    ctx.strokeStyle = "rgba(201,162,75," + alpha + ")";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  function draw(t) {
     ctx.clearRect(0, 0, w, h);
-    // base fill vignette
-    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.7);
-    g.addColorStop(0, "#0a2338");
-    g.addColorStop(1, "#050f1c");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, w, h);
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.75);
+    g.addColorStop(0, "#101a34"); g.addColorStop(0.6, "#0a1020"); g.addColorStop(1, "#070b16");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
 
-    const fine = 30 * dpr, coarse = fine * 5;
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = "rgba(150,197,224,0.05)";
-    ctx.beginPath();
-    for (let x = 0; x < w; x += fine) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
-    for (let y = 0; y < h; y += fine) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
-    ctx.stroke();
-    ctx.strokeStyle = "rgba(150,197,224,0.10)";
-    ctx.beginPath();
-    for (let x = 0; x < w; x += coarse) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
-    for (let y = 0; y < h; y += coarse) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
-    ctx.stroke();
-  }
-
-  function rings(t) {
-    ctx.save();
-    ctx.translate(cx, cy);
-    // concentric chronometer rings
-    ctx.strokeStyle = "rgba(150,197,224,0.10)";
-    ctx.lineWidth = 1;
-    const maxR = Math.max(w, h) * 0.55;
-    for (let r = 80 * dpr; r < maxR; r += 90 * dpr) {
-      ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+    const base = Math.min(w, h) * (dpr > 1 ? 0.42 : 0.46);
+    const rot = reduce ? 0 : t * 0.00002;
+    // layered rosettes
+    rosette(base, base * 0.30, base * 0.34, 0.05, rot);
+    rosette(base * 0.82, base * 0.19, base * 0.26, 0.06, -rot * 1.3);
+    rosette(base * 0.62, base * 0.14, base * 0.20, 0.07, rot * 1.7);
+    rosette(base * 0.40, base * 0.11, base * 0.13, 0.06, -rot * 2.2);
+    // fine guide rings
+    ctx.strokeStyle = "rgba(201,162,75,0.05)";
+    for (let rr = base * 1.05; rr < Math.max(w, h) * 0.8; rr += 70 * dpr) {
+      ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2); ctx.stroke();
     }
-    // tick ring
-    ctx.strokeStyle = "rgba(150,197,224,0.16)";
-    const tickR = 150 * dpr;
-    for (let i = 0; i < 60; i++) {
-      const a = (i / 60) * Math.PI * 2;
-      const long = i % 5 === 0;
-      const r1 = tickR, r2 = tickR - (long ? 12 : 6) * dpr;
-      ctx.beginPath();
-      ctx.moveTo(Math.cos(a) * r1, Math.sin(a) * r1);
-      ctx.lineTo(Math.cos(a) * r2, Math.sin(a) * r2);
-      ctx.stroke();
-    }
-    // rotating radar sweep
-    const ang = reduce ? -0.9 : t * 0.00025;
-    const grad = ctx.createConicGradient ? ctx.createConicGradient(ang, 0, 0) : null;
-    if (grad) {
-      grad.addColorStop(0, "rgba(230,161,60,0.16)");
-      grad.addColorStop(0.06, "rgba(230,161,60,0.02)");
-      grad.addColorStop(1, "rgba(230,161,60,0)");
-      ctx.fillStyle = grad;
-      ctx.beginPath(); ctx.arc(0, 0, maxR, 0, Math.PI * 2); ctx.fill();
-    }
-    // sweep line
-    ctx.strokeStyle = "rgba(230,161,60,0.30)";
-    ctx.lineWidth = 1.2 * dpr;
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(Math.cos(ang) * maxR, Math.sin(ang) * maxR);
-    ctx.stroke();
-    // crosshair
-    ctx.strokeStyle = "rgba(150,197,224,0.14)";
-    ctx.beginPath();
-    ctx.moveTo(-maxR, 0); ctx.lineTo(maxR, 0);
-    ctx.moveTo(0, -maxR); ctx.lineTo(0, maxR);
-    ctx.stroke();
-    ctx.restore();
+    if (!reduce) requestAnimationFrame(draw);
   }
-
-  function frame(t) {
-    grid();
-    rings(t);
-    if (!reduce) requestAnimationFrame(frame);
-  }
-  if (reduce) { grid(); rings(0); }
-  else requestAnimationFrame(frame);
+  if (reduce) draw(0); else requestAnimationFrame(draw);
 })();
 
-/* ============ CHRONO TICKS ============ */
-(function () {
-  const g = document.getElementById("ticks");
-  for (let i = 0; i < 12; i++) {
-    const a = (i / 12) * Math.PI * 2 - Math.PI / 2;
-    const r1 = 40, r2 = i % 3 === 0 ? 34 : 37;
+/* ===== SVG tick helpers ===== */
+function radialTicks(groupId, count, cx, cy, r1, r2, longEvery, longR2) {
+  const g = document.getElementById(groupId);
+  if (!g) return;
+  for (let i = 0; i < count; i++) {
+    const a = (i / count) * Math.PI * 2 - Math.PI / 2;
+    const long = longEvery && i % longEvery === 0;
+    const rr2 = long ? longR2 : r2;
     const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    l.setAttribute("x1", (42 + Math.cos(a) * r1).toFixed(2));
-    l.setAttribute("y1", (42 + Math.sin(a) * r1).toFixed(2));
-    l.setAttribute("x2", (42 + Math.cos(a) * r2).toFixed(2));
-    l.setAttribute("y2", (42 + Math.sin(a) * r2).toFixed(2));
+    l.setAttribute("x1", (cx + Math.cos(a) * r1).toFixed(2));
+    l.setAttribute("y1", (cy + Math.sin(a) * r1).toFixed(2));
+    l.setAttribute("x2", (cx + Math.cos(a) * rr2).toFixed(2));
+    l.setAttribute("y2", (cy + Math.sin(a) * rr2).toFixed(2));
+    g.appendChild(l);
+  }
+}
+radialTicks("ticks", 12, 44, 44, 43, 39, 3, 36);
+radialTicks("emb-ticks", 24, 50, 50, 46, 43, 6, 40);
+// emblem ticks styling
+document.querySelectorAll("#emb-ticks line").forEach(l => { l.setAttribute("stroke", "#c9a24b"); l.setAttribute("stroke-width", "1"); l.setAttribute("opacity", "0.4"); });
+// seal ticks
+(function(){
+  const g = document.getElementById("seal-ticks");
+  for (let i=0;i<36;i++){
+    const a=(i/36)*Math.PI*2; const r1=52, r2=i%3===0?45:48;
+    const l=document.createElementNS("http://www.w3.org/2000/svg","line");
+    l.setAttribute("x1",(64+Math.cos(a)*r1).toFixed(2)); l.setAttribute("y1",(64+Math.sin(a)*r1).toFixed(2));
+    l.setAttribute("x2",(64+Math.cos(a)*r2).toFixed(2)); l.setAttribute("y2",(64+Math.sin(a)*r2).toFixed(2));
+    l.setAttribute("stroke","currentColor"); l.setAttribute("stroke-width","1.4"); l.setAttribute("opacity","0.7");
     g.appendChild(l);
   }
 })();
 
-/* ============ SORU BANKASI ============ */
+/* ===== SORU BANKASI ===== */
 const QUESTIONS = [
   { era: "Osmanlı Dönemi", q: "İstanbul'un fethi hangi yılda gerçekleşmiştir?",
     opts: ["1453", "1492", "1071", "1517"], a: 0,
@@ -635,17 +523,14 @@ const QUESTIONS = [
 const DIFFS = { kolay: 20, orta: 15, zor: 10 };
 const KEYS = ["A", "B", "C", "D"];
 const TOTAL = QUESTIONS.length;
-const CIRC = 2 * Math.PI * 34;
+const CIRC = 2 * Math.PI * 37;
 
 let state = {};
-let rafId = null, tickId = null;
+let rafId = null;
 
 function shuffle(arr) {
   const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
   return a;
 }
 
@@ -657,28 +542,20 @@ const screens = {
 function show(name) {
   Object.values(screens).forEach(s => s.classList.add("hidden"));
   const el = screens[name];
-  el.classList.remove("hidden", "anim");
-  void el.offsetWidth;
-  el.classList.add("anim");
+  el.classList.remove("hidden", "anim"); void el.offsetWidth; el.classList.add("anim");
 }
 
 let chosenDiff = "kolay";
 document.querySelectorAll(".cl-opt").forEach(opt => {
   opt.addEventListener("click", () => {
     document.querySelectorAll(".cl-opt").forEach(o => o.classList.remove("active"));
-    opt.classList.add("active");
-    chosenDiff = opt.dataset.diff;
+    opt.classList.add("active"); chosenDiff = opt.dataset.diff;
   });
 });
 
 function startGame() {
-  state = {
-    diff: chosenDiff, order: shuffle(QUESTIONS), index: 0,
-    score: 0, streak: 0, bestStreak: 0, lives: 3,
-    correct: 0, wrong: 0, answered: false, timeLeft: 0,
-  };
-  show("quiz");
-  renderQuestion();
+  state = { diff: chosenDiff, order: shuffle(QUESTIONS), index: 0, score: 0, streak: 0, bestStreak: 0, lives: 3, correct: 0, wrong: 0, answered: false, timeLeft: 0 };
+  show("quiz"); renderQuestion();
 }
 
 function updateHud() {
@@ -689,57 +566,43 @@ function updateHud() {
 }
 
 function renderQuestion() {
-  stopTimer();
-  state.answered = false;
+  stopTimer(); state.answered = false;
   const item = state.order[state.index];
   updateHud();
-  document.getElementById("qera").textContent = "▸ " + item.era.toUpperCase();
+  document.getElementById("qera").textContent = "◈ " + item.era.toUpperCase();
   document.getElementById("qfile").textContent = "DOSYA " + String(state.index + 1).padStart(2, "0");
   document.getElementById("question").textContent = item.q;
 
-  const mapped = item.opts.map((text, i) => ({ text, correct: i === item.a }));
-  const shuffled = shuffle(mapped);
-  const optionsEl = document.getElementById("options");
-  optionsEl.innerHTML = "";
+  const shuffled = shuffle(item.opts.map((text, i) => ({ text, correct: i === item.a })));
+  const optionsEl = document.getElementById("options"); optionsEl.innerHTML = "";
   shuffled.forEach((o, i) => {
-    const btn = document.createElement("button");
-    btn.className = "option";
-    const key = document.createElement("span");
-    key.className = "key"; key.textContent = KEYS[i];
-    const label = document.createElement("span");
-    label.className = "opt-text"; label.textContent = o.text;
+    const btn = document.createElement("button"); btn.className = "option";
+    const key = document.createElement("span"); key.className = "key"; key.textContent = KEYS[i];
+    const label = document.createElement("span"); label.className = "opt-text"; label.textContent = o.text;
     btn.append(key, label);
     btn.addEventListener("click", () => selectAnswer(btn, o.correct));
     optionsEl.appendChild(btn);
   });
 
-  const fb = document.getElementById("feedback");
-  fb.className = "feedback"; fb.textContent = "";
+  const fb = document.getElementById("feedback"); fb.className = "feedback"; fb.textContent = "";
   document.getElementById("next-row").classList.remove("show");
-  const stamp = document.getElementById("stamp");
-  stamp.className = "stamp"; stamp.textContent = "";
-
+  const seal = document.getElementById("seal"); seal.className = "seal";
   startTimer();
 }
 
-/* smooth chronometer countdown */
 function startTimer() {
   const total = DIFFS[state.diff];
-  const prg = document.getElementById("chrono-prg");
-  const num = document.getElementById("chrono-num");
+  const prg = document.getElementById("chrono-prg"), num = document.getElementById("chrono-num");
   prg.style.strokeDasharray = CIRC.toFixed(2);
-  const start = performance.now();
-  state.timeLeft = total;
-
+  const start = performance.now(); state.timeLeft = total;
   const step = (now) => {
-    const elapsed = (now - start) / 1000;
-    const remaining = Math.max(0, total - elapsed);
+    const remaining = Math.max(0, total - (now - start) / 1000);
     state.timeLeft = remaining;
     const frac = remaining / total;
     prg.style.strokeDashoffset = (CIRC * (1 - frac)).toFixed(2);
-    prg.style.stroke = frac > 0.5 ? "var(--brass)" : frac > 0.25 ? "#f2b84a" : "var(--oxblood)";
+    prg.style.stroke = frac > 0.5 ? "var(--gold)" : frac > 0.25 ? "#e2b35a" : "var(--rose)";
     num.textContent = Math.ceil(remaining);
-    num.style.color = frac > 0.25 ? "var(--ink)" : "var(--oxblood)";
+    num.style.color = frac > 0.25 ? "var(--txt)" : "var(--rose)";
     if (remaining <= 0) { timeOut(); return; }
     rafId = requestAnimationFrame(step);
   };
@@ -747,12 +610,11 @@ function startTimer() {
 }
 function stopTimer() { if (rafId) cancelAnimationFrame(rafId); rafId = null; }
 
-function showStamp(ok, text) {
-  const s = document.getElementById("stamp");
-  s.className = "stamp " + (ok ? "ok" : "no");
-  s.textContent = text;
-  void s.offsetWidth;
-  s.classList.add("show");
+function showSeal(ok, text) {
+  const s = document.getElementById("seal");
+  s.style.color = ok ? "var(--emerald)" : "var(--rose)";
+  document.getElementById("seal-text").textContent = text;
+  s.className = "seal"; void s.offsetWidth; s.classList.add("show");
 }
 
 function markCorrectOption(item) {
@@ -762,87 +624,63 @@ function markCorrectOption(item) {
 }
 
 function selectAnswer(btn, isCorrect) {
-  if (state.answered) return;
-  state.answered = true;
-  stopTimer();
+  if (state.answered) return; state.answered = true; stopTimer();
   const item = state.order[state.index];
   document.querySelectorAll(".option").forEach(el => el.classList.add("disabled"));
   const fb = document.getElementById("feedback");
-
   if (isCorrect) {
     btn.classList.add("correct");
-    const timeBonus = Math.round(state.timeLeft) * 5;
-    const streakBonus = state.streak * 20;
+    const timeBonus = Math.round(state.timeLeft) * 5, streakBonus = state.streak * 20;
     const gained = 100 + timeBonus + streakBonus;
-    state.score += gained; state.streak++;
-    state.bestStreak = Math.max(state.bestStreak, state.streak);
-    state.correct++;
-    showStamp(true, "DOĞRULANDI");
+    state.score += gained; state.streak++; state.bestStreak = Math.max(state.bestStreak, state.streak); state.correct++;
+    showSeal(true, "TESCİL");
     fb.className = "feedback ok show";
-    fb.innerHTML = `<span class="lead">✓ KAYIT DOĞRULANDI · +${gained} PUAN</span><span class="info">Süre bonusu +${timeBonus} · Seri bonusu +${streakBonus}<br>💡 ${item.info}</span>`;
+    fb.innerHTML = `<span class="lead">✓ KAYIT DOĞRULANDI · +${gained} PUAN</span><span class="info">Süre bonusu +${timeBonus} · Seri bonusu +${streakBonus}. ${item.info}</span>`;
   } else {
-    btn.classList.add("wrong");
-    markCorrectOption(item);
+    btn.classList.add("wrong"); markCorrectOption(item);
     state.streak = 0; state.lives--; state.wrong++;
-    showStamp(false, "SAPMA");
+    showSeal(false, "SAPMA");
     fb.className = "feedback no show";
-    fb.innerHTML = `<span class="lead">✕ ZAMAN ÇİZGİSİNDE SAPMA</span><span class="info">💡 ${item.info}</span>`;
+    fb.innerHTML = `<span class="lead">✕ ZAMAN ÇİZGİSİNDE SAPMA</span><span class="info">${item.info}</span>`;
   }
-  updateHud();
-  afterAnswer();
+  updateHud(); afterAnswer();
 }
 
 function timeOut() {
-  if (state.answered) return;
-  state.answered = true;
-  stopTimer();
+  if (state.answered) return; state.answered = true; stopTimer();
   const item = state.order[state.index];
   document.querySelectorAll(".option").forEach(el => el.classList.add("disabled"));
   markCorrectOption(item);
   state.streak = 0; state.lives--; state.wrong++;
   document.getElementById("chrono-num").textContent = "0";
-  updateHud();
-  showStamp(false, "SÜRE DOLDU");
+  updateHud(); showSeal(false, "SÜRE!");
   const fb = document.getElementById("feedback");
   fb.className = "feedback no show";
-  fb.innerHTML = `<span class="lead">✕ KRONOMETRE SIFIRLANDI</span><span class="info">💡 ${item.info}</span>`;
+  fb.innerHTML = `<span class="lead">✕ KRONOMETRE SIFIRLANDI</span><span class="info">${item.info}</span>`;
   afterAnswer();
 }
 
 function afterAnswer() {
   const isLast = state.lives <= 0 || state.index + 1 >= TOTAL;
-  document.getElementById("btn-next").textContent = isLast ? "▸ Görev Raporu" : "▸ Sonraki Dosya";
+  document.getElementById("btn-next").textContent = isLast ? "◈ Görev Raporu" : "◈ Sonraki Dosya";
   document.getElementById("next-row").classList.add("show");
 }
 
 function nextQuestion() {
   if (state.lives <= 0 || state.index + 1 >= TOTAL) { endGame(); return; }
-  state.index++;
-  renderQuestion();
+  state.index++; renderQuestion();
 }
 
 function endGame() {
-  stopTimer();
-  show("result");
+  stopTimer(); show("result");
   const ratio = state.correct / TOTAL;
   let rank, icon, title;
-  if (state.lives <= 0) {
-    icon = "🚨"; title = "Görev Başarısız";
-    rank = "ZAMAN ÇİZGİSİ KARARSIZ — Canların tükendi ve çatlaklar kapatılamadı. Ajan, yeniden sahaya inmelisin.";
-  } else if (ratio >= 0.9) {
-    icon = "🏆"; title = "Efsane Ajan";
-    rank = "RÜTBE: BAŞ AJAN — Tarih tümüyle stabilize edildi. Büro seninle gurur duyuyor.";
-  } else if (ratio >= 0.7) {
-    icon = "🎖️"; title = "Kıdemli Ajan";
-    rank = "RÜTBE: SAHA UZMANI — Zaman çizgisi güvende. Etkileyici bir operasyondu.";
-  } else if (ratio >= 0.5) {
-    icon = "🥈"; title = "Saha Ajanı";
-    rank = "RÜTBE: AJAN — Görev tamamlandı, ancak çizgide birkaç sapma açık kaldı.";
-  } else {
-    icon = "🥉"; title = "Çaylak Ajan";
-    rank = "RÜTBE: STAJYER — Kayıtlarda ciddi boşluklar var. Arşivde biraz daha çalışman gerek.";
-  }
-  document.getElementById("result-icon").textContent = icon;
+  if (state.lives <= 0) { icon = "🚨"; title = "Görev Başarısız"; rank = "ZAMAN ÇİZGİSİ KARARSIZ — Canların tükendi ve çatlaklar kapatılamadı. Ajan, yeniden sahaya inmelisin."; }
+  else if (ratio >= 0.9) { icon = "🏆"; title = "Efsane Ajan"; rank = "RÜTBE: BAŞ AJAN — Tarih tümüyle stabilize edildi. Büro seninle gurur duyuyor."; }
+  else if (ratio >= 0.7) { icon = "🎖️"; title = "Kıdemli Ajan"; rank = "RÜTBE: SAHA UZMANI — Zaman çizgisi güvende. Etkileyici bir operasyondu."; }
+  else if (ratio >= 0.5) { icon = "🥈"; title = "Saha Ajanı"; rank = "RÜTBE: AJAN — Görev tamamlandı, ancak çizgide birkaç sapma açık kaldı."; }
+  else { icon = "🥉"; title = "Çaylak Ajan"; rank = "RÜTBE: STAJYER — Kayıtlarda ciddi boşluklar var. Arşivde biraz daha çalışman gerek."; }
+  document.getElementById("medal-icon").textContent = icon;
   document.getElementById("result-title").textContent = title;
   document.getElementById("result-rank").textContent = rank;
   document.getElementById("result-score").textContent = state.score;
@@ -863,10 +701,7 @@ document.addEventListener("keydown", (e) => {
   if (key in map && !state.answered) {
     const opts = document.querySelectorAll(".option");
     if (opts[map[key]]) opts[map[key]].click();
-  } else if ((e.key === "Enter" || e.key === " ") && state.answered) {
-    e.preventDefault();
-    nextQuestion();
-  }
+  } else if ((e.key === "Enter" || e.key === " ") && state.answered) { e.preventDefault(); nextQuestion(); }
 });
 </script>
 </body>
