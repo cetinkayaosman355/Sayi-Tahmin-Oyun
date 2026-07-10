@@ -1,1 +1,667 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tarih Ajanı — Zaman Görevi</title>
+<style>
+  :root {
+    --bg: #0a0e17;
+    --bg2: #111827;
+    --panel: rgba(20, 28, 44, 0.85);
+    --accent: #d4af37;
+    --accent2: #e8c65a;
+    --green: #34d399;
+    --red: #f87171;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --border: rgba(212, 175, 55, 0.35);
+  }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Segoe UI", "Trebuchet MS", system-ui, sans-serif;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(212,175,55,0.10), transparent 45%),
+      radial-gradient(circle at 85% 85%, rgba(52,211,153,0.08), transparent 45%),
+      linear-gradient(160deg, var(--bg), var(--bg2));
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-x: hidden;
+  }
+
+  /* Faint map / grid background */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(212,175,55,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212,175,55,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 720px;
+  }
+
+  .card {
+    background: var(--panel);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 34px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, var(--accent2), #fff, var(--accent2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .subtitle { color: var(--muted); font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
+
+  .brief {
+    background: rgba(0,0,0,0.25);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #cbd5e1;
+    margin-bottom: 26px;
+  }
+  .brief strong { color: var(--accent2); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #0a0e17;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.2s ease, filter 0.2s;
+    box-shadow: 0 8px 24px rgba(212,175,55,0.3);
+  }
+  .btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
+  .btn:active { transform: translateY(0); }
+  .btn.secondary {
+    background: transparent;
+    color: var(--accent2);
+    border: 1px solid var(--border);
+    box-shadow: none;
+  }
+
+  .difficulty { display: flex; gap: 10px; margin-bottom: 22px; }
+  .diff-opt {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--muted);
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .diff-opt small { display: block; font-size: 11px; margin-top: 3px; opacity: 0.7; }
+  .diff-opt.active {
+    color: #0a0e17;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-color: transparent;
+    font-weight: 700;
+  }
+
+  /* HUD */
+  .hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .hud .stat {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .hud .stat b { color: var(--text); font-size: 16px; }
+
+  .progress-wrap {
+    height: 8px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .progress-bar {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, var(--green), #6ee7b7);
+    border-radius: 999px;
+    transition: width 1s linear, background 0.3s;
+  }
+  .timer-label { font-size: 12px; color: var(--muted); text-align: right; margin-bottom: 20px; }
+
+  .qcount { font-size: 13px; color: var(--accent); letter-spacing: 1px; margin-bottom: 10px; }
+  .qera { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+  .question {
+    font-size: 21px;
+    line-height: 1.4;
+    font-weight: 600;
+    margin-bottom: 22px;
+  }
+
+  .options { display: grid; gap: 12px; }
+  .option {
+    text-align: left;
+    padding: 15px 18px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .option .key {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    display: grid; place-items: center;
+    border-radius: 7px;
+    background: rgba(212,175,55,0.15);
+    color: var(--accent2);
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .option:hover:not(.disabled) { border-color: var(--accent); background: rgba(212,175,55,0.08); }
+  .option.correct { border-color: var(--green); background: rgba(52,211,153,0.15); }
+  .option.correct .key { background: var(--green); color: #06281c; }
+  .option.wrong { border-color: var(--red); background: rgba(248,113,113,0.15); }
+  .option.wrong .key { background: var(--red); color: #3b0d0d; }
+  .option.disabled { cursor: default; opacity: 0.85; }
+
+  .feedback {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.ok { background: rgba(52,211,153,0.12); border: 1px solid rgba(52,211,153,0.4); }
+  .feedback.no { background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.4); }
+  .feedback b { color: var(--accent2); }
+
+  .next-row { margin-top: 18px; display: none; }
+  .next-row.show { display: block; }
+
+  /* Result */
+  .result-icon { font-size: 54px; text-align: center; margin-bottom: 8px; }
+  .result-title { text-align: center; font-size: 26px; margin-bottom: 6px; color: var(--accent2); }
+  .result-rank { text-align: center; color: var(--muted); margin-bottom: 22px; font-size: 15px; line-height: 1.6; }
+  .score-big { text-align: center; font-size: 48px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .score-sub { text-align: center; color: var(--muted); margin-bottom: 26px; font-size: 14px; letter-spacing: 1px; }
+  .result-stats { display: flex; justify-content: center; gap: 24px; margin-bottom: 26px; text-align: center; }
+  .result-stats .rs b { display:block; font-size: 24px; color: var(--text); }
+  .result-stats .rs span { font-size: 12px; color: var(--muted); }
+
+  .hidden { display: none !important; }
+
+  @keyframes pop { 0% { transform: scale(0.96); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  .anim { animation: pop 0.25s ease; }
+
+  @media (max-width: 520px) {
+    .card { padding: 22px; }
+    h1 { font-size: 27px; }
+    .question { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- START SCREEN -->
+  <div id="screen-start" class="card anim">
+    <span class="badge">🕵️ Gizli Görev · Zaman Teşkilatı</span>
+    <h1>Tarih Ajanı</h1>
+    <p class="subtitle">Zaman çizgisinde bozulan kayıtları düzelt. Doğru cevaplarla tarihi koru, yanlışlarla zaman akışını tehlikeye at.</p>
+
+    <div class="brief">
+      <strong>GÖREV BRİFİNGİ:</strong> Ajan, tarih akışında sızıntılar var. Sana yöneltilen soruları doğru yanıtlayarak zaman çizgisini stabilize et. Hızlı ol — her saniye <strong>bonus puan</strong> demek. Görev sonunda rütben belirlenecek.
+    </div>
+
+    <p class="qcount" style="margin-bottom:12px;">ZORLUK SEVİYESİ SEÇ</p>
+    <div class="difficulty" id="difficulty">
+      <div class="diff-opt active" data-diff="kolay">Çaylak<small>20 sn / soru</small></div>
+      <div class="diff-opt" data-diff="orta">Saha Ajanı<small>15 sn / soru</small></div>
+      <div class="diff-opt" data-diff="zor">Efsane<small>10 sn / soru</small></div>
+    </div>
+
+    <button class="btn" id="btn-start">🎯 GÖREVE BAŞLA</button>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="screen-quiz" class="card hidden">
+    <div class="hud">
+      <div class="stat">🎖️ Puan: <b id="hud-score">0</b></div>
+      <div class="stat">🔥 Seri: <b id="hud-streak">0</b></div>
+      <div class="stat">❤️ Can: <b id="hud-lives">❤️❤️❤️</b></div>
+    </div>
+
+    <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+    <div class="timer-label" id="timer-label">⏱️ 20 sn</div>
+
+    <div class="qcount" id="qcount">SORU 1 / 10</div>
+    <div class="qera" id="qera"></div>
+    <div class="question" id="question">…</div>
+    <div class="options" id="options"></div>
+
+    <div class="feedback" id="feedback"></div>
+    <div class="next-row" id="next-row">
+      <button class="btn" id="btn-next">SONRAKİ ►</button>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="screen-result" class="card hidden">
+    <div class="result-icon" id="result-icon">🏅</div>
+    <div class="result-title" id="result-title">Görev Tamamlandı</div>
+    <div class="result-rank" id="result-rank"></div>
+    <div class="score-big" id="result-score">0</div>
+    <div class="score-sub">TOPLAM PUAN</div>
+    <div class="result-stats">
+      <div class="rs"><b id="rs-correct">0</b><span>Doğru</span></div>
+      <div class="rs"><b id="rs-wrong">0</b><span>Yanlış</span></div>
+      <div class="rs"><b id="rs-best">0</b><span>En İyi Seri</span></div>
+    </div>
+    <button class="btn" id="btn-restart">🔄 YENİ GÖREV</button>
+    <div style="height:10px"></div>
+    <button class="btn secondary" id="btn-menu">← ANA MENÜ</button>
+  </div>
+
+</div>
+
+<script>
+/* ================= SORU BANKASI ================= */
+const QUESTIONS = [
+  { era: "Osmanlı Dönemi", q: "İstanbul'un fethi hangi yılda gerçekleşmiştir?",
+    opts: ["1453", "1492", "1071", "1517"], a: 0,
+    info: "Fatih Sultan Mehmet, 29 Mayıs 1453'te İstanbul'u fethetti ve Orta Çağ'ı kapattı." },
+
+  { era: "Türkiye Cumhuriyeti", q: "Türkiye Cumhuriyeti hangi tarihte ilan edilmiştir?",
+    opts: ["23 Nisan 1920", "29 Ekim 1923", "30 Ağustos 1922", "19 Mayıs 1919"], a: 1,
+    info: "Cumhuriyet, 29 Ekim 1923'te ilan edildi ve Mustafa Kemal Atatürk ilk cumhurbaşkanı oldu." },
+
+  { era: "Antik Çağ", q: "Anadolu'da parayı (sikkeyi) ilk kez basan uygarlık hangisidir?",
+    opts: ["Hititler", "Frigyalılar", "Lidyalılar", "Urartular"], a: 2,
+    info: "Lidyalılar, MÖ 7. yüzyılda ilk madeni parayı basarak ticarette çığır açtılar." },
+
+  { era: "Dünya Tarihi", q: "Fransız İhtilali hangi yılda başlamıştır?",
+    opts: ["1776", "1789", "1804", "1815"], a: 1,
+    info: "1789'da Bastille'in düşmesiyle başlayan ihtilal 'Özgürlük, Eşitlik, Kardeşlik' ilkelerini yaydı." },
+
+  { era: "Selçuklu Dönemi", q: "Malazgirt Savaşı hangi yılda kazanılarak Anadolu'nun kapıları Türklere açılmıştır?",
+    opts: ["1071", "1176", "1243", "1048"], a: 0,
+    info: "1071 Malazgirt Zaferi'nde Sultan Alparslan, Bizans İmparatoru Romen Diyojen'i yendi." },
+
+  { era: "Dünya Tarihi", q: "Birinci Dünya Savaşı hangi olayla başlamıştır?",
+    opts: ["Pearl Harbor saldırısı", "Avusturya veliahtının öldürülmesi", "Almanya'nın Polonya'yı işgali", "Rus Devrimi"], a: 1,
+    info: "1914'te Avusturya-Macaristan veliahtı Franz Ferdinand'ın Saraybosna'da öldürülmesi savaşı tetikledi." },
+
+  { era: "Kurtuluş Savaşı", q: "Mustafa Kemal'in Samsun'a çıkarak Milli Mücadele'yi fiilen başlattığı tarih hangisidir?",
+    opts: ["23 Nisan 1920", "19 Mayıs 1919", "9 Eylül 1922", "30 Ağustos 1922"], a: 1,
+    info: "19 Mayıs 1919'da Samsun'a çıkış, Kurtuluş Savaşı'nın başlangıcı kabul edilir." },
+
+  { era: "Antik Çağ", q: "Ünlü 'İpek Yolu' esas olarak hangi iki bölgeyi birbirine bağlıyordu?",
+    opts: ["Afrika ile Avrupa", "Çin ile Akdeniz/Avrupa", "Amerika ile Asya", "Hindistan ile Avustralya"], a: 1,
+    info: "İpek Yolu, Çin'den başlayıp Orta Asya üzerinden Akdeniz ve Avrupa'ya uzanan ticaret ağıydı." },
+
+  { era: "Dünya Tarihi", q: "İkinci Dünya Savaşı hangi yıllar arasında yaşanmıştır?",
+    opts: ["1914-1918", "1939-1945", "1929-1933", "1945-1949"], a: 1,
+    info: "1939-1945 arasında yaşanan savaş, insanlık tarihinin en yıkıcı çatışması oldu." },
+
+  { era: "Bilim Tarihi", q: "Hareketli metal harflerle matbaayı Avrupa'da geliştiren kişi kimdir?",
+    opts: ["Leonardo da Vinci", "Johannes Gutenberg", "Galileo Galilei", "İbrahim Müteferrika"], a: 1,
+    info: "Gutenberg, 15. yüzyıl ortasında matbaayı geliştirerek bilginin hızla yayılmasını sağladı." },
+
+  { era: "Osmanlı Dönemi", q: "Osmanlı Devleti'nin kurucusu kimdir?",
+    opts: ["Orhan Bey", "Osman Bey", "Ertuğrul Gazi", "I. Murad"], a: 1,
+    info: "Osmanlı Beyliği, 1299 civarında Osman Bey tarafından kuruldu ve adını ondan aldı." },
+
+  { era: "Coğrafi Keşifler", q: "Amerika kıtasına 1492'de ulaşan denizci kimdir?",
+    opts: ["Vasco da Gama", "Macellan", "Kristof Kolomb", "Marco Polo"], a: 2,
+    info: "Kristof Kolomb, 1492'de İspanya adına Atlantik'i geçerek Amerika kıtasına ulaştı." },
+
+  { era: "Antik Çağ", q: "Piramitleriyle ünlü, Nil Nehri çevresinde kurulan medeniyet hangisidir?",
+    opts: ["Mezopotamya", "Antik Mısır", "Antik Yunan", "Pers"], a: 1,
+    info: "Antik Mısır medeniyeti, Nil'in verimli kıyılarında binlerce yıl varlığını sürdürdü." },
+
+  { era: "Türkiye Cumhuriyeti", q: "Türkiye'de kadınlara milletvekili seçme ve seçilme hakkı hangi yıl tanınmıştır?",
+    opts: ["1923", "1930", "1934", "1945"], a: 2,
+    info: "1934'te kadınlar milletvekili seçme ve seçilme hakkını kazandı; bu birçok Avrupa ülkesinden önceydi." },
+
+  { era: "Dünya Tarihi", q: "'Sanayi Devrimi' ilk olarak hangi ülkede başlamıştır?",
+    opts: ["Fransa", "Almanya", "İngiltere", "ABD"], a: 2,
+    info: "18. yüzyılda İngiltere'de başlayan Sanayi Devrimi, buhar gücüyle üretimi dönüştürdü." },
+];
+
+/* ================= AYARLAR ================= */
+const DIFFS = {
+  kolay: { time: 20, label: "Çaylak" },
+  orta:  { time: 15, label: "Saha Ajanı" },
+  zor:   { time: 10, label: "Efsane" },
+};
+const KEYS = ["A", "B", "C", "D"];
+const TOTAL = QUESTIONS.length;
+
+/* ================= DURUM ================= */
+let state = {};
+let timerId = null;
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ================= EKRAN GEÇİŞLERİ ================= */
+const screens = {
+  start: document.getElementById("screen-start"),
+  quiz: document.getElementById("screen-quiz"),
+  result: document.getElementById("screen-result"),
+};
+function show(name) {
+  Object.values(screens).forEach(s => s.classList.add("hidden"));
+  screens[name].classList.remove("hidden");
+  screens[name].classList.remove("anim");
+  void screens[name].offsetWidth;
+  screens[name].classList.add("anim");
+}
+
+/* ================= ZORLUK SEÇİMİ ================= */
+let chosenDiff = "kolay";
+document.querySelectorAll(".diff-opt").forEach(opt => {
+  opt.addEventListener("click", () => {
+    document.querySelectorAll(".diff-opt").forEach(o => o.classList.remove("active"));
+    opt.classList.add("active");
+    chosenDiff = opt.dataset.diff;
+  });
+});
+
+/* ================= OYUN AKIŞI ================= */
+function startGame() {
+  state = {
+    diff: chosenDiff,
+    order: shuffle(QUESTIONS),
+    index: 0,
+    score: 0,
+    streak: 0,
+    bestStreak: 0,
+    lives: 3,
+    correct: 0,
+    wrong: 0,
+    answered: false,
+    timeLeft: 0,
+  };
+  show("quiz");
+  renderQuestion();
+}
+
+function updateHud() {
+  document.getElementById("hud-score").textContent = state.score;
+  document.getElementById("hud-streak").textContent = state.streak;
+  document.getElementById("hud-lives").textContent = state.lives > 0 ? "❤️".repeat(state.lives) : "—";
+}
+
+function renderQuestion() {
+  clearInterval(timerId);
+  state.answered = false;
+
+  const item = state.order[state.index];
+  updateHud();
+  document.getElementById("qcount").textContent = `SORU ${state.index + 1} / ${TOTAL}`;
+  document.getElementById("qera").textContent = "📁 Dosya: " + item.era;
+  document.getElementById("question").textContent = item.q;
+
+  // Şıkları karıştır ama doğru cevabı takip et
+  const mapped = item.opts.map((text, i) => ({ text, correct: i === item.a }));
+  const shuffled = shuffle(mapped);
+
+  const optionsEl = document.getElementById("options");
+  optionsEl.innerHTML = "";
+  shuffled.forEach((o, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    const key = document.createElement("span");
+    key.className = "key";
+    key.textContent = KEYS[i];
+    const label = document.createElement("span");
+    label.className = "opt-text";
+    label.textContent = o.text;
+    btn.appendChild(key);
+    btn.appendChild(label);
+    btn.addEventListener("click", () => selectAnswer(btn, o.correct));
+    optionsEl.appendChild(btn);
+  });
+
+  const fb = document.getElementById("feedback");
+  fb.className = "feedback";
+  fb.textContent = "";
+  document.getElementById("next-row").classList.remove("show");
+
+  startTimer();
+}
+
+/* ================= ZAMANLAYICI ================= */
+function startTimer() {
+  const total = DIFFS[state.diff].time;
+  let remaining = total;
+  state.timeLeft = remaining;
+  const bar = document.getElementById("progress-bar");
+  const label = document.getElementById("timer-label");
+
+  const update = () => {
+    const pct = (remaining / total) * 100;
+    bar.style.width = pct + "%";
+    bar.style.background = pct > 50
+      ? "linear-gradient(90deg,#34d399,#6ee7b7)"
+      : pct > 25
+        ? "linear-gradient(90deg,#fbbf24,#fde68a)"
+        : "linear-gradient(90deg,#f87171,#fca5a5)";
+    label.textContent = "⏱️ " + remaining + " sn";
+  };
+  update();
+
+  timerId = setInterval(() => {
+    remaining--;
+    state.timeLeft = remaining;
+    update();
+    if (remaining <= 0) {
+      clearInterval(timerId);
+      timeOut();
+    }
+  }, 1000);
+}
+
+/* ================= CEVAP ================= */
+function markCorrectOption(item) {
+  document.querySelectorAll(".option").forEach(el => {
+    if (el.querySelector(".opt-text").textContent === item.opts[item.a]) {
+      el.classList.add("correct");
+    }
+  });
+}
+
+function selectAnswer(btn, isCorrect) {
+  if (state.answered) return;
+  state.answered = true;
+  clearInterval(timerId);
+
+  const item = state.order[state.index];
+  document.querySelectorAll(".option").forEach(el => el.classList.add("disabled"));
+
+  const fb = document.getElementById("feedback");
+
+  if (isCorrect) {
+    btn.classList.add("correct");
+    const timeBonus = state.timeLeft * 5;
+    const base = 100;
+    const streakBonus = state.streak * 20;
+    const gained = base + timeBonus + streakBonus;
+    state.score += gained;
+    state.streak++;
+    state.bestStreak = Math.max(state.bestStreak, state.streak);
+    state.correct++;
+    fb.className = "feedback ok show";
+    fb.innerHTML = `✅ <b>Doğru!</b> +${gained} puan (Süre bonusu +${timeBonus}, Seri bonusu +${streakBonus})<br>💡 ${item.info}`;
+  } else {
+    btn.classList.add("wrong");
+    markCorrectOption(item);
+    state.streak = 0;
+    state.lives--;
+    state.wrong++;
+    fb.className = "feedback no show";
+    fb.innerHTML = `❌ <b>Yanlış!</b> Zaman çizgisinde sapma oluştu.<br>💡 ${item.info}`;
+  }
+
+  updateHud();
+  afterAnswer();
+}
+
+function timeOut() {
+  if (state.answered) return;
+  state.answered = true;
+  const item = state.order[state.index];
+  document.querySelectorAll(".option").forEach(el => el.classList.add("disabled"));
+  markCorrectOption(item);
+  state.streak = 0;
+  state.lives--;
+  state.wrong++;
+  updateHud();
+
+  const fb = document.getElementById("feedback");
+  fb.className = "feedback no show";
+  fb.innerHTML = `⏰ <b>Süre doldu!</b><br>💡 ${item.info}`;
+  afterAnswer();
+}
+
+function afterAnswer() {
+  const isLast = state.lives <= 0 || state.index + 1 >= TOTAL;
+  document.getElementById("btn-next").textContent = isLast ? "GÖREV RAPORU ►" : "SONRAKİ SORU ►";
+  document.getElementById("next-row").classList.add("show");
+}
+
+function nextQuestion() {
+  if (state.lives <= 0 || state.index + 1 >= TOTAL) {
+    endGame();
+    return;
+  }
+  state.index++;
+  renderQuestion();
+}
+
+/* ================= SONUÇ ================= */
+function endGame() {
+  clearInterval(timerId);
+  show("result");
+
+  const ratio = state.correct / TOTAL;
+  let rank, icon, title;
+  if (state.lives <= 0) {
+    icon = "🚨"; title = "Görev Başarısız";
+    rank = "Zaman çizgisi kararsız — canların tükendi. Ajan olarak yeniden denemelisin.";
+  } else if (ratio >= 0.9) {
+    icon = "🏆"; title = "Efsane Ajan";
+    rank = "Rütbe: BAŞ AJAN — Tarih tümüyle stabilize edildi. Kusursuza yakın görev!";
+  } else if (ratio >= 0.7) {
+    icon = "🎖️"; title = "Kıdemli Ajan";
+    rank = "Rütbe: SAHA UZMANI — Zaman çizgisi güvende. Etkileyici performans.";
+  } else if (ratio >= 0.5) {
+    icon = "🥈"; title = "Saha Ajanı";
+    rank = "Rütbe: AJAN — Görev tamamlandı ama bazı sapmalar kaldı.";
+  } else {
+    icon = "🥉"; title = "Çaylak Ajan";
+    rank = "Rütbe: STAJYER — Zaman çizgisinde bilgi boşlukları var. Antrenmana devam!";
+  }
+
+  document.getElementById("result-icon").textContent = icon;
+  document.getElementById("result-title").textContent = title;
+  document.getElementById("result-rank").textContent = rank;
+  document.getElementById("result-score").textContent = state.score;
+  document.getElementById("rs-correct").textContent = state.correct;
+  document.getElementById("rs-wrong").textContent = state.wrong;
+  document.getElementById("rs-best").textContent = state.bestStreak;
+}
+
+/* ================= OLAYLAR ================= */
+document.getElementById("btn-start").addEventListener("click", startGame);
+document.getElementById("btn-next").addEventListener("click", nextQuestion);
+document.getElementById("btn-restart").addEventListener("click", startGame);
+document.getElementById("btn-menu").addEventListener("click", () => show("start"));
+
+// Klavye ile şık seçimi (A/B/C/D veya 1/2/3/4), Enter/Space ile ilerleme
+document.addEventListener("keydown", (e) => {
+  if (screens.quiz.classList.contains("hidden")) return;
+  const map = { a:0, b:1, c:2, d:3, "1":0, "2":1, "3":2, "4":3 };
+  const key = e.key.toLowerCase();
+  if (key in map && !state.answered) {
+    const opts = document.querySelectorAll(".option");
+    if (opts[map[key]]) opts[map[key]].click();
+  } else if ((e.key === "Enter" || e.key === " ") && state.answered) {
+    e.preventDefault();
+    nextQuestion();
+  }
+});
+</script>
+</body>
+</html>
