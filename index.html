@@ -4,104 +4,199 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Tarih Ajanı — Zaman Görevi</title>
+</head>
+<body>
 <style>
   :root {
-    --bg: #0a0e17;
-    --bg2: #111827;
-    --panel: rgba(20, 28, 44, 0.85);
-    --accent: #d4af37;
-    --accent2: #e8c65a;
-    --green: #34d399;
-    --red: #f87171;
-    --text: #e5e7eb;
-    --muted: #94a3b8;
-    --border: rgba(212, 175, 55, 0.35);
+    --bp-900: #071626;
+    --bp-850: #0a2036;
+    --bp-800: #0d2b45;
+    --bp-700: #133a5c;
+    --line: rgba(150, 197, 224, 0.55);
+    --line-soft: rgba(150, 197, 224, 0.18);
+    --ink: #e2eef7;
+    --ink-dim: #8fb2cc;
+    --ink-faint: #5d829c;
+    --brass: #e6a13c;
+    --brass-2: #f6c76e;
+    --patina: #58c39e;
+    --oxblood: #e07470;
+    --mono: ui-monospace, "SFMono-Regular", "DejaVu Sans Mono", "Courier New", monospace;
+    --sans: "Segoe UI", "Helvetica Neue", system-ui, sans-serif;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; }
+
+  html, body { height: 100%; }
 
   body {
-    font-family: "Segoe UI", "Trebuchet MS", system-ui, sans-serif;
-    background:
-      radial-gradient(circle at 20% 10%, rgba(212,175,55,0.10), transparent 45%),
-      radial-gradient(circle at 85% 85%, rgba(52,211,153,0.08), transparent 45%),
-      linear-gradient(160deg, var(--bg), var(--bg2));
-    color: var(--text);
+    margin: 0;
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bp-900);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 22px 16px;
     overflow-x: hidden;
   }
 
-  /* Faint map / grid background */
-  body::before {
+  #bp {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    display: block;
+  }
+  /* paper/cyanotype grain */
+  body::after {
     content: "";
     position: fixed;
     inset: 0;
-    background-image:
-      linear-gradient(rgba(212,175,55,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(212,175,55,0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .app {
-    position: relative;
     z-index: 1;
-    width: 100%;
-    max-width: 720px;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>");
   }
 
-  .card {
-    background: var(--panel);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 32px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
-  }
+  .app { position: relative; z-index: 2; width: 100%; max-width: 700px; }
 
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    letter-spacing: 2px;
+  /* ---- DOSSIER SHEET ---- */
+  .sheet {
+    position: relative;
+    background:
+      linear-gradient(180deg, rgba(19,58,92,0.30), rgba(10,32,54,0.55)),
+      var(--bp-800);
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    padding: 30px 30px 28px;
+    box-shadow:
+      0 30px 70px rgba(0,0,0,0.55),
+      inset 0 0 0 1px rgba(150,197,224,0.06),
+      inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  /* double-rule frame */
+  .sheet::before {
+    content: "";
+    position: absolute;
+    inset: 9px;
+    border: 1px solid var(--line-soft);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  /* corner registration crosshairs */
+  .reg { position: absolute; width: 16px; height: 16px; z-index: 3; pointer-events: none; opacity: 0.75; }
+  .reg::before, .reg::after { content: ""; position: absolute; background: var(--brass); }
+  .reg::before { left: 50%; top: 0; width: 1px; height: 100%; transform: translateX(-0.5px); }
+  .reg::after { top: 50%; left: 0; height: 1px; width: 100%; transform: translateY(-0.5px); }
+  .reg.tl { top: 4px; left: 4px; } .reg.tr { top: 4px; right: 4px; }
+  .reg.bl { bottom: 4px; left: 4px; } .reg.br { bottom: 4px; right: 4px; }
+
+  /* title block (top-right technical stamp) */
+  .titleblock {
+    position: absolute;
+    top: 18px; right: 22px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    color: var(--ink-faint);
+    text-align: right;
     text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid var(--border);
-    padding: 6px 14px;
-    border-radius: 999px;
-    margin-bottom: 20px;
+    z-index: 3;
   }
+  .titleblock b { color: var(--brass); font-weight: 600; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--brass);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 16px;
+  }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 10px var(--brass); animation: blink 2.2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
 
   h1 {
-    font-size: 34px;
-    line-height: 1.15;
-    margin-bottom: 12px;
-    background: linear-gradient(90deg, var(--accent2), #fff, var(--accent2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    margin: 0 0 10px;
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: clamp(30px, 8vw, 46px);
+    line-height: 0.98;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-wrap: balance;
+    color: var(--ink);
+    text-shadow: 0 2px 0 rgba(0,0,0,0.3);
   }
+  h1 .ct { color: var(--brass); }
 
-  .subtitle { color: var(--muted); font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
+  .subtitle { color: var(--ink-dim); font-size: 14.5px; line-height: 1.65; margin: 0 0 22px; max-width: 52ch; }
 
-  .brief {
-    background: rgba(0,0,0,0.25);
-    border-left: 3px solid var(--accent);
-    border-radius: 8px;
-    padding: 16px 18px;
-    font-size: 14px;
-    line-height: 1.7;
-    color: #cbd5e1;
-    margin-bottom: 26px;
+  /* transmission / briefing */
+  .transmission {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.75;
+    color: #bcd6e8;
+    background: repeating-linear-gradient(180deg, rgba(150,197,224,0.05) 0 26px, transparent 26px 27px);
+    border: 1px solid var(--line-soft);
+    border-left: 3px solid var(--brass);
+    border-radius: 3px;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    position: relative;
   }
-  .brief strong { color: var(--accent2); }
+  .transmission .tlabel { color: var(--brass); letter-spacing: 1px; display:block; margin-bottom: 6px; font-size: 10.5px; }
+  .transmission strong { color: var(--brass-2); }
 
+  .field-label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 11px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .field-label::after { content:""; flex:1; height:1px; background: var(--line-soft); }
+
+  /* clearance / difficulty */
+  .clearance { display: flex; gap: 9px; margin-bottom: 26px; }
+  .cl-opt {
+    flex: 1;
+    text-align: center;
+    padding: 13px 6px 11px;
+    border: 1px solid var(--line-soft);
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-dim);
+    transition: all 0.18s ease;
+    user-select: none;
+    position: relative;
+    background: rgba(7,22,38,0.4);
+  }
+  .cl-opt .lv { display:block; font-size:9.5px; letter-spacing:2px; color: var(--ink-faint); margin-bottom:4px; }
+  .cl-opt small { display: block; font-size: 10px; margin-top: 4px; color: var(--ink-faint); }
+  .cl-opt:hover { border-color: var(--brass); color: var(--ink); }
+  .cl-opt.active {
+    color: #10243a;
+    background: linear-gradient(180deg, var(--brass-2), var(--brass));
+    border-color: var(--brass);
+    font-weight: 700;
+    box-shadow: 0 6px 18px rgba(230,161,60,0.28);
+  }
+  .cl-opt.active .lv, .cl-opt.active small { color: #2a3d16; }
+
+  /* buttons */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -109,301 +204,441 @@
     gap: 10px;
     width: 100%;
     padding: 15px 20px;
-    font-size: 16px;
+    font-family: var(--mono);
+    font-size: 14px;
     font-weight: 700;
-    letter-spacing: 0.5px;
-    color: #0a0e17;
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #10243a;
+    background: linear-gradient(180deg, var(--brass-2), var(--brass));
     border: none;
-    border-radius: 12px;
+    border-radius: 3px;
     cursor: pointer;
-    transition: transform 0.12s ease, box-shadow 0.2s ease, filter 0.2s;
-    box-shadow: 0 8px 24px rgba(212,175,55,0.3);
+    transition: transform 0.12s ease, box-shadow 0.2s, filter 0.2s;
+    box-shadow: 0 8px 22px rgba(230,161,60,0.3), inset 0 1px 0 rgba(255,255,255,0.4);
   }
-  .btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
+  .btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
   .btn:active { transform: translateY(0); }
-  .btn.secondary {
+  .btn:focus-visible { outline: 2px solid var(--brass-2); outline-offset: 3px; }
+  .btn.ghost {
     background: transparent;
-    color: var(--accent2);
-    border: 1px solid var(--border);
+    color: var(--brass);
+    border: 1px solid var(--line-soft);
     box-shadow: none;
   }
+  .btn.ghost:hover { border-color: var(--brass); }
 
-  .difficulty { display: flex; gap: 10px; margin-bottom: 22px; }
-  .diff-opt {
-    flex: 1;
-    text-align: center;
-    padding: 12px 8px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--muted);
-    transition: all 0.15s;
-    user-select: none;
+  /* ---- QUIZ HUD ---- */
+  .qtop { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .chrono { position: relative; width: 84px; height: 84px; flex-shrink: 0; }
+  .chrono svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .chrono .trk { fill: none; stroke: rgba(150,197,224,0.14); stroke-width: 5; }
+  .chrono .prg { fill: none; stroke: var(--brass); stroke-width: 5; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(230,161,60,0.6)); transition: stroke 0.3s; }
+  .chrono .ticks line { stroke: rgba(150,197,224,0.3); stroke-width: 1; }
+  .chrono .num {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 24px; font-weight: 700;
+    color: var(--ink);
   }
-  .diff-opt small { display: block; font-size: 11px; margin-top: 3px; opacity: 0.7; }
-  .diff-opt.active {
-    color: #0a0e17;
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    border-color: transparent;
-    font-weight: 700;
+  .chrono .sec { position:absolute; bottom:16px; left:0; right:0; text-align:center; font-family:var(--mono); font-size:8px; letter-spacing:2px; color: var(--ink-faint); }
+
+  .qmeters { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .meter {
+    font-family: var(--mono);
+    background: rgba(7,22,38,0.5);
+    border: 1px solid var(--line-soft);
+    border-radius: 3px;
+    padding: 7px 11px;
+  }
+  .meter .k { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-faint); display:block; }
+  .meter .v { font-size: 17px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .meter .v.brass { color: var(--brass); }
+
+  .caseline {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 1px;
+    color: var(--ink-faint); text-transform: uppercase;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    padding: 8px 2px; margin-bottom: 18px;
+  }
+  .stamp-file {
+    color: var(--brass); border: 1px solid var(--brass);
+    padding: 2px 8px; border-radius: 2px; letter-spacing: 2px;
+    transform: rotate(-2deg); font-weight: 700;
   }
 
-  /* HUD */
-  .hud {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-  .hud .stat {
-    background: rgba(0,0,0,0.3);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-    padding: 8px 14px;
-    font-size: 13px;
-    color: var(--muted);
-  }
-  .hud .stat b { color: var(--text); font-size: 16px; }
-
-  .progress-wrap {
-    height: 8px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 999px;
-    overflow: hidden;
-    margin-bottom: 8px;
-  }
-  .progress-bar {
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(90deg, var(--green), #6ee7b7);
-    border-radius: 999px;
-    transition: width 1s linear, background 0.3s;
-  }
-  .timer-label { font-size: 12px; color: var(--muted); text-align: right; margin-bottom: 20px; }
-
-  .qcount { font-size: 13px; color: var(--accent); letter-spacing: 1px; margin-bottom: 10px; }
-  .qera { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
   .question {
-    font-size: 21px;
-    line-height: 1.4;
-    font-weight: 600;
-    margin-bottom: 22px;
+    font-size: clamp(18px, 4.6vw, 22px);
+    line-height: 1.4; font-weight: 600; color: var(--ink);
+    margin-bottom: 22px; text-wrap: pretty;
   }
 
-  .options { display: grid; gap: 12px; }
+  .options { display: grid; gap: 11px; }
   .option {
     text-align: left;
-    padding: 15px 18px;
-    background: rgba(0,0,0,0.25);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    color: var(--text);
+    padding: 14px 16px;
+    background: rgba(7,22,38,0.45);
+    border: 1px solid var(--line-soft);
+    border-radius: 3px;
+    color: var(--ink);
     font-size: 15px;
     cursor: pointer;
     transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex; align-items: center; gap: 13px;
+    font-family: var(--sans);
   }
   .option .key {
-    flex-shrink: 0;
-    width: 28px; height: 28px;
-    display: grid; place-items: center;
-    border-radius: 7px;
-    background: rgba(212,175,55,0.15);
-    color: var(--accent2);
-    font-weight: 700;
-    font-size: 13px;
+    flex-shrink: 0; width: 30px; height: 30px;
+    display: grid; place-items: center; border-radius: 3px;
+    background: rgba(230,161,60,0.14);
+    color: var(--brass-2);
+    font-family: var(--mono); font-weight: 700; font-size: 13px;
+    border: 1px solid rgba(230,161,60,0.3);
   }
-  .option:hover:not(.disabled) { border-color: var(--accent); background: rgba(212,175,55,0.08); }
-  .option.correct { border-color: var(--green); background: rgba(52,211,153,0.15); }
-  .option.correct .key { background: var(--green); color: #06281c; }
-  .option.wrong { border-color: var(--red); background: rgba(248,113,113,0.15); }
-  .option.wrong .key { background: var(--red); color: #3b0d0d; }
-  .option.disabled { cursor: default; opacity: 0.85; }
+  .option:hover:not(.disabled) { border-color: var(--brass); background: rgba(230,161,60,0.08); transform: translateX(3px); }
+  .option:focus-visible { outline: 2px solid var(--brass-2); outline-offset: 2px; }
+  .option.correct { border-color: var(--patina); background: rgba(88,195,158,0.14); }
+  .option.correct .key { background: var(--patina); color: #06251b; border-color: var(--patina); }
+  .option.wrong { border-color: var(--oxblood); background: rgba(224,116,112,0.13); }
+  .option.wrong .key { background: var(--oxblood); color: #350f0e; border-color: var(--oxblood); }
+  .option.disabled { cursor: default; }
 
   .feedback {
-    margin-top: 18px;
-    padding: 14px 16px;
-    border-radius: 10px;
-    font-size: 14px;
-    line-height: 1.6;
-    display: none;
+    margin-top: 18px; padding: 13px 15px; border-radius: 3px;
+    font-size: 13.5px; line-height: 1.6; display: none;
+    font-family: var(--sans);
   }
   .feedback.show { display: block; }
-  .feedback.ok { background: rgba(52,211,153,0.12); border: 1px solid rgba(52,211,153,0.4); }
-  .feedback.no { background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.4); }
-  .feedback b { color: var(--accent2); }
+  .feedback.ok { background: rgba(88,195,158,0.1); border: 1px solid rgba(88,195,158,0.4); }
+  .feedback.no { background: rgba(224,116,112,0.1); border: 1px solid rgba(224,116,112,0.4); }
+  .feedback .lead { font-family: var(--mono); font-weight: 700; letter-spacing: 1px; }
+  .feedback.ok .lead { color: var(--patina); }
+  .feedback.no .lead { color: var(--oxblood); }
+  .feedback .info { color: var(--ink-dim); display:block; margin-top: 5px; }
 
   .next-row { margin-top: 18px; display: none; }
   .next-row.show { display: block; }
 
-  /* Result */
-  .result-icon { font-size: 54px; text-align: center; margin-bottom: 8px; }
-  .result-title { text-align: center; font-size: 26px; margin-bottom: 6px; color: var(--accent2); }
-  .result-rank { text-align: center; color: var(--muted); margin-bottom: 22px; font-size: 15px; line-height: 1.6; }
-  .score-big { text-align: center; font-size: 48px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
-  .score-sub { text-align: center; color: var(--muted); margin-bottom: 26px; font-size: 14px; letter-spacing: 1px; }
-  .result-stats { display: flex; justify-content: center; gap: 24px; margin-bottom: 26px; text-align: center; }
-  .result-stats .rs b { display:block; font-size: 24px; color: var(--text); }
-  .result-stats .rs span { font-size: 12px; color: var(--muted); }
+  /* rubber stamp overlay */
+  .stamp {
+    position: absolute; top: 42%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-16deg) scale(0.4);
+    font-family: var(--mono); font-weight: 800; font-size: 34px;
+    letter-spacing: 3px; text-transform: uppercase;
+    padding: 8px 20px; border: 4px solid;
+    border-radius: 6px; opacity: 0; pointer-events: none; z-index: 6;
+    text-align: center;
+  }
+  .stamp.show { animation: stampin 0.5s cubic-bezier(.2,1.4,.4,1) forwards; }
+  .stamp.ok { color: var(--patina); border-color: var(--patina); }
+  .stamp.no { color: var(--oxblood); border-color: var(--oxblood); }
+  @keyframes stampin {
+    0% { opacity: 0; transform: translate(-50%,-50%) rotate(-16deg) scale(1.6); }
+    55% { opacity: 0.95; transform: translate(-50%,-50%) rotate(-16deg) scale(0.92); }
+    70% { transform: translate(-50%,-50%) rotate(-16deg) scale(1.02); }
+    100% { opacity: 0.9; transform: translate(-50%,-50%) rotate(-16deg) scale(1); }
+  }
+
+  /* ---- RESULT ---- */
+  .r-stamp {
+    text-align:center; font-family: var(--mono); font-weight: 800;
+    font-size: 15px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--brass); border: 2px solid var(--brass);
+    display: inline-block; padding: 6px 18px; border-radius: 4px;
+    transform: rotate(-3deg); margin: 4px auto 18px;
+  }
+  .r-wrap { text-align:center; }
+  .r-icon { font-size: 52px; margin-bottom: 6px; }
+  .r-title { font-family: var(--sans); font-weight:800; font-size: 25px; letter-spacing:1px; text-transform:uppercase; color: var(--ink); margin-bottom: 6px; }
+  .r-rank { color: var(--ink-dim); font-family: var(--mono); font-size: 12.5px; line-height:1.65; margin-bottom: 22px; max-width: 46ch; margin-left:auto; margin-right:auto; }
+  .r-score { font-family: var(--mono); font-size: 52px; font-weight: 800; color: var(--brass); line-height:1; font-variant-numeric: tabular-nums; }
+  .r-sub { font-family: var(--mono); color: var(--ink-faint); font-size: 11px; letter-spacing: 3px; margin-bottom: 24px; text-transform:uppercase; }
+  .r-stats { display: flex; justify-content: center; gap: 14px; margin-bottom: 24px; }
+  .r-stats .rs { flex:1; max-width:130px; background: rgba(7,22,38,0.5); border:1px solid var(--line-soft); border-radius:3px; padding:12px 6px; }
+  .r-stats .rs b { display:block; font-family:var(--mono); font-size: 22px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .r-stats .rs span { font-family:var(--mono); font-size: 9.5px; letter-spacing:1.5px; color: var(--ink-faint); text-transform:uppercase; }
 
   .hidden { display: none !important; }
 
-  @keyframes pop { 0% { transform: scale(0.96); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-  .anim { animation: pop 0.25s ease; }
+  @keyframes sheetin { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+  .anim { animation: sheetin 0.35s ease; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .anim, .stamp.show, .eyebrow .dot { animation: none; }
+    .stamp.show { opacity: 0.9; transform: translate(-50%,-50%) rotate(-16deg) scale(1); }
+    .btn, .option, .chrono .prg { transition: none; }
+  }
 
   @media (max-width: 520px) {
-    .card { padding: 22px; }
-    h1 { font-size: 27px; }
-    .question { font-size: 18px; }
+    .sheet { padding: 24px 18px 22px; }
+    .titleblock { position: static; text-align: left; margin-bottom: 14px; }
+    .qmeters { grid-template-columns: 1fr 1fr; }
   }
 </style>
-</head>
-<body>
+
+<canvas id="bp"></canvas>
+
 <div class="app">
 
-  <!-- START SCREEN -->
-  <div id="screen-start" class="card anim">
-    <span class="badge">🕵️ Gizli Görev · Zaman Teşkilatı</span>
-    <h1>Tarih Ajanı</h1>
-    <p class="subtitle">Zaman çizgisinde bozulan kayıtları düzelt. Doğru cevaplarla tarihi koru, yanlışlarla zaman akışını tehlikeye at.</p>
-
-    <div class="brief">
-      <strong>GÖREV BRİFİNGİ:</strong> Ajan, tarih akışında sızıntılar var. Sana yöneltilen soruları doğru yanıtlayarak zaman çizgisini stabilize et. Hızlı ol — her saniye <strong>bonus puan</strong> demek. Görev sonunda rütben belirlenecek.
+  <!-- START -->
+  <div id="screen-start" class="sheet anim">
+    <span class="reg tl"></span><span class="reg tr"></span><span class="reg bl"></span><span class="reg br"></span>
+    <div class="titleblock">
+      DOSYA NO · <b>TA-1923</b><br>
+      BÜRO · <b>CHRONOS</b><br>
+      GİZLİLİK · <b>ÇOK GİZLİ</b>
     </div>
 
-    <p class="qcount" style="margin-bottom:12px;">ZORLUK SEVİYESİ SEÇ</p>
-    <div class="difficulty" id="difficulty">
-      <div class="diff-opt active" data-diff="kolay">Çaylak<small>20 sn / soru</small></div>
-      <div class="diff-opt" data-diff="orta">Saha Ajanı<small>15 sn / soru</small></div>
-      <div class="diff-opt" data-diff="zor">Efsane<small>10 sn / soru</small></div>
+    <div class="eyebrow"><span class="dot"></span> CHRONOS BÜROSU · ZAMAN İSTİHBARATI</div>
+    <h1>Tarih <span class="ct">Ajanı</span></h1>
+    <p class="subtitle">Zaman çizgisinde kayıtlar bozuluyor. Sen, bu sapmaları düzeltmekle görevli saha ajanısın. Her doğru cevap tarihi yerine oturtur; her hata çizgide yeni bir çatlak açar.</p>
+
+    <div class="transmission">
+      <span class="tlabel">▸ GELEN TELSİZ · ŞİFRE ÇÖZÜLDÜ</span>
+      Ajan, saha hazır. Sana iletilen dosyaları doğru yanıtla ve zaman çizgisini <strong>stabilize et</strong>. Kronometre işliyor — ne kadar hızlıysan o kadar çok <strong>puan</strong>. Üst üste doğrular <strong>seri bonusu</strong> kazandırır. Görev sonunda rütben tescillenecek.
     </div>
 
-    <button class="btn" id="btn-start">🎯 GÖREVE BAŞLA</button>
+    <div class="field-label">Yetki Seviyesi Seç</div>
+    <div class="clearance" id="clearance">
+      <div class="cl-opt active" data-diff="kolay"><span class="lv">SEVİYE 1</span>Çaylak<small>20 sn</small></div>
+      <div class="cl-opt" data-diff="orta"><span class="lv">SEVİYE 2</span>Saha Ajanı<small>15 sn</small></div>
+      <div class="cl-opt" data-diff="zor"><span class="lv">SEVİYE 3</span>Efsane<small>10 sn</small></div>
+    </div>
+
+    <button class="btn" id="btn-start">▸ Görevi Aç</button>
   </div>
 
-  <!-- QUIZ SCREEN -->
-  <div id="screen-quiz" class="card hidden">
-    <div class="hud">
-      <div class="stat">🎖️ Puan: <b id="hud-score">0</b></div>
-      <div class="stat">🔥 Seri: <b id="hud-streak">0</b></div>
-      <div class="stat">❤️ Can: <b id="hud-lives">❤️❤️❤️</b></div>
+  <!-- QUIZ -->
+  <div id="screen-quiz" class="sheet hidden">
+    <span class="reg tl"></span><span class="reg tr"></span><span class="reg bl"></span><span class="reg br"></span>
+    <div class="stamp" id="stamp"></div>
+
+    <div class="qtop">
+      <div class="chrono">
+        <svg viewBox="0 0 84 84">
+          <g class="ticks" id="ticks"></g>
+          <circle class="trk" cx="42" cy="42" r="34"></circle>
+          <circle class="prg" id="chrono-prg" cx="42" cy="42" r="34"></circle>
+        </svg>
+        <div class="num" id="chrono-num">20</div>
+        <div class="sec">SANİYE</div>
+      </div>
+      <div class="qmeters">
+        <div class="meter"><span class="k">Puan</span><span class="v brass" id="hud-score">0</span></div>
+        <div class="meter"><span class="k">Seri</span><span class="v" id="hud-streak">0</span></div>
+        <div class="meter"><span class="k">Can</span><span class="v" id="hud-lives">♦ ♦ ♦</span></div>
+        <div class="meter"><span class="k">Dosya</span><span class="v" id="hud-prog">1/15</span></div>
+      </div>
     </div>
 
-    <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
-    <div class="timer-label" id="timer-label">⏱️ 20 sn</div>
+    <div class="caseline">
+      <span id="qera">DÖNEM</span>
+      <span class="stamp-file" id="qfile">DOSYA 01</span>
+    </div>
 
-    <div class="qcount" id="qcount">SORU 1 / 10</div>
-    <div class="qera" id="qera"></div>
     <div class="question" id="question">…</div>
     <div class="options" id="options"></div>
 
     <div class="feedback" id="feedback"></div>
     <div class="next-row" id="next-row">
-      <button class="btn" id="btn-next">SONRAKİ ►</button>
+      <button class="btn" id="btn-next">▸ Sonraki Dosya</button>
     </div>
   </div>
 
-  <!-- RESULT SCREEN -->
-  <div id="screen-result" class="card hidden">
-    <div class="result-icon" id="result-icon">🏅</div>
-    <div class="result-title" id="result-title">Görev Tamamlandı</div>
-    <div class="result-rank" id="result-rank"></div>
-    <div class="score-big" id="result-score">0</div>
-    <div class="score-sub">TOPLAM PUAN</div>
-    <div class="result-stats">
-      <div class="rs"><b id="rs-correct">0</b><span>Doğru</span></div>
-      <div class="rs"><b id="rs-wrong">0</b><span>Yanlış</span></div>
-      <div class="rs"><b id="rs-best">0</b><span>En İyi Seri</span></div>
+  <!-- RESULT -->
+  <div id="screen-result" class="sheet hidden">
+    <span class="reg tl"></span><span class="reg tr"></span><span class="reg bl"></span><span class="reg br"></span>
+    <div class="r-wrap">
+      <div class="r-stamp">GÖREV RAPORU</div>
+      <div class="r-icon" id="result-icon">🎖️</div>
+      <div class="r-title" id="result-title">Görev Tamamlandı</div>
+      <div class="r-rank" id="result-rank"></div>
+      <div class="r-score" id="result-score">0</div>
+      <div class="r-sub">Toplam Puan</div>
+      <div class="r-stats">
+        <div class="rs"><b id="rs-correct">0</b><span>Doğru</span></div>
+        <div class="rs"><b id="rs-wrong">0</b><span>Yanlış</span></div>
+        <div class="rs"><b id="rs-best">0</b><span>En İyi Seri</span></div>
+      </div>
+      <button class="btn" id="btn-restart">▸ Yeni Görev</button>
+      <div style="height:10px"></div>
+      <button class="btn ghost" id="btn-menu">◂ Ana Menü</button>
     </div>
-    <button class="btn" id="btn-restart">🔄 YENİ GÖREV</button>
-    <div style="height:10px"></div>
-    <button class="btn secondary" id="btn-menu">← ANA MENÜ</button>
   </div>
 
 </div>
 
 <script>
-/* ================= SORU BANKASI ================= */
+/* ============ BLUEPRINT BACKGROUND (canvas) ============ */
+(function () {
+  const c = document.getElementById("bp");
+  const ctx = c.getContext("2d");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let w, h, dpr, cx, cy;
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = c.width = Math.floor(innerWidth * dpr);
+    h = c.height = Math.floor(innerHeight * dpr);
+    c.style.width = innerWidth + "px";
+    c.style.height = innerHeight + "px";
+    cx = w / 2; cy = h / 2;
+  }
+  resize();
+  addEventListener("resize", resize);
+
+  function grid() {
+    ctx.clearRect(0, 0, w, h);
+    // base fill vignette
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.7);
+    g.addColorStop(0, "#0a2338");
+    g.addColorStop(1, "#050f1c");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+
+    const fine = 30 * dpr, coarse = fine * 5;
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "rgba(150,197,224,0.05)";
+    ctx.beginPath();
+    for (let x = 0; x < w; x += fine) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
+    for (let y = 0; y < h; y += fine) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
+    ctx.stroke();
+    ctx.strokeStyle = "rgba(150,197,224,0.10)";
+    ctx.beginPath();
+    for (let x = 0; x < w; x += coarse) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
+    for (let y = 0; y < h; y += coarse) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
+    ctx.stroke();
+  }
+
+  function rings(t) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    // concentric chronometer rings
+    ctx.strokeStyle = "rgba(150,197,224,0.10)";
+    ctx.lineWidth = 1;
+    const maxR = Math.max(w, h) * 0.55;
+    for (let r = 80 * dpr; r < maxR; r += 90 * dpr) {
+      ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+    }
+    // tick ring
+    ctx.strokeStyle = "rgba(150,197,224,0.16)";
+    const tickR = 150 * dpr;
+    for (let i = 0; i < 60; i++) {
+      const a = (i / 60) * Math.PI * 2;
+      const long = i % 5 === 0;
+      const r1 = tickR, r2 = tickR - (long ? 12 : 6) * dpr;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(a) * r1, Math.sin(a) * r1);
+      ctx.lineTo(Math.cos(a) * r2, Math.sin(a) * r2);
+      ctx.stroke();
+    }
+    // rotating radar sweep
+    const ang = reduce ? -0.9 : t * 0.00025;
+    const grad = ctx.createConicGradient ? ctx.createConicGradient(ang, 0, 0) : null;
+    if (grad) {
+      grad.addColorStop(0, "rgba(230,161,60,0.16)");
+      grad.addColorStop(0.06, "rgba(230,161,60,0.02)");
+      grad.addColorStop(1, "rgba(230,161,60,0)");
+      ctx.fillStyle = grad;
+      ctx.beginPath(); ctx.arc(0, 0, maxR, 0, Math.PI * 2); ctx.fill();
+    }
+    // sweep line
+    ctx.strokeStyle = "rgba(230,161,60,0.30)";
+    ctx.lineWidth = 1.2 * dpr;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(Math.cos(ang) * maxR, Math.sin(ang) * maxR);
+    ctx.stroke();
+    // crosshair
+    ctx.strokeStyle = "rgba(150,197,224,0.14)";
+    ctx.beginPath();
+    ctx.moveTo(-maxR, 0); ctx.lineTo(maxR, 0);
+    ctx.moveTo(0, -maxR); ctx.lineTo(0, maxR);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function frame(t) {
+    grid();
+    rings(t);
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  if (reduce) { grid(); rings(0); }
+  else requestAnimationFrame(frame);
+})();
+
+/* ============ CHRONO TICKS ============ */
+(function () {
+  const g = document.getElementById("ticks");
+  for (let i = 0; i < 12; i++) {
+    const a = (i / 12) * Math.PI * 2 - Math.PI / 2;
+    const r1 = 40, r2 = i % 3 === 0 ? 34 : 37;
+    const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    l.setAttribute("x1", (42 + Math.cos(a) * r1).toFixed(2));
+    l.setAttribute("y1", (42 + Math.sin(a) * r1).toFixed(2));
+    l.setAttribute("x2", (42 + Math.cos(a) * r2).toFixed(2));
+    l.setAttribute("y2", (42 + Math.sin(a) * r2).toFixed(2));
+    g.appendChild(l);
+  }
+})();
+
+/* ============ SORU BANKASI ============ */
 const QUESTIONS = [
   { era: "Osmanlı Dönemi", q: "İstanbul'un fethi hangi yılda gerçekleşmiştir?",
     opts: ["1453", "1492", "1071", "1517"], a: 0,
     info: "Fatih Sultan Mehmet, 29 Mayıs 1453'te İstanbul'u fethetti ve Orta Çağ'ı kapattı." },
-
   { era: "Türkiye Cumhuriyeti", q: "Türkiye Cumhuriyeti hangi tarihte ilan edilmiştir?",
     opts: ["23 Nisan 1920", "29 Ekim 1923", "30 Ağustos 1922", "19 Mayıs 1919"], a: 1,
     info: "Cumhuriyet, 29 Ekim 1923'te ilan edildi ve Mustafa Kemal Atatürk ilk cumhurbaşkanı oldu." },
-
   { era: "Antik Çağ", q: "Anadolu'da parayı (sikkeyi) ilk kez basan uygarlık hangisidir?",
     opts: ["Hititler", "Frigyalılar", "Lidyalılar", "Urartular"], a: 2,
     info: "Lidyalılar, MÖ 7. yüzyılda ilk madeni parayı basarak ticarette çığır açtılar." },
-
   { era: "Dünya Tarihi", q: "Fransız İhtilali hangi yılda başlamıştır?",
     opts: ["1776", "1789", "1804", "1815"], a: 1,
     info: "1789'da Bastille'in düşmesiyle başlayan ihtilal 'Özgürlük, Eşitlik, Kardeşlik' ilkelerini yaydı." },
-
   { era: "Selçuklu Dönemi", q: "Malazgirt Savaşı hangi yılda kazanılarak Anadolu'nun kapıları Türklere açılmıştır?",
     opts: ["1071", "1176", "1243", "1048"], a: 0,
     info: "1071 Malazgirt Zaferi'nde Sultan Alparslan, Bizans İmparatoru Romen Diyojen'i yendi." },
-
   { era: "Dünya Tarihi", q: "Birinci Dünya Savaşı hangi olayla başlamıştır?",
     opts: ["Pearl Harbor saldırısı", "Avusturya veliahtının öldürülmesi", "Almanya'nın Polonya'yı işgali", "Rus Devrimi"], a: 1,
     info: "1914'te Avusturya-Macaristan veliahtı Franz Ferdinand'ın Saraybosna'da öldürülmesi savaşı tetikledi." },
-
   { era: "Kurtuluş Savaşı", q: "Mustafa Kemal'in Samsun'a çıkarak Milli Mücadele'yi fiilen başlattığı tarih hangisidir?",
     opts: ["23 Nisan 1920", "19 Mayıs 1919", "9 Eylül 1922", "30 Ağustos 1922"], a: 1,
     info: "19 Mayıs 1919'da Samsun'a çıkış, Kurtuluş Savaşı'nın başlangıcı kabul edilir." },
-
   { era: "Antik Çağ", q: "Ünlü 'İpek Yolu' esas olarak hangi iki bölgeyi birbirine bağlıyordu?",
     opts: ["Afrika ile Avrupa", "Çin ile Akdeniz/Avrupa", "Amerika ile Asya", "Hindistan ile Avustralya"], a: 1,
     info: "İpek Yolu, Çin'den başlayıp Orta Asya üzerinden Akdeniz ve Avrupa'ya uzanan ticaret ağıydı." },
-
   { era: "Dünya Tarihi", q: "İkinci Dünya Savaşı hangi yıllar arasında yaşanmıştır?",
     opts: ["1914-1918", "1939-1945", "1929-1933", "1945-1949"], a: 1,
     info: "1939-1945 arasında yaşanan savaş, insanlık tarihinin en yıkıcı çatışması oldu." },
-
   { era: "Bilim Tarihi", q: "Hareketli metal harflerle matbaayı Avrupa'da geliştiren kişi kimdir?",
     opts: ["Leonardo da Vinci", "Johannes Gutenberg", "Galileo Galilei", "İbrahim Müteferrika"], a: 1,
     info: "Gutenberg, 15. yüzyıl ortasında matbaayı geliştirerek bilginin hızla yayılmasını sağladı." },
-
   { era: "Osmanlı Dönemi", q: "Osmanlı Devleti'nin kurucusu kimdir?",
     opts: ["Orhan Bey", "Osman Bey", "Ertuğrul Gazi", "I. Murad"], a: 1,
     info: "Osmanlı Beyliği, 1299 civarında Osman Bey tarafından kuruldu ve adını ondan aldı." },
-
   { era: "Coğrafi Keşifler", q: "Amerika kıtasına 1492'de ulaşan denizci kimdir?",
     opts: ["Vasco da Gama", "Macellan", "Kristof Kolomb", "Marco Polo"], a: 2,
     info: "Kristof Kolomb, 1492'de İspanya adına Atlantik'i geçerek Amerika kıtasına ulaştı." },
-
   { era: "Antik Çağ", q: "Piramitleriyle ünlü, Nil Nehri çevresinde kurulan medeniyet hangisidir?",
     opts: ["Mezopotamya", "Antik Mısır", "Antik Yunan", "Pers"], a: 1,
     info: "Antik Mısır medeniyeti, Nil'in verimli kıyılarında binlerce yıl varlığını sürdürdü." },
-
   { era: "Türkiye Cumhuriyeti", q: "Türkiye'de kadınlara milletvekili seçme ve seçilme hakkı hangi yıl tanınmıştır?",
     opts: ["1923", "1930", "1934", "1945"], a: 2,
     info: "1934'te kadınlar milletvekili seçme ve seçilme hakkını kazandı; bu birçok Avrupa ülkesinden önceydi." },
-
   { era: "Dünya Tarihi", q: "'Sanayi Devrimi' ilk olarak hangi ülkede başlamıştır?",
     opts: ["Fransa", "Almanya", "İngiltere", "ABD"], a: 2,
     info: "18. yüzyılda İngiltere'de başlayan Sanayi Devrimi, buhar gücüyle üretimi dönüştürdü." },
 ];
 
-/* ================= AYARLAR ================= */
-const DIFFS = {
-  kolay: { time: 20, label: "Çaylak" },
-  orta:  { time: 15, label: "Saha Ajanı" },
-  zor:   { time: 10, label: "Efsane" },
-};
+const DIFFS = { kolay: 20, orta: 15, zor: 10 };
 const KEYS = ["A", "B", "C", "D"];
 const TOTAL = QUESTIONS.length;
+const CIRC = 2 * Math.PI * 34;
 
-/* ================= DURUM ================= */
 let state = {};
-let timerId = null;
+let rafId = null, tickId = null;
 
 function shuffle(arr) {
   const a = arr.slice();
@@ -414,7 +649,6 @@ function shuffle(arr) {
   return a;
 }
 
-/* ================= EKRAN GEÇİŞLERİ ================= */
 const screens = {
   start: document.getElementById("screen-start"),
   quiz: document.getElementById("screen-quiz"),
@@ -422,36 +656,26 @@ const screens = {
 };
 function show(name) {
   Object.values(screens).forEach(s => s.classList.add("hidden"));
-  screens[name].classList.remove("hidden");
-  screens[name].classList.remove("anim");
-  void screens[name].offsetWidth;
-  screens[name].classList.add("anim");
+  const el = screens[name];
+  el.classList.remove("hidden", "anim");
+  void el.offsetWidth;
+  el.classList.add("anim");
 }
 
-/* ================= ZORLUK SEÇİMİ ================= */
 let chosenDiff = "kolay";
-document.querySelectorAll(".diff-opt").forEach(opt => {
+document.querySelectorAll(".cl-opt").forEach(opt => {
   opt.addEventListener("click", () => {
-    document.querySelectorAll(".diff-opt").forEach(o => o.classList.remove("active"));
+    document.querySelectorAll(".cl-opt").forEach(o => o.classList.remove("active"));
     opt.classList.add("active");
     chosenDiff = opt.dataset.diff;
   });
 });
 
-/* ================= OYUN AKIŞI ================= */
 function startGame() {
   state = {
-    diff: chosenDiff,
-    order: shuffle(QUESTIONS),
-    index: 0,
-    score: 0,
-    streak: 0,
-    bestStreak: 0,
-    lives: 3,
-    correct: 0,
-    wrong: 0,
-    answered: false,
-    timeLeft: 0,
+    diff: chosenDiff, order: shuffle(QUESTIONS), index: 0,
+    score: 0, streak: 0, bestStreak: 0, lives: 3,
+    correct: 0, wrong: 0, answered: false, timeLeft: 0,
   };
   show("quiz");
   renderQuestion();
@@ -460,120 +684,110 @@ function startGame() {
 function updateHud() {
   document.getElementById("hud-score").textContent = state.score;
   document.getElementById("hud-streak").textContent = state.streak;
-  document.getElementById("hud-lives").textContent = state.lives > 0 ? "❤️".repeat(state.lives) : "—";
+  document.getElementById("hud-lives").textContent = state.lives > 0 ? "♦ ".repeat(state.lives).trim() : "—";
+  document.getElementById("hud-prog").textContent = (state.index + 1) + "/" + TOTAL;
 }
 
 function renderQuestion() {
-  clearInterval(timerId);
+  stopTimer();
   state.answered = false;
-
   const item = state.order[state.index];
   updateHud();
-  document.getElementById("qcount").textContent = `SORU ${state.index + 1} / ${TOTAL}`;
-  document.getElementById("qera").textContent = "📁 Dosya: " + item.era;
+  document.getElementById("qera").textContent = "▸ " + item.era.toUpperCase();
+  document.getElementById("qfile").textContent = "DOSYA " + String(state.index + 1).padStart(2, "0");
   document.getElementById("question").textContent = item.q;
 
-  // Şıkları karıştır ama doğru cevabı takip et
   const mapped = item.opts.map((text, i) => ({ text, correct: i === item.a }));
   const shuffled = shuffle(mapped);
-
   const optionsEl = document.getElementById("options");
   optionsEl.innerHTML = "";
   shuffled.forEach((o, i) => {
     const btn = document.createElement("button");
     btn.className = "option";
     const key = document.createElement("span");
-    key.className = "key";
-    key.textContent = KEYS[i];
+    key.className = "key"; key.textContent = KEYS[i];
     const label = document.createElement("span");
-    label.className = "opt-text";
-    label.textContent = o.text;
-    btn.appendChild(key);
-    btn.appendChild(label);
+    label.className = "opt-text"; label.textContent = o.text;
+    btn.append(key, label);
     btn.addEventListener("click", () => selectAnswer(btn, o.correct));
     optionsEl.appendChild(btn);
   });
 
   const fb = document.getElementById("feedback");
-  fb.className = "feedback";
-  fb.textContent = "";
+  fb.className = "feedback"; fb.textContent = "";
   document.getElementById("next-row").classList.remove("show");
+  const stamp = document.getElementById("stamp");
+  stamp.className = "stamp"; stamp.textContent = "";
 
   startTimer();
 }
 
-/* ================= ZAMANLAYICI ================= */
+/* smooth chronometer countdown */
 function startTimer() {
-  const total = DIFFS[state.diff].time;
-  let remaining = total;
-  state.timeLeft = remaining;
-  const bar = document.getElementById("progress-bar");
-  const label = document.getElementById("timer-label");
+  const total = DIFFS[state.diff];
+  const prg = document.getElementById("chrono-prg");
+  const num = document.getElementById("chrono-num");
+  prg.style.strokeDasharray = CIRC.toFixed(2);
+  const start = performance.now();
+  state.timeLeft = total;
 
-  const update = () => {
-    const pct = (remaining / total) * 100;
-    bar.style.width = pct + "%";
-    bar.style.background = pct > 50
-      ? "linear-gradient(90deg,#34d399,#6ee7b7)"
-      : pct > 25
-        ? "linear-gradient(90deg,#fbbf24,#fde68a)"
-        : "linear-gradient(90deg,#f87171,#fca5a5)";
-    label.textContent = "⏱️ " + remaining + " sn";
-  };
-  update();
-
-  timerId = setInterval(() => {
-    remaining--;
+  const step = (now) => {
+    const elapsed = (now - start) / 1000;
+    const remaining = Math.max(0, total - elapsed);
     state.timeLeft = remaining;
-    update();
-    if (remaining <= 0) {
-      clearInterval(timerId);
-      timeOut();
-    }
-  }, 1000);
+    const frac = remaining / total;
+    prg.style.strokeDashoffset = (CIRC * (1 - frac)).toFixed(2);
+    prg.style.stroke = frac > 0.5 ? "var(--brass)" : frac > 0.25 ? "#f2b84a" : "var(--oxblood)";
+    num.textContent = Math.ceil(remaining);
+    num.style.color = frac > 0.25 ? "var(--ink)" : "var(--oxblood)";
+    if (remaining <= 0) { timeOut(); return; }
+    rafId = requestAnimationFrame(step);
+  };
+  rafId = requestAnimationFrame(step);
+}
+function stopTimer() { if (rafId) cancelAnimationFrame(rafId); rafId = null; }
+
+function showStamp(ok, text) {
+  const s = document.getElementById("stamp");
+  s.className = "stamp " + (ok ? "ok" : "no");
+  s.textContent = text;
+  void s.offsetWidth;
+  s.classList.add("show");
 }
 
-/* ================= CEVAP ================= */
 function markCorrectOption(item) {
   document.querySelectorAll(".option").forEach(el => {
-    if (el.querySelector(".opt-text").textContent === item.opts[item.a]) {
-      el.classList.add("correct");
-    }
+    if (el.querySelector(".opt-text").textContent === item.opts[item.a]) el.classList.add("correct");
   });
 }
 
 function selectAnswer(btn, isCorrect) {
   if (state.answered) return;
   state.answered = true;
-  clearInterval(timerId);
-
+  stopTimer();
   const item = state.order[state.index];
   document.querySelectorAll(".option").forEach(el => el.classList.add("disabled"));
-
   const fb = document.getElementById("feedback");
 
   if (isCorrect) {
     btn.classList.add("correct");
-    const timeBonus = state.timeLeft * 5;
-    const base = 100;
+    const timeBonus = Math.round(state.timeLeft) * 5;
     const streakBonus = state.streak * 20;
-    const gained = base + timeBonus + streakBonus;
-    state.score += gained;
-    state.streak++;
+    const gained = 100 + timeBonus + streakBonus;
+    state.score += gained; state.streak++;
     state.bestStreak = Math.max(state.bestStreak, state.streak);
     state.correct++;
+    showStamp(true, "DOĞRULANDI");
     fb.className = "feedback ok show";
-    fb.innerHTML = `✅ <b>Doğru!</b> +${gained} puan (Süre bonusu +${timeBonus}, Seri bonusu +${streakBonus})<br>💡 ${item.info}`;
+    fb.innerHTML = `<span class="lead">✓ KAYIT DOĞRULANDI · +${gained} PUAN</span><span class="info">Süre bonusu +${timeBonus} · Seri bonusu +${streakBonus}<br>💡 ${item.info}</span>`;
   } else {
     btn.classList.add("wrong");
     markCorrectOption(item);
-    state.streak = 0;
-    state.lives--;
-    state.wrong++;
+    state.streak = 0; state.lives--; state.wrong++;
+    showStamp(false, "SAPMA");
     fb.className = "feedback no show";
-    fb.innerHTML = `❌ <b>Yanlış!</b> Zaman çizgisinde sapma oluştu.<br>💡 ${item.info}`;
+    fb.innerHTML = `<span class="lead">✕ ZAMAN ÇİZGİSİNDE SAPMA</span><span class="info">💡 ${item.info}</span>`;
   }
-
   updateHud();
   afterAnswer();
 }
@@ -581,59 +795,53 @@ function selectAnswer(btn, isCorrect) {
 function timeOut() {
   if (state.answered) return;
   state.answered = true;
+  stopTimer();
   const item = state.order[state.index];
   document.querySelectorAll(".option").forEach(el => el.classList.add("disabled"));
   markCorrectOption(item);
-  state.streak = 0;
-  state.lives--;
-  state.wrong++;
+  state.streak = 0; state.lives--; state.wrong++;
+  document.getElementById("chrono-num").textContent = "0";
   updateHud();
-
+  showStamp(false, "SÜRE DOLDU");
   const fb = document.getElementById("feedback");
   fb.className = "feedback no show";
-  fb.innerHTML = `⏰ <b>Süre doldu!</b><br>💡 ${item.info}`;
+  fb.innerHTML = `<span class="lead">✕ KRONOMETRE SIFIRLANDI</span><span class="info">💡 ${item.info}</span>`;
   afterAnswer();
 }
 
 function afterAnswer() {
   const isLast = state.lives <= 0 || state.index + 1 >= TOTAL;
-  document.getElementById("btn-next").textContent = isLast ? "GÖREV RAPORU ►" : "SONRAKİ SORU ►";
+  document.getElementById("btn-next").textContent = isLast ? "▸ Görev Raporu" : "▸ Sonraki Dosya";
   document.getElementById("next-row").classList.add("show");
 }
 
 function nextQuestion() {
-  if (state.lives <= 0 || state.index + 1 >= TOTAL) {
-    endGame();
-    return;
-  }
+  if (state.lives <= 0 || state.index + 1 >= TOTAL) { endGame(); return; }
   state.index++;
   renderQuestion();
 }
 
-/* ================= SONUÇ ================= */
 function endGame() {
-  clearInterval(timerId);
+  stopTimer();
   show("result");
-
   const ratio = state.correct / TOTAL;
   let rank, icon, title;
   if (state.lives <= 0) {
     icon = "🚨"; title = "Görev Başarısız";
-    rank = "Zaman çizgisi kararsız — canların tükendi. Ajan olarak yeniden denemelisin.";
+    rank = "ZAMAN ÇİZGİSİ KARARSIZ — Canların tükendi ve çatlaklar kapatılamadı. Ajan, yeniden sahaya inmelisin.";
   } else if (ratio >= 0.9) {
     icon = "🏆"; title = "Efsane Ajan";
-    rank = "Rütbe: BAŞ AJAN — Tarih tümüyle stabilize edildi. Kusursuza yakın görev!";
+    rank = "RÜTBE: BAŞ AJAN — Tarih tümüyle stabilize edildi. Büro seninle gurur duyuyor.";
   } else if (ratio >= 0.7) {
     icon = "🎖️"; title = "Kıdemli Ajan";
-    rank = "Rütbe: SAHA UZMANI — Zaman çizgisi güvende. Etkileyici performans.";
+    rank = "RÜTBE: SAHA UZMANI — Zaman çizgisi güvende. Etkileyici bir operasyondu.";
   } else if (ratio >= 0.5) {
     icon = "🥈"; title = "Saha Ajanı";
-    rank = "Rütbe: AJAN — Görev tamamlandı ama bazı sapmalar kaldı.";
+    rank = "RÜTBE: AJAN — Görev tamamlandı, ancak çizgide birkaç sapma açık kaldı.";
   } else {
     icon = "🥉"; title = "Çaylak Ajan";
-    rank = "Rütbe: STAJYER — Zaman çizgisinde bilgi boşlukları var. Antrenmana devam!";
+    rank = "RÜTBE: STAJYER — Kayıtlarda ciddi boşluklar var. Arşivde biraz daha çalışman gerek.";
   }
-
   document.getElementById("result-icon").textContent = icon;
   document.getElementById("result-title").textContent = title;
   document.getElementById("result-rank").textContent = rank;
@@ -643,13 +851,11 @@ function endGame() {
   document.getElementById("rs-best").textContent = state.bestStreak;
 }
 
-/* ================= OLAYLAR ================= */
 document.getElementById("btn-start").addEventListener("click", startGame);
 document.getElementById("btn-next").addEventListener("click", nextQuestion);
 document.getElementById("btn-restart").addEventListener("click", startGame);
 document.getElementById("btn-menu").addEventListener("click", () => show("start"));
 
-// Klavye ile şık seçimi (A/B/C/D veya 1/2/3/4), Enter/Space ile ilerleme
 document.addEventListener("keydown", (e) => {
   if (screens.quiz.classList.contains("hidden")) return;
   const map = { a:0, b:1, c:2, d:3, "1":0, "2":1, "3":2, "4":3 };
