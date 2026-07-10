@@ -8,10 +8,10 @@
 <body>
 <style>
   :root {
-    --ink-900: #0a0e1c;
-    --ink-850: #0d1428;
-    --ink-800: #111a33;
-    --ink-750: #16203d;
+    --ink-900: #05091a;
+    --ink-850: #070c22;
+    --ink-800: #0a1030;
+    --ink-750: #0d1740;
     --gold:   #c9a24b;
     --gold-2: #e7cd86;
     --gold-3: #f3e4bd;
@@ -56,8 +56,8 @@
   .card {
     position: relative;
     background:
-      radial-gradient(120% 90% at 50% -10%, rgba(201,162,75,0.08), transparent 60%),
-      linear-gradient(180deg, rgba(22,32,61,0.72), rgba(13,20,40,0.82));
+      radial-gradient(120% 90% at 50% -10%, rgba(201,162,75,0.09), transparent 60%),
+      linear-gradient(180deg, rgba(14,24,58,0.78), rgba(6,11,30,0.90));
     border: 1px solid var(--hair-soft);
     border-radius: 14px;
     padding: 38px 40px 34px;
@@ -117,7 +117,7 @@
     border: 1px solid var(--hair-soft); border-radius: 9px; cursor: pointer;
     font-family: var(--mono); font-size: 13px; color: var(--dim);
     transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-    user-select: none; background: rgba(10,14,28,0.4); display: block; width: 100%;
+    user-select: none; background: rgba(4,8,22,0.4); display: block; width: 100%;
   }
   .cl-opt .lv { display:block; font-size:9px; letter-spacing:2px; color: var(--faint); margin-bottom:5px; }
   .cl-opt .nm { display:block; font-family: var(--serif); font-size: 15px; color: var(--txt); }
@@ -155,7 +155,7 @@
   .chrono .sec { position:absolute; bottom:17px; left:0; right:0; text-align:center; font-family:var(--mono); font-size:7.5px; letter-spacing:2px; color: var(--faint); }
 
   .qmeters { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-  .meter { font-family: var(--mono); background: rgba(10,14,28,0.5); border: 1px solid var(--hair-soft); border-radius: 8px; padding: 8px 12px; }
+  .meter { font-family: var(--mono); background: rgba(4,8,22,0.5); border: 1px solid var(--hair-soft); border-radius: 8px; padding: 8px 12px; }
   .meter .k { font-size: 8.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--faint); display:block; margin-bottom: 2px; }
   .meter .v { font-size: 18px; font-weight: 700; color: var(--txt); font-variant-numeric: tabular-nums; }
   .meter .v.gold { color: var(--gold-2); }
@@ -168,7 +168,7 @@
 
   .options { display: grid; gap: 11px; }
   .option {
-    text-align: left; padding: 15px 17px; background: rgba(10,14,28,0.45);
+    text-align: left; padding: 15px 17px; background: rgba(4,8,22,0.45);
     border: 1px solid var(--hair-soft); border-radius: 9px; color: var(--txt);
     font-size: 15.5px; cursor: pointer;
     transition: transform 0.16s, border-color 0.16s, background 0.16s;
@@ -218,7 +218,7 @@
   .r-score { font-family: var(--serif); font-size: 60px; font-weight: 700; color: var(--gold-2); line-height:1; }
   .r-sub { font-family: var(--mono); color: var(--faint); font-size: 10px; letter-spacing: 4px; margin: 6px 0 26px; text-transform:uppercase; }
   .r-stats { display: flex; justify-content: center; gap: 12px; margin-bottom: 26px; }
-  .r-stats .rs { flex:1; max-width:130px; background: rgba(10,14,28,0.5); border:1px solid var(--hair-soft); border-radius:9px; padding:14px 6px; }
+  .r-stats .rs { flex:1; max-width:130px; background: rgba(4,8,22,0.5); border:1px solid var(--hair-soft); border-radius:9px; padding:14px 6px; }
   .r-stats .rs b { display:block; font-family:var(--serif); font-size: 26px; color: var(--txt); }
   .r-stats .rs span { font-family:var(--mono); font-size: 9px; letter-spacing:1.5px; color: var(--faint); text-transform:uppercase; }
 
@@ -384,7 +384,7 @@ const Veil = (function () {
     cx = w / 2; cy = h / 2;
 
     const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.75);
-    g.addColorStop(0, "#101a34"); g.addColorStop(0.6, "#0a1020"); g.addColorStop(1, "#070b16");
+    g.addColorStop(0, "#0a1638"); g.addColorStop(0.55, "#060c22"); g.addColorStop(1, "#03060f");
     ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
 
     const base = Math.min(w, h) * (dpr > 1 ? 0.42 : 0.46);
@@ -428,7 +428,7 @@ radialTicks("ticks", 12, 44, 44, 43, 39, 3, 36);
 radialTicks("emb-ticks", 24, 50, 50, 46, 43, 6, 40, "#c9a24b", "1", "0.4");
 radialTicks("seal-ticks", 36, 64, 64, 52, 48, 3, 45, "currentColor", "1.4", "0.7");
 
-/* ===== SORU HAVUZU (24) ===== */
+/* ===== SORU HAVUZU (40) ===== */
 const POOL = [
   { era: "Osmanlı Dönemi", q: "İstanbul'un fethi hangi yılda gerçekleşmiştir?",
     opts: ["1453", "1492", "1071", "1517"], a: 0,
@@ -502,6 +502,54 @@ const POOL = [
   { era: "Kurtuluş Savaşı", q: "İstiklal Marşı, TBMM tarafından hangi tarihte kabul edilmiştir?",
     opts: ["23 Nisan 1920", "12 Mart 1921", "19 Mayıs 1919", "29 Ekim 1923"], a: 1,
     info: "Mehmet Akif Ersoy'un yazdığı İstiklal Marşı, 12 Mart 1921'de milli marş olarak kabul edildi." },
+  { era: "Sanat Tarihi", q: "Ünlü 'Mona Lisa' tablosunu kim yapmıştır?",
+    opts: ["Michelangelo", "Leonardo da Vinci", "Raphael", "Vincent van Gogh"], a: 1,
+    info: "Mona Lisa, Rönesans ustası Leonardo da Vinci'nin 16. yüzyıl başında yaptığı en ünlü eseridir." },
+  { era: "Buluşlar", q: "Telefonu icat eden kişi olarak kim bilinir?",
+    opts: ["Thomas Edison", "Alexander Graham Bell", "Nikola Tesla", "Guglielmo Marconi"], a: 1,
+    info: "Alexander Graham Bell, 1876'da telefonun patentini aldı ve iletişimi kökten değiştirdi." },
+  { era: "Buluşlar", q: "Elektrikli ampulü geliştiren mucit kimdir?",
+    opts: ["Nikola Tesla", "Thomas Edison", "Michael Faraday", "James Watt"], a: 1,
+    info: "Thomas Edison, 1879'da uzun ömürlü elektrikli ampulü geliştirerek yaygın kullanıma soktu." },
+  { era: "Osmanlı Dönemi", q: "Kanuni Sultan Süleyman'ın Avrupa'da kullanılan lakabı nedir?",
+    opts: ["Yavuz", "Muhteşem", "Fatih", "Gazi"], a: 1,
+    info: "Avrupalılar, ihtişamlı saltanatı nedeniyle Kanuni'ye 'Muhteşem Süleyman' (Suleiman the Magnificent) derdi." },
+  { era: "Dünya Tarihi", q: "Amerika Birleşik Devletleri hangi yıl bağımsızlığını ilan etmiştir?",
+    opts: ["1776", "1789", "1804", "1812"], a: 0,
+    info: "4 Temmuz 1776'da Bağımsızlık Bildirgesi ile ABD kuruluşunu ilan etti." },
+  { era: "Bizans", q: "İstanbul'un, Konstantinopolis adını almadan önceki antik adı nedir?",
+    opts: ["Byzantion", "Nikaia", "Antiokheia", "Efes"], a: 0,
+    info: "Şehir, MÖ 7. yüzyılda kurulan Byzantion adını taşıyordu; sonradan Konstantinopolis oldu." },
+  { era: "Türkiye Cumhuriyeti", q: "Latin harflerine geçişi sağlayan Harf İnkılabı hangi yıl yapılmıştır?",
+    opts: ["1924", "1926", "1928", "1930"], a: 2,
+    info: "1 Kasım 1928'de kabul edilen Harf İnkılabı ile yeni Türk (Latin) alfabesine geçildi." },
+  { era: "Türkiye Cumhuriyeti", q: "Osmanlı'da saltanat hangi yıl kaldırılmıştır?",
+    opts: ["1920", "1922", "1923", "1924"], a: 1,
+    info: "1 Kasım 1922'de saltanat kaldırıldı; son padişah Vahdettin ülkeyi terk etti." },
+  { era: "Kurtuluş Savaşı", q: "Türkiye'nin bağımsızlığını uluslararası alanda tanıtan Lozan Antlaşması hangi yıl imzalanmıştır?",
+    opts: ["1920", "1922", "1923", "1925"], a: 2,
+    info: "24 Temmuz 1923'te imzalanan Lozan Barış Antlaşması, yeni Türkiye'nin tapu belgesi sayılır." },
+  { era: "Dünya Tarihi", q: "Fransız İhtilali sonrası Fransa'da imparatorluğunu ilan eden komutan kimdir?",
+    opts: ["XVI. Louis", "Napolyon Bonapart", "Robespierre", "Charles de Gaulle"], a: 1,
+    info: "Napolyon Bonapart, 1804'te kendini imparator ilan ederek Avrupa'yı yıllarca meşgul etti." },
+  { era: "Antik Çağ", q: "Olimpiyat Oyunları ilk olarak hangi antik uygarlıkta düzenlenmiştir?",
+    opts: ["Roma", "Antik Yunan", "Mısır", "Pers"], a: 1,
+    info: "İlk Olimpiyatlar MÖ 776'da Antik Yunan'daki Olympia kentinde düzenlendi." },
+  { era: "Coğrafi Keşifler", q: "Dünyanın çevresini gemiyle ilk kez dolaşan sefer kimin adıyla anılır?",
+    opts: ["Kristof Kolomb", "Macellan", "Vasco da Gama", "Marco Polo"], a: 1,
+    info: "Macellan'ın 1519'da başlattığı sefer, dünyanın yuvarlak olduğunu fiilen kanıtladı." },
+  { era: "Selçuklu Dönemi", q: "Büyük Selçuklu Devleti'ni kuran ve ilk sultanı olan kişi kimdir?",
+    opts: ["Alparslan", "Tuğrul Bey", "Melikşah", "Çağrı Bey"], a: 1,
+    info: "Tuğrul Bey, 1040 Dandanakan Savaşı'nın ardından Büyük Selçuklu Devleti'ni kurdu." },
+  { era: "Osmanlı Dönemi", q: "İstanbul'u fetheden Fatih Sultan Mehmet, hangi padişahın oğludur?",
+    opts: ["I. Bayezid", "II. Murad", "Yavuz Sultan Selim", "Çelebi Mehmet"], a: 1,
+    info: "Fatih Sultan Mehmet, II. Murad'ın oğludur ve 1451'de tahta çıkmıştır." },
+  { era: "Bilim Tarihi", q: "Yerçekimi yasasını formüle eden bilim insanı kimdir?",
+    opts: ["Galileo Galilei", "Isaac Newton", "Albert Einstein", "Kopernik"], a: 1,
+    info: "Isaac Newton, 17. yüzyılda evrensel çekim yasasını ortaya koyarak modern fiziğin temelini attı." },
+  { era: "Bilim Tarihi", q: "Güneş'in merkezde olduğu (Güneş merkezli) evren modelini ilk öne süren kimdir?",
+    opts: ["Batlamyus", "Kopernik", "Kepler", "Galileo Galilei"], a: 1,
+    info: "Kopernik, 16. yüzyılda Dünya'nın Güneş çevresinde döndüğünü savunarak astronomiyi dönüştürdü." },
 ];
 
 const ROUND = 12;         // her turda sorulan soru sayısı
