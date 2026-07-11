@@ -170,6 +170,24 @@
   .mute-btn:focus-visible { outline:2px solid var(--gold-3); outline-offset:2px; }
   .mute-btn.muted { color: var(--faint); }
 
+  /* jokers */
+  .jokers { display: flex; gap: 9px; margin-bottom: 16px; }
+  .joker {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 1.5px; color: var(--gold-2);
+    background: rgba(4,8,22,0.5); border: 1px solid var(--hair-soft); border-radius: 8px;
+    padding: 9px 6px; cursor: pointer;
+    transition: border-color .15s, transform .12s, background .15s;
+  }
+  .joker .ji { font-family: var(--serif); font-size: 15px; font-weight: 700; color: var(--gold-3); line-height: 1; }
+  .joker:hover:not(:disabled) { border-color: var(--gold); transform: translateY(-1px); background: rgba(201,162,75,0.08); }
+  .joker:focus-visible { outline: 2px solid var(--gold-3); outline-offset: 2px; }
+  .joker:disabled { opacity: 0.32; cursor: default; color: var(--faint); }
+  .joker:disabled .ji { color: var(--faint); }
+
+  .option.removed { opacity: 0.26; pointer-events: none; }
+  .option.removed .opt-text { text-decoration: line-through; }
+
   /* ---- QUIZ ---- */
   .qtop { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; }
   .chrono { position: relative; width: 88px; height: 88px; flex-shrink: 0; }
@@ -343,6 +361,12 @@
     <div class="caseline">
       <span class="era" id="qera">DÖNEM</span>
       <span class="file" id="qfile">DOSYA 01</span>
+    </div>
+
+    <div class="jokers" id="jokers" aria-label="Joker hakları">
+      <button type="button" class="joker" id="jk-fifty" title="Yarı Yarıya — iki yanlış şıkkı ele"><span class="ji">½</span><span>50:50</span></button>
+      <button type="button" class="joker" id="jk-skip" title="Pas — soruyu can kaybetmeden atla"><span class="ji">⇥</span><span>PAS</span></button>
+      <button type="button" class="joker" id="jk-time" title="+5 saniye ekle"><span class="ji">+5</span><span>SÜRE</span></button>
     </div>
 
     <div class="question" id="question">…</div>
@@ -860,7 +884,8 @@ function startGame() {
     diff: chosenDiff, cat: chosenCat,
     order: shuffle(pool).slice(0, count),
     index: 0, score: 0, streak: 0, bestStreak: 0, lives: 3, correct: 0, wrong: 0,
-    answered: false, timeLeft: 0,
+    answered: false, timeLeft: 0, timeTotal: 0, timeStart: 0,
+    jokers: { fifty: true, skip: true, time: true },
   };
   show("quiz"); renderQuestion();
 }
@@ -884,6 +909,7 @@ function renderQuestion() {
   const optionsEl = document.getElementById("options"); optionsEl.innerHTML = "";
   shuffled.forEach((o, i) => {
     const btn = document.createElement("button"); btn.className = "option"; btn.type = "button";
+    btn.dataset.correct = o.correct ? "1" : "0";
     btn.style.animationDelay = (i * 55) + "ms";
     const key = document.createElement("span"); key.className = "key"; key.textContent = KEYS[i];
     const label = document.createElement("span"); label.className = "opt-text"; label.textContent = o.text;
@@ -895,18 +921,20 @@ function renderQuestion() {
   const fb = document.getElementById("feedback"); fb.className = "feedback"; fb.textContent = "";
   document.getElementById("next-row").classList.remove("show");
   document.getElementById("seal").setAttribute("class", "seal");
+  updateJokers();
   startTimer();
 }
 
 function startTimer() {
-  const total = DIFFS[state.diff];
+  state.timeTotal = DIFFS[state.diff];
+  state.timeStart = performance.now();
   const prg = document.getElementById("chrono-prg"), num = document.getElementById("chrono-num");
   prg.style.strokeDasharray = CIRC.toFixed(2);
-  const start = performance.now(); state.timeLeft = total;
+  state.timeLeft = state.timeTotal;
   const step = (now) => {
-    const remaining = Math.max(0, total - (now - start) / 1000);
+    const remaining = Math.max(0, state.timeTotal - (now - state.timeStart) / 1000);
     state.timeLeft = remaining;
-    const frac = remaining / total;
+    const frac = Math.max(0, Math.min(1, remaining / state.timeTotal));
     prg.style.strokeDashoffset = (CIRC * (1 - frac)).toFixed(2);
     prg.style.stroke = frac > 0.5 ? "var(--gold)" : frac > 0.25 ? "#e2b35a" : "var(--rose)";
     num.textContent = Math.ceil(remaining);
@@ -969,6 +997,7 @@ function timeOut() {
 }
 
 function afterAnswer() {
+  updateJokers();
   const isLast = state.lives <= 0 || state.index + 1 >= state.order.length;
   document.getElementById("btn-next").textContent = isLast ? "◈ Görev Raporu" : "◈ Sonraki Dosya";
   document.getElementById("next-row").classList.add("show");
@@ -1003,6 +1032,44 @@ function endGame() {
   document.getElementById("rs-best").textContent = state.bestStreak;
 }
 
+/* ---- jokerler ---- */
+function sClick(){ ensureAudio(); tone(520, 0, 0.08, 'sine', 0.06); }
+function updateJokers(){
+  const j = (state && state.jokers) || {};
+  const set = (id, avail) => { const b = document.getElementById(id); if (b) b.disabled = !avail || state.answered; };
+  set('jk-fifty', j.fifty); set('jk-skip', j.skip); set('jk-time', j.time);
+}
+function useFifty(){
+  if (!state.jokers || state.answered || !state.jokers.fifty) return;
+  const wrongs = Array.prototype.filter.call(
+    document.querySelectorAll('.option'),
+    o => o.dataset.correct === '0' && !o.classList.contains('removed')
+  );
+  if (wrongs.length < 2) return;
+  state.jokers.fifty = false;
+  shuffle(wrongs).slice(0, 2).forEach(o => o.classList.add('removed'));
+  sClick(); updateJokers();
+}
+function useTime(){
+  if (!state.jokers || state.answered || !state.jokers.time) return;
+  state.jokers.time = false;
+  state.timeTotal += 5;
+  const num = document.getElementById('chrono-num');
+  num.style.color = 'var(--emerald)';
+  setTimeout(() => { if (!state.answered) num.style.color = 'var(--txt)'; }, 500);
+  sClick(); updateJokers();
+}
+function useSkip(){
+  if (!state.jokers || state.answered || !state.jokers.skip) return;
+  state.jokers.skip = false;
+  state.answered = true; stopTimer(); sClick();
+  if (state.lives <= 0 || state.index + 1 >= state.order.length) { endGame(); }
+  else { state.index++; renderQuestion(); }
+}
+document.getElementById('jk-fifty').addEventListener('click', useFifty);
+document.getElementById('jk-skip').addEventListener('click', useSkip);
+document.getElementById('jk-time').addEventListener('click', useTime);
+
 document.getElementById("btn-start").addEventListener("click", startGame);
 document.getElementById("btn-next").addEventListener("click", nextQuestion);
 document.getElementById("btn-restart").addEventListener("click", startGame);
@@ -1014,8 +1081,12 @@ document.addEventListener("keydown", (e) => {
   const key = e.key.toLowerCase();
   if (key in map && !state.answered) {
     const opts = document.querySelectorAll(".option");
-    if (opts[map[key]]) opts[map[key]].click();
-  } else if ((e.key === "Enter" || e.key === " ") && state.answered) { e.preventDefault(); nextQuestion(); }
+    const opt = opts[map[key]];
+    if (opt && !opt.classList.contains("removed")) opt.click();
+  } else if (key === "f" && !state.answered) { useFifty(); }
+  else if (key === "p" && !state.answered) { useSkip(); }
+  else if (key === "t" && !state.answered) { useTime(); }
+  else if ((e.key === "Enter" || e.key === " ") && state.answered) { e.preventDefault(); nextQuestion(); }
 });
 </script>
 </body>
