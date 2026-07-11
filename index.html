@@ -308,9 +308,6 @@
       <button type="button" class="cl-opt" data-diff="zor" role="radio" aria-checked="false"><span class="lv">SEVİYE III</span><span class="nm">Efsane</span><small>10 saniye</small></button>
     </div>
 
-    <div class="field-label">— Kategori · Dönem —</div>
-    <div class="cat-wrap"><select id="category" class="cat-select" aria-label="Kategori seçimi"></select></div>
-
     <button class="btn" id="btn-start">◈ Görevi Aç</button>
   </div>
 
@@ -620,10 +617,11 @@ function refreshRecordLine() {
 }
 refreshRecordLine();
 
-/* ---- kategori seçimi ---- */
+/* ---- kategori (ilk sayfada gösterilmiyor; varsayılan tüm sorular) ---- */
 let chosenCat = 'Tümü';
 (function(){
   const sel = document.getElementById('category');
+  if(!sel) return;
   const counts = {};
   POOL.forEach(q => counts[q.era] = (counts[q.era]||0)+1);
   const eras = Object.keys(counts).sort((a,b)=>a.localeCompare(b,'tr'));
