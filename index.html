@@ -144,6 +144,32 @@
   .btn.ghost { background: transparent; color: var(--gold); border: 1px solid var(--hair); box-shadow: none; }
   .btn.ghost:hover { border-color: var(--gold); background: rgba(201,162,75,0.06); }
 
+  /* category select */
+  .cat-wrap { margin-bottom: 26px; }
+  .cat-select {
+    width:100%; font-family:var(--mono); font-size:13px; color:var(--txt);
+    background:rgba(4,8,22,0.55); border:1px solid var(--hair-soft); border-radius:9px;
+    padding:13px 40px 13px 14px; appearance:none; -webkit-appearance:none; cursor:pointer;
+    background-image: linear-gradient(45deg, transparent 50%, var(--gold) 50%), linear-gradient(135deg, var(--gold) 50%, transparent 50%);
+    background-position: right 17px center, right 12px center; background-size:5px 5px, 5px 5px; background-repeat:no-repeat;
+    transition: border-color .2s;
+  }
+  .cat-select:hover { border-color: var(--gold); }
+  .cat-select:focus-visible { outline:2px solid var(--gold-3); outline-offset:2px; }
+  .cat-select option { background:#0a1330; color:var(--txt); }
+
+  /* mute toggle */
+  .mute-btn {
+    position: fixed; top: 16px; right: 16px; z-index: 5;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(4,8,22,0.7); border:1px solid var(--hair-soft); color: var(--gold-2);
+    font-size: 16px; cursor:pointer; backdrop-filter: blur(4px);
+    transition: border-color .2s, transform .12s;
+  }
+  .mute-btn:hover { border-color: var(--gold); transform: translateY(-1px); }
+  .mute-btn:focus-visible { outline:2px solid var(--gold-3); outline-offset:2px; }
+  .mute-btn.muted { color: var(--faint); }
+
   /* ---- QUIZ ---- */
   .qtop { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; }
   .chrono { position: relative; width: 88px; height: 88px; flex-shrink: 0; }
@@ -240,6 +266,7 @@
 </style>
 
 <canvas id="veil"></canvas>
+<button id="mute" class="mute-btn" aria-label="Sesi aç/kapat" aria-pressed="false">♪</button>
 
 <div class="app">
 
@@ -280,6 +307,9 @@
       <button type="button" class="cl-opt" data-diff="orta" role="radio" aria-checked="false"><span class="lv">SEVİYE II</span><span class="nm">Saha Ajanı</span><small>15 saniye</small></button>
       <button type="button" class="cl-opt" data-diff="zor" role="radio" aria-checked="false"><span class="lv">SEVİYE III</span><span class="nm">Efsane</span><small>10 saniye</small></button>
     </div>
+
+    <div class="field-label">— Kategori · Dönem —</div>
+    <div class="cat-wrap"><select id="category" class="cat-select" aria-label="Kategori seçimi"></select></div>
 
     <button class="btn" id="btn-start">◈ Görevi Aç</button>
   </div>
@@ -590,6 +620,44 @@ function refreshRecordLine() {
 }
 refreshRecordLine();
 
+/* ---- kategori seçimi ---- */
+let chosenCat = 'Tümü';
+(function(){
+  const sel = document.getElementById('category');
+  const counts = {};
+  POOL.forEach(q => counts[q.era] = (counts[q.era]||0)+1);
+  const eras = Object.keys(counts).sort((a,b)=>a.localeCompare(b,'tr'));
+  const all = document.createElement('option'); all.value='Tümü'; all.textContent='Tümü · '+POOL.length+' soru'; sel.appendChild(all);
+  eras.forEach(e=>{ const o=document.createElement('option'); o.value=e; o.textContent=e+' · '+counts[e]+' soru'; sel.appendChild(o); });
+  sel.addEventListener('change', ()=>{ chosenCat = sel.value; });
+})();
+
+/* ---- ses efektleri (WebAudio, harici dosya yok) ---- */
+let audioCtx = null, muted = false;
+try { muted = localStorage.getItem('ta_muted') === '1'; } catch (e) {}
+function ensureAudio(){
+  if(!audioCtx){ const AC = window.AudioContext || window.webkitAudioContext; if(AC) try { audioCtx = new AC(); } catch(e){} }
+  if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+}
+function tone(freq, start, dur, type, gain){
+  if(muted || !audioCtx) return;
+  const t0 = audioCtx.currentTime + start;
+  const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
+  osc.type = type || 'sine'; osc.frequency.value = freq;
+  g.gain.setValueAtTime(0.0001, t0); g.gain.linearRampToValueAtTime(gain || 0.12, t0 + 0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+  osc.connect(g); g.connect(audioCtx.destination); osc.start(t0); osc.stop(t0 + dur + 0.03);
+}
+function sCorrect(){ ensureAudio(); tone(660,0,0.13,'sine',0.12); tone(990,0.10,0.17,'sine',0.10); }
+function sWrong(){ ensureAudio(); tone(220,0,0.26,'sawtooth',0.08); tone(150,0.09,0.30,'sawtooth',0.07); }
+function sTimeout(){ ensureAudio(); tone(440,0,0.16,'triangle',0.10); tone(260,0.13,0.28,'triangle',0.09); }
+(function(){
+  const mb = document.getElementById('mute');
+  const sync = ()=>{ mb.textContent = muted ? '🔇' : '♪'; mb.classList.toggle('muted', muted); mb.setAttribute('aria-pressed', String(muted)); };
+  sync();
+  mb.addEventListener('click', ()=>{ muted = !muted; try { localStorage.setItem('ta_muted', muted?'1':'0'); } catch(e){} if(!muted) ensureAudio(); sync(); });
+})();
+
 /* zorluk seçimi */
 let chosenDiff = "kolay";
 document.querySelectorAll(".cl-opt").forEach(opt => {
@@ -601,9 +669,12 @@ document.querySelectorAll(".cl-opt").forEach(opt => {
 });
 
 function startGame() {
+  ensureAudio();
+  const pool = chosenCat === 'Tümü' ? POOL : POOL.filter(q => q.era === chosenCat);
+  const count = Math.min(ROUND, pool.length);
   state = {
-    diff: chosenDiff,
-    order: shuffle(POOL).slice(0, ROUND),
+    diff: chosenDiff, cat: chosenCat,
+    order: shuffle(pool).slice(0, count),
     index: 0, score: 0, streak: 0, bestStreak: 0, lives: 3, correct: 0, wrong: 0,
     answered: false, timeLeft: 0,
   };
@@ -686,13 +757,13 @@ function selectAnswer(btn, isCorrect) {
     const timeBonus = Math.round(state.timeLeft) * 5, streakBonus = state.streak * 20;
     const gained = 100 + timeBonus + streakBonus;
     state.score += gained; state.streak++; state.bestStreak = Math.max(state.bestStreak, state.streak); state.correct++;
-    showSeal(true, "TESCİL");
+    sCorrect(); showSeal(true, "TESCİL");
     fb.className = "feedback ok show";
     fb.innerHTML = `<span class="lead">✓ KAYIT DOĞRULANDI · +${gained} PUAN</span><span class="info">Süre bonusu +${timeBonus} · Seri bonusu +${streakBonus}. ${item.info}</span>`;
   } else {
     btn.classList.add("wrong"); markCorrectOption(item);
     state.streak = 0; state.lives--; state.wrong++;
-    showSeal(false, "SAPMA");
+    sWrong(); showSeal(false, "SAPMA");
     fb.className = "feedback no show";
     fb.innerHTML = `<span class="lead">✕ ZAMAN ÇİZGİSİNDE SAPMA</span><span class="info">${item.info}</span>`;
   }
@@ -706,7 +777,7 @@ function timeOut() {
   markCorrectOption(item);
   state.streak = 0; state.lives--; state.wrong++;
   document.getElementById("chrono-num").textContent = "0";
-  updateHud(); showSeal(false, "SÜRE!");
+  updateHud(); sTimeout(); showSeal(false, "SÜRE!");
   const fb = document.getElementById("feedback");
   fb.className = "feedback no show";
   fb.innerHTML = `<span class="lead">✕ KRONOMETRE SIFIRLANDI</span><span class="info">${item.info}</span>`;
