@@ -5,491 +5,613 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EmlakPro International — Gayrimenkul</title>
 <style>
-  /* ================= Tokenlar ================= */
+  /* ============================================================
+     ALACAKARANLIKTA ÖZEL GALERİ — tek, kararlı bir dünya.
+     Gece mavisi mürekkep, şampanya altını, fildişi.
+     ============================================================ */
   :root {
-    --bg: #f3f2ee;
-    --card: #fcfbf8;
-    --ink: #17222d;
-    --muted: #5f6c7b;
-    --line: #e3e1d8;
-    --accent: #a57c3b;
-    --accent-strong: #8a6428;
-    --accent-soft: rgba(165,124,59,.12);
-    --input-bg: #ffffff;
-    --hover: #f6f4ee;
-    --ok: #2e6b46;
-    --ok-soft: rgba(46,107,70,.12);
-    --danger: #a83a2e;
-    --danger-soft: rgba(168,58,46,.1);
-    --chip-closed-bg: #e7e5dd;
-    --chip-closed-ink: #75726a;
-    --sheet: #fcfbf8;
-    --shadow: 0 2px 6px rgba(23,34,45,.06), 0 12px 32px rgba(23,34,45,.08);
-    --shadow-lift: 0 6px 16px rgba(23,34,45,.1), 0 20px 48px rgba(23,34,45,.14);
-    --hero-ink: #f0ead9;
-    --hero-muted: #b8ad93;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0c141d;
-      --card: #141f2b;
-      --ink: #e9e5da;
-      --muted: #92a0ae;
-      --line: #243140;
-      --accent: #c9a35c;
-      --accent-strong: #dcb877;
-      --accent-soft: rgba(201,163,92,.14);
-      --input-bg: #0e1822;
-      --hover: #1a2735;
-      --ok: #6fb98a;
-      --ok-soft: rgba(111,185,138,.14);
-      --danger: #d97e6f;
-      --danger-soft: rgba(217,126,111,.14);
-      --chip-closed-bg: #26313e;
-      --chip-closed-ink: #8b98a6;
-      --sheet: #121c27;
-      --shadow: 0 2px 6px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.3);
-      --shadow-lift: 0 6px 16px rgba(0,0,0,.4), 0 20px 48px rgba(0,0,0,.4);
-    }
-  }
-  :root[data-theme="light"] {
-    --bg: #f3f2ee; --card: #fcfbf8; --ink: #17222d; --muted: #5f6c7b; --line: #e3e1d8;
-    --accent: #a57c3b; --accent-strong: #8a6428; --accent-soft: rgba(165,124,59,.12);
-    --input-bg: #ffffff; --hover: #f6f4ee;
-    --ok: #2e6b46; --ok-soft: rgba(46,107,70,.12);
-    --danger: #a83a2e; --danger-soft: rgba(168,58,46,.1);
-    --chip-closed-bg: #e7e5dd; --chip-closed-ink: #75726a; --sheet: #fcfbf8;
-    --shadow: 0 2px 6px rgba(23,34,45,.06), 0 12px 32px rgba(23,34,45,.08);
-    --shadow-lift: 0 6px 16px rgba(23,34,45,.1), 0 20px 48px rgba(23,34,45,.14);
-  }
-  :root[data-theme="dark"] {
-    --bg: #0c141d; --card: #141f2b; --ink: #e9e5da; --muted: #92a0ae; --line: #243140;
-    --accent: #c9a35c; --accent-strong: #dcb877; --accent-soft: rgba(201,163,92,.14);
-    --input-bg: #0e1822; --hover: #1a2735;
-    --ok: #6fb98a; --ok-soft: rgba(111,185,138,.14);
-    --danger: #d97e6f; --danger-soft: rgba(217,126,111,.14);
-    --chip-closed-bg: #26313e; --chip-closed-ink: #8b98a6; --sheet: #121c27;
-    --shadow: 0 2px 6px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.3);
-    --shadow-lift: 0 6px 16px rgba(0,0,0,.4), 0 20px 48px rgba(0,0,0,.4);
+    --bg: #090d13;
+    --bg2: #0c1219;
+    --card: #10161f;
+    --card2: #131b26;
+    --ink: #ece4d0;
+    --ink-dim: #cfc6b2;
+    --muted: #7f8896;
+    --line: rgba(236,228,208,.1);
+    --line-strong: rgba(236,228,208,.2);
+    --gold: #c6a15b;
+    --gold-bright: #e3c488;
+    --gold-deep: #97743a;
+    --gold-soft: rgba(198,161,91,.1);
+    --ok: #7fb98f;
+    --ok-soft: rgba(127,185,143,.12);
+    --danger: #d98d7e;
+    --danger-soft: rgba(217,141,126,.12);
+    --veil: linear-gradient(180deg, transparent 30%, rgba(6,9,14,.55) 68%, rgba(5,8,12,.92) 100%);
+    --shadow: 0 4px 12px rgba(0,0,0,.4), 0 24px 60px rgba(0,0,0,.45);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
     font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", sans-serif;
-    background: var(--bg);
+    background:
+      radial-gradient(140% 100% at 50% 0%, #0d1420 0%, var(--bg) 55%),
+      var(--bg);
     color: var(--ink);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
   }
-  .serif { font-family: "Didot", "Bodoni MT", "Playfair Display", Georgia, "Times New Roman", serif; }
-  a { color: var(--accent-strong); text-decoration: none; }
-  a:hover { text-decoration: underline; }
+  .serif { font-family: "Didot", "Bodoni MT", "Playfair Display", "Cormorant Garamond", Georgia, serif; }
+  a { color: var(--gold-bright); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
   button { font-family: inherit; }
   img { max-width: 100%; display: block; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  ::selection { background: rgba(198,161,91,.35); }
+  :focus-visible { outline: 1px solid var(--gold); outline-offset: 3px; }
 
   .eyebrow {
-    font-size: .72rem;
-    font-weight: 600;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    color: var(--accent-strong);
+    font-size: .68rem; font-weight: 600;
+    letter-spacing: .34em; text-transform: uppercase;
+    color: var(--gold);
   }
+  .hairline { height: 1px; background: var(--line); border: none; }
 
   /* ================= Üst bar ================= */
   .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 40;
-    background: color-mix(in srgb, var(--bg) 86%, transparent);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(9,13,19,.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--line);
   }
   .topbar-inner {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 14px 24px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
+    max-width: 1320px; margin: 0 auto;
+    padding: 16px 28px;
+    display: flex; align-items: center; gap: 28px;
   }
-  .brand { display: flex; flex-direction: column; cursor: pointer; user-select: none; }
-  .brand .name { font-family: "Didot", "Bodoni MT", "Playfair Display", Georgia, serif; font-size: 1.3rem; letter-spacing: .02em; line-height: 1.1; }
-  .brand .tag { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent-strong); }
-  .topnav { display: flex; gap: 4px; margin-left: 12px; }
+  .brand { display: flex; align-items: baseline; gap: 12px; cursor: pointer; user-select: none; }
+  .brand .name {
+    font-family: "Didot", "Bodoni MT", "Playfair Display", Georgia, serif;
+    font-size: 1.35rem; letter-spacing: .04em; color: var(--ink);
+  }
+  .brand .sep { width: 1px; height: 16px; background: var(--gold-deep); align-self: center; }
+  .brand .tag { font-size: .58rem; letter-spacing: .4em; text-transform: uppercase; color: var(--gold); }
+  .topnav { display: flex; gap: 2px; margin-left: 16px; }
   .topnav button {
     background: none; border: none; cursor: pointer;
-    color: var(--muted); font-size: .85rem; font-weight: 600;
-    letter-spacing: .04em; padding: 8px 14px; border-radius: 4px;
-    transition: color .15s, background .15s;
+    color: var(--muted); font-size: .78rem; font-weight: 600;
+    letter-spacing: .16em; text-transform: uppercase;
+    padding: 10px 16px;
+    transition: color .2s;
+    position: relative;
   }
-  .topnav button:hover { color: var(--ink); background: var(--hover); }
-  .topnav button.active { color: var(--accent-strong); }
-  .top-tools { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-  .lang-switch { display: flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+  .topnav button::after {
+    content: ""; position: absolute; left: 16px; right: 16px; bottom: 4px;
+    height: 1px; background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .25s ease;
+  }
+  .topnav button:hover { color: var(--ink); }
+  .topnav button.active { color: var(--gold-bright); }
+  .topnav button.active::after { transform: scaleX(1); }
+  .top-tools { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+  .lang-switch { display: flex; gap: 2px; }
   .lang-switch button {
-    background: none; border: none; cursor: pointer; padding: 6px 10px;
-    font-size: .75rem; font-weight: 700; letter-spacing: .08em; color: var(--muted);
+    background: none; border: none; cursor: pointer; padding: 6px 8px;
+    font-size: .72rem; font-weight: 700; letter-spacing: .12em; color: var(--muted);
+    border-bottom: 1px solid transparent;
   }
-  .lang-switch button.active { background: var(--accent); color: #10131a; }
+  .lang-switch button.active { color: var(--gold-bright); border-bottom-color: var(--gold); }
   .cur-select {
-    background: var(--input-bg); color: var(--ink);
-    border: 1px solid var(--line); border-radius: 4px;
-    padding: 6px 8px; font-size: .78rem; font-weight: 600; cursor: pointer;
+    background: transparent; color: var(--ink);
+    border: none; border-bottom: 1px solid var(--line-strong);
+    padding: 6px 4px; font-size: .78rem; font-weight: 600; letter-spacing: .06em;
+    cursor: pointer;
   }
-  @media (max-width: 860px) { .topnav { display: none; } .topbar-inner { padding: 12px 16px; } }
+  .cur-select option { background: var(--card); color: var(--ink); }
+  @media (max-width: 900px) { .topnav { display: none; } .topbar-inner { padding: 13px 18px; gap: 14px; } }
 
   /* ================= Görünümler ================= */
   .view { display: none; }
-  .view.active { display: block; animation: viewIn .35s ease; }
-  @keyframes viewIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-  @media (prefers-reduced-motion: reduce) {
-    .view.active, .sheet-panel, .listing-card, .fade-up { animation: none !important; transition: none !important; }
-  }
-  .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
-  @media (max-width: 640px) { .container { padding: 0 16px; } }
+  .view.active { display: block; animation: viewIn .4s ease; }
+  @keyframes viewIn { from { opacity: 0; } to { opacity: 1; } }
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 28px; }
+  @media (max-width: 640px) { .container { padding: 0 18px; } }
 
   /* ================= Hero ================= */
   .hero {
     position: relative;
-    background:
-      radial-gradient(120% 90% at 78% 0%, rgba(201,163,92,.16), transparent 55%),
-      radial-gradient(90% 70% at 12% 100%, rgba(38,74,96,.5), transparent 60%),
-      linear-gradient(168deg, #0a1119 0%, #0e1a26 46%, #14202c 100%);
-    color: var(--hero-ink);
+    min-height: 86vh;
+    display: flex; flex-direction: column; justify-content: center;
     overflow: hidden;
+    border-bottom: 1px solid var(--line);
   }
-  .hero::after {
-    content: "";
-    position: absolute; inset: 0;
-    background: repeating-linear-gradient(90deg, rgba(240,234,217,.025) 0 1px, transparent 1px 96px);
-    pointer-events: none;
-  }
+  #heroCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
   .hero-inner {
-    position: relative; z-index: 1;
-    max-width: 1240px; margin: 0 auto;
-    padding: 88px 24px 96px;
+    position: relative; z-index: 2;
+    max-width: 1320px; width: 100%;
+    margin: 0 auto;
+    padding: 90px 28px 120px;
   }
-  .hero .eyebrow { color: #c9a35c; }
   .hero h1 {
     font-family: "Didot", "Bodoni MT", "Playfair Display", Georgia, serif;
-    font-weight: 500;
-    font-size: clamp(2.3rem, 5.4vw, 4.2rem);
-    line-height: 1.08;
-    letter-spacing: .005em;
-    margin: 18px 0 14px;
-    max-width: 15ch;
+    font-weight: 400;
+    font-size: clamp(2.9rem, 7.2vw, 6rem);
+    line-height: 1.04;
+    letter-spacing: .01em;
+    margin: 26px 0 0;
+    max-width: 14ch;
     text-wrap: balance;
   }
-  .hero .rule { width: 64px; height: 1px; background: #c9a35c; margin: 22px 0; }
-  .hero p.lead { color: var(--hero-muted); font-size: 1.02rem; max-width: 52ch; line-height: 1.7; }
-  @media (max-width: 640px) { .hero-inner { padding: 56px 16px 72px; } }
+  .hero h1 em { font-style: italic; color: var(--gold-bright); }
+  .hero .lead {
+    color: var(--muted); font-size: 1rem; line-height: 1.8;
+    max-width: 46ch; margin-top: 28px;
+  }
+  .hero .cue {
+    position: absolute; bottom: 26px; left: 28px; z-index: 2;
+    display: flex; align-items: center; gap: 12px;
+    color: var(--muted); font-size: .64rem; letter-spacing: .3em; text-transform: uppercase;
+  }
+  .hero .cue::before { content: ""; width: 56px; height: 1px; background: var(--gold-deep); }
+  .fade-seq > * { opacity: 0; transform: translateY(18px); animation: rise .8s ease forwards; }
+  .fade-seq > *:nth-child(1) { animation-delay: .1s; }
+  .fade-seq > *:nth-child(2) { animation-delay: .25s; }
+  .fade-seq > *:nth-child(3) { animation-delay: .45s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .fade-seq > *, .view.active { animation: none !important; opacity: 1 !important; transform: none !important; }
+    .ticker-track { animation: none !important; }
+    * { transition: none !important; }
+  }
 
-  .search-card {
-    position: relative; z-index: 2;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    box-shadow: var(--shadow-lift);
-    padding: 18px;
-    margin: -52px auto 0;
-    max-width: 1080px;
+  /* ================= Concierge arama bandı ================= */
+  .concierge {
+    position: relative; z-index: 3;
+    border-bottom: 1px solid var(--line);
+    background: rgba(9,13,19,.6);
+    backdrop-filter: blur(10px);
+  }
+  .concierge form {
+    max-width: 1320px; margin: 0 auto;
+    padding: 10px 28px 26px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1.4fr 1fr auto;
-    gap: 12px;
+    grid-template-columns: 1fr 1fr 1.5fr 1fr auto;
+    gap: 34px;
     align-items: end;
   }
-  .search-card .field label { display: block; font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-  @media (max-width: 900px) { .search-card { grid-template-columns: 1fr 1fr; margin: -40px 16px 0; } .search-card .btn-gold { grid-column: 1 / -1; } }
+  .concierge .field label {
+    display: block; font-size: .6rem; font-weight: 700;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 2px;
+  }
+  .concierge input, .concierge select {
+    width: 100%;
+    background: transparent; color: var(--ink);
+    border: none; border-bottom: 1px solid var(--line-strong);
+    border-radius: 0;
+    padding: 10px 2px;
+    font-size: .95rem; font-family: inherit;
+  }
+  .concierge input::placeholder { color: var(--muted); }
+  .concierge input:focus, .concierge select:focus {
+    outline: none; border-bottom-color: var(--gold);
+  }
+  .concierge select option { background: var(--card); color: var(--ink); }
+  @media (max-width: 900px) {
+    .concierge form { grid-template-columns: 1fr 1fr; gap: 20px; padding: 8px 18px 22px; }
+    .concierge .btn-gold { grid-column: 1 / -1; }
+  }
 
-  /* ================= Form elemanları ================= */
+  /* ================= Ticker ================= */
+  .ticker {
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    padding: 13px 0;
+    user-select: none;
+  }
+  .ticker-track {
+    display: inline-flex; gap: 0; white-space: nowrap;
+    animation: tick 46s linear infinite;
+  }
+  .ticker-track span {
+    font-size: .66rem; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--muted); padding: 0 26px;
+    display: inline-flex; align-items: center; gap: 26px;
+  }
+  .ticker-track span::after { content: "◆"; font-size: .5rem; color: var(--gold-deep); }
+  @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ================= Form elemanları (genel) ================= */
   input, select, textarea {
     width: 100%;
-    padding: 10px 12px;
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    font-size: .92rem;
-    font-family: inherit;
-    background: var(--input-bg);
-    color: var(--ink);
+    padding: 11px 13px;
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    font-size: .92rem; font-family: inherit;
+    background: var(--bg2); color: var(--ink);
   }
+  input::placeholder, textarea::placeholder { color: #5d6572; }
   input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-soft);
+    outline: none; border-color: var(--gold);
+    box-shadow: 0 0 0 3px var(--gold-soft);
   }
-  textarea { resize: vertical; min-height: 80px; }
-  label { font-size: .8rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 5px; }
+  select option { background: var(--card); color: var(--ink); }
+  textarea { resize: vertical; min-height: 84px; }
+  label { font-size: .72rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 6px; letter-spacing: .08em; text-transform: uppercase; }
 
   /* ================= Butonlar ================= */
   .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 11px 22px;
-    border: none; border-radius: 4px;
-    font-size: .82rem; font-weight: 700;
-    letter-spacing: .1em; text-transform: uppercase;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 13px 26px;
+    border-radius: 0;
+    font-size: .72rem; font-weight: 700;
+    letter-spacing: .24em; text-transform: uppercase;
     cursor: pointer;
-    transition: filter .15s, transform .06s, background .15s;
+    transition: background .2s, color .2s, border-color .2s;
   }
-  .btn:active { transform: scale(.985); }
-  .btn-gold { background: linear-gradient(160deg, #d3ad64, #a57c3b); color: #14100a; }
-  .btn-gold:hover { filter: brightness(1.07); }
-  .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--line); }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent-strong); }
-  .btn-quiet { background: var(--accent-soft); color: var(--accent-strong); }
-  .btn-danger { background: var(--danger-soft); color: var(--danger); }
-  .btn-sm { padding: 7px 12px; font-size: .72rem; }
+  .btn-gold {
+    background: transparent; color: var(--gold-bright);
+    border: 1px solid var(--gold-deep);
+  }
+  .btn-gold:hover { background: var(--gold); color: #14100a; border-color: var(--gold); }
+  .btn-outline { background: transparent; color: var(--ink-dim); border: 1px solid var(--line-strong); }
+  .btn-outline:hover { border-color: var(--ink-dim); color: var(--ink); }
+  .btn-quiet { background: var(--gold-soft); color: var(--gold-bright); border: 1px solid transparent; }
+  .btn-quiet:hover { border-color: var(--gold-deep); }
+  .btn-danger { background: transparent; color: var(--danger); border: 1px solid rgba(217,141,126,.35); }
+  .btn-danger:hover { background: var(--danger-soft); }
+  .btn-sm { padding: 8px 14px; font-size: .62rem; letter-spacing: .18em; }
 
-  /* ================= Bölüm başlıkları ================= */
-  .section { padding: 64px 0 24px; }
-  .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
+  /* ================= Bölümler ================= */
+  .section { padding: 88px 0 30px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 44px; flex-wrap: wrap; }
   .section-head h2 {
     font-family: "Didot", "Bodoni MT", "Playfair Display", Georgia, serif;
-    font-weight: 500; font-size: clamp(1.5rem, 3vw, 2.1rem); letter-spacing: .005em;
-    margin-top: 8px; text-wrap: balance;
+    font-weight: 400;
+    font-size: clamp(2rem, 4.4vw, 3.4rem);
+    letter-spacing: .01em;
+    margin-top: 14px;
+    text-wrap: balance;
   }
-  .section-head .more { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
-
-  /* ================= Sayı şeridi ================= */
-  .stats-strip {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-    margin-top: 56px;
+  .section-head h2 .count {
+    font-size: .4em; color: var(--muted); font-family: "Avenir Next", "Segoe UI", sans-serif;
+    letter-spacing: .2em; vertical-align: super;
   }
-  .stats-strip .cell { padding: 22px 12px; text-align: center; }
-  .stats-strip .cell + .cell { border-left: 1px solid var(--line); }
-  .stats-strip .num { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.9rem; font-variant-numeric: tabular-nums; }
-  .stats-strip .lbl { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+  .section-head .more {
+    font-size: .68rem; font-weight: 700; letter-spacing: .26em; text-transform: uppercase;
+    white-space: nowrap; color: var(--gold-bright);
+    border-bottom: 1px solid var(--gold-deep); padding-bottom: 4px;
+  }
+  .section-head .more:hover { text-decoration: none; color: var(--ink); border-color: var(--ink); }
 
-  /* ================= İlan kartları (vitrin) ================= */
-  .listing-grid {
+  /* ================= Galeri plakaları ================= */
+  .collection-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 26px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 30px;
   }
-  .listing-card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 8px;
+  .plate { grid-column: span 2; cursor: pointer; }
+  .plate.lead { grid-column: span 4; grid-row: span 1; }
+  @media (max-width: 1020px) { .plate, .plate.lead { grid-column: span 3; } }
+  @media (max-width: 680px) { .plate, .plate.lead { grid-column: span 6; } }
+
+  .plate .media {
+    position: relative;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
-    cursor: pointer;
-    box-shadow: var(--shadow);
-    transition: transform .22s ease, box-shadow .22s ease;
-    display: flex; flex-direction: column;
+    background: var(--card);
   }
-  .listing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
-  .card-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
-  .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
-  .listing-card:hover .card-media img { transform: scale(1.04); }
+  .plate.lead .media { aspect-ratio: 16 / 9.4; }
+  .plate .media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2,.7,.3,1), filter .6s; filter: saturate(.92); }
+  .plate:hover .media img { transform: scale(1.045); filter: saturate(1.05); }
+  .plate .media::before {
+    content: ""; position: absolute; inset: 0; z-index: 2;
+    background: var(--veil);
+    pointer-events: none;
+  }
+  .plate .frame {
+    position: absolute; inset: 12px; z-index: 3;
+    border: 1px solid rgba(227,196,136,.0);
+    transition: border-color .4s ease, inset .4s ease;
+    pointer-events: none;
+  }
+  .plate:hover .frame { border-color: rgba(227,196,136,.55); }
+  .plate .tag {
+    position: absolute; top: 22px; left: 22px; z-index: 4;
+    font-size: .58rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--gold-bright);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .plate .tag::before { content: ""; width: 22px; height: 1px; background: var(--gold); }
+  .plate .tag.closed { color: var(--muted); }
+  .plate .tag.closed::before { background: var(--muted); }
+  .plate .overlay {
+    position: absolute; left: 22px; right: 22px; bottom: 18px; z-index: 4;
+  }
+  .plate .o-price {
+    font-family: "Didot", "Bodoni MT", "Playfair Display", Georgia, serif;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    color: #f3ecd9;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 2px 18px rgba(0,0,0,.5);
+  }
+  .plate.lead .o-price { font-size: clamp(1.9rem, 3.2vw, 2.9rem); }
+  .plate .o-price .per { font-family: "Avenir Next", "Segoe UI", sans-serif; font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-dim); margin-left: 8px; }
+  .plate .o-loc {
+    font-size: .62rem; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--gold-bright); margin-top: 8px;
+  }
+  .plate .caption {
+    display: flex; justify-content: space-between; gap: 18px; align-items: baseline;
+    padding: 16px 2px 0;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 18px;
+  }
+  .plate .c-title {
+    font-family: "Didot", "Bodoni MT", "Playfair Display", Georgia, serif;
+    font-size: 1.12rem; font-weight: 400; line-height: 1.4;
+  }
+  .plate.lead .c-title { font-size: 1.4rem; }
+  .plate .c-meta { color: var(--muted); font-size: .74rem; letter-spacing: .1em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .plate .photo-count {
+    position: absolute; top: 22px; right: 22px; z-index: 4;
+    font-size: .62rem; letter-spacing: .14em; color: var(--ink-dim);
+  }
+
+  /* Kategori plakası (fotoğrafsız) */
   .ph {
     width: 100%; height: 100%;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-    color: rgba(240,234,217,.85);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
     position: relative;
   }
-  .ph::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 2px, transparent 2px 14px); }
-  .ph .mono { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 3rem; opacity: .5; line-height: 1; }
-  .ph .cat { font-size: .62rem; letter-spacing: .28em; text-transform: uppercase; opacity: .8; }
-  .ph .bar { width: 32px; height: 1px; background: #c9a35c; opacity: .8; }
-  .card-badge {
-    position: absolute; top: 12px; left: 12px;
-    font-size: .62rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
-    padding: 6px 10px; border-radius: 3px;
-    background: rgba(10,17,25,.78); color: #e8dcbb;
-    backdrop-filter: blur(4px);
+  .ph::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(115deg, rgba(236,228,208,.025) 0 1px, transparent 1px 22px);
   }
-  .card-badge.closed { background: rgba(10,17,25,.85); color: #97a2ad; text-decoration: line-through; }
-  .photo-count {
-    position: absolute; bottom: 10px; right: 12px;
-    font-size: .68rem; padding: 3px 8px; border-radius: 3px;
-    background: rgba(10,17,25,.7); color: #e9e5da;
+  .ph .mono {
+    font-family: "Didot", "Bodoni MT", Georgia, serif;
+    font-size: clamp(3rem, 7vw, 5.4rem); line-height: 1;
+    color: rgba(236,228,208,.16);
   }
-  .card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
-  .card-price { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.35rem; color: var(--accent-strong); font-variant-numeric: tabular-nums; }
-  .card-price .per { font-family: "Avenir Next", "Segoe UI", sans-serif; font-size: .72rem; color: var(--muted); letter-spacing: .04em; }
-  .card-title { font-weight: 600; font-size: .98rem; line-height: 1.35; }
-  .card-loc { color: var(--muted); font-size: .82rem; letter-spacing: .02em; }
-  .card-meta { display: flex; gap: 14px; color: var(--muted); font-size: .78rem; border-top: 1px solid var(--line); padding-top: 10px; margin-top: auto; font-variant-numeric: tabular-nums; }
+  .ph .cat { font-size: .58rem; letter-spacing: .4em; text-transform: uppercase; color: rgba(227,196,136,.6); }
 
   .empty {
-    text-align: center; color: var(--muted); padding: 56px 16px; font-size: .95rem;
-    border: 1px dashed var(--line); border-radius: 8px;
+    text-align: center; color: var(--muted); padding: 72px 20px;
+    border: 1px solid var(--line);
   }
-  .empty .serif { font-size: 1.4rem; margin-bottom: 8px; color: var(--ink); }
+  .empty .serif { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 12px; color: var(--ink); font-weight: 400; }
+  .empty p { max-width: 44ch; margin: 0 auto; line-height: 1.7; font-size: .92rem; }
 
-  /* ================= Detay sayfası (sheet) ================= */
+  /* ================= Rakam bandı ================= */
+  .figures {
+    margin-top: 96px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+  }
+  .figures .cell {
+    padding: 44px 20px;
+    text-align: center;
+    position: relative;
+  }
+  .figures .cell + .cell::before {
+    content: ""; position: absolute; left: 0; top: 22px; bottom: 22px;
+    width: 1px; background: var(--line);
+  }
+  .figures .num {
+    font-family: "Didot", "Bodoni MT", Georgia, serif;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    color: var(--gold-bright);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .figures .lbl { font-size: .62rem; letter-spacing: .32em; text-transform: uppercase; color: var(--muted); margin-top: 14px; }
+
+  /* ================= Söz bandı ================= */
+  .creed {
+    padding: 110px 28px;
+    text-align: center;
+  }
+  .creed blockquote {
+    font-family: "Didot", "Bodoni MT", "Playfair Display", Georgia, serif;
+    font-size: clamp(1.5rem, 3.4vw, 2.6rem);
+    font-weight: 400; font-style: italic;
+    line-height: 1.45;
+    max-width: 26ch; margin: 26px auto 0;
+    color: var(--ink-dim);
+    text-wrap: balance;
+  }
+  .creed blockquote strong { color: var(--gold-bright); font-weight: 400; }
+
+  /* ================= Detay sheet ================= */
   .sheet {
     position: fixed; inset: 0; z-index: 60;
     display: none;
-    background: rgba(8,12,18,.6);
-    backdrop-filter: blur(6px);
+    background: rgba(4,6,10,.72);
+    backdrop-filter: blur(8px);
   }
   .sheet.open { display: flex; align-items: flex-end; justify-content: center; }
   .sheet-panel {
-    background: var(--sheet);
-    width: 100%; max-width: 980px;
-    max-height: 92vh; overflow-y: auto;
-    border-radius: 16px 16px 0 0;
-    animation: sheetUp .32s cubic-bezier(.32,.9,.35,1);
+    background: var(--bg2);
+    border: 1px solid var(--line-strong);
+    width: 100%; max-width: 1000px;
+    max-height: 93vh; overflow-y: auto;
+    animation: sheetUp .38s cubic-bezier(.25,.9,.3,1);
   }
-  @keyframes sheetUp { from { transform: translateY(60px); opacity: .4; } to { transform: none; opacity: 1; } }
-  @media (min-width: 900px) {
-    .sheet.open { align-items: center; padding: 32px; }
-    .sheet-panel { border-radius: 12px; }
-  }
+  @keyframes sheetUp { from { transform: translateY(70px); opacity: .3; } to { transform: none; opacity: 1; } }
+  @media (min-width: 920px) { .sheet.open { align-items: center; padding: 36px; } }
   .sheet-close {
-    position: sticky; top: 14px; margin-left: auto; margin-right: 14px; z-index: 5;
-    width: 36px; height: 36px; border-radius: 50%;
-    border: none; cursor: pointer;
-    background: rgba(10,17,25,.7); color: #e9e5da; font-size: 1rem;
+    position: sticky; top: 16px; margin-right: 16px; z-index: 5;
+    width: 38px; height: 38px;
+    border: 1px solid var(--line-strong); cursor: pointer;
+    background: rgba(9,13,19,.85); color: var(--ink); font-size: .95rem;
     display: flex; align-items: center; justify-content: center;
     float: right;
   }
-  .gallery { position: relative; aspect-ratio: 16 / 9; background: #0e1621; }
+  .sheet-close:hover { border-color: var(--gold); color: var(--gold-bright); }
+  .gallery { position: relative; aspect-ratio: 16 / 9; background: var(--card); }
   .gallery img { width: 100%; height: 100%; object-fit: cover; }
   .gal-nav {
     position: absolute; top: 50%; transform: translateY(-50%);
-    width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer;
-    background: rgba(10,17,25,.65); color: #e8dcbb; font-size: 1.1rem;
+    width: 44px; height: 44px; border: 1px solid var(--line-strong); cursor: pointer;
+    background: rgba(9,13,19,.75); color: var(--gold-bright); font-size: 1.2rem;
   }
-  .gal-prev { left: 12px; } .gal-next { right: 12px; }
-  .gal-count { position: absolute; bottom: 12px; right: 14px; font-size: .72rem; background: rgba(10,17,25,.7); color: #e9e5da; padding: 4px 10px; border-radius: 3px; }
-  .sheet-body { padding: 26px 28px 34px; }
-  .sheet-body .d-price { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 2rem; color: var(--accent-strong); font-variant-numeric: tabular-nums; }
-  .sheet-body .d-title { font-size: 1.25rem; font-weight: 600; margin: 6px 0 2px; text-wrap: balance; }
-  .sheet-body .d-loc { color: var(--muted); font-size: .9rem; }
+  .gal-nav:hover { border-color: var(--gold); }
+  .gal-prev { left: 16px; } .gal-next { right: 16px; }
+  .gal-count { position: absolute; bottom: 14px; right: 16px; font-size: .68rem; letter-spacing: .2em; background: rgba(9,13,19,.8); color: var(--ink-dim); padding: 5px 12px; }
+  .sheet-body { padding: 34px 40px 46px; }
+  .sheet-body .d-price {
+    font-family: "Didot", "Bodoni MT", Georgia, serif;
+    font-size: clamp(1.9rem, 4vw, 2.7rem);
+    color: var(--gold-bright); font-variant-numeric: tabular-nums;
+  }
+  .sheet-body .d-title { font-family: "Didot", "Bodoni MT", Georgia, serif; font-weight: 400; font-size: clamp(1.3rem, 2.6vw, 1.7rem); margin: 10px 0 4px; text-wrap: balance; }
+  .sheet-body .d-loc { color: var(--muted); font-size: .72rem; letter-spacing: .26em; text-transform: uppercase; }
   .spec-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 1px; background: var(--line);
-    border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
-    margin: 20px 0;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    border-top: 1px solid var(--line); border-left: 1px solid var(--line);
+    margin: 28px 0;
   }
-  .spec { background: var(--card); padding: 12px 14px; }
-  .spec .k { font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-  .spec .v { font-weight: 600; margin-top: 3px; font-variant-numeric: tabular-nums; }
-  .d-desc { line-height: 1.75; color: var(--ink); max-width: 68ch; white-space: pre-wrap; font-size: .95rem; }
-  .d-contact { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); align-items: center; }
+  .spec { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 15px 16px; }
+  .spec .k { font-size: .58rem; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+  .spec .v { font-weight: 600; margin-top: 5px; font-variant-numeric: tabular-nums; }
+  .d-desc { line-height: 1.85; color: var(--ink-dim); max-width: 66ch; white-space: pre-wrap; font-size: .95rem; }
+  .d-contact { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--line); align-items: center; }
   .d-contact .who { margin-right: auto; }
-  .d-contact .who .n { font-weight: 700; }
-  .d-contact .who .r { font-size: .74rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
-  @media (max-width: 640px) { .sheet-body { padding: 20px 16px 90px; } }
+  .d-contact .who .n { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.05rem; }
+  .d-contact .who .r { font-size: .6rem; color: var(--gold); letter-spacing: .3em; text-transform: uppercase; margin-top: 3px; }
+  @media (max-width: 640px) { .sheet-body { padding: 24px 18px 100px; } }
 
   /* ================= Yönetim ================= */
-  .admin-head { padding: 44px 0 0; }
-  .admin-head h2 { font-family: "Didot", "Bodoni MT", Georgia, serif; font-weight: 500; font-size: 1.8rem; margin-top: 8px; }
-  .subnav { display: flex; gap: 2px; border-bottom: 1px solid var(--line); margin: 22px 0 28px; overflow-x: auto; }
+  .admin-head { padding: 60px 0 0; }
+  .admin-head h2 { font-family: "Didot", "Bodoni MT", Georgia, serif; font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); margin-top: 12px; }
+  .subnav { display: flex; gap: 0; border-bottom: 1px solid var(--line); margin: 30px 0 34px; overflow-x: auto; }
   .subnav button {
-    background: none; border: none; border-bottom: 2px solid transparent;
-    padding: 12px 16px; cursor: pointer; white-space: nowrap;
-    color: var(--muted); font-size: .85rem; font-weight: 600; letter-spacing: .03em;
+    background: none; border: none; border-bottom: 1px solid transparent;
+    margin-bottom: -1px;
+    padding: 14px 20px; cursor: pointer; white-space: nowrap;
+    color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
   }
-  .subnav button.active { color: var(--accent-strong); border-bottom-color: var(--accent); }
-  .admin-tab { display: none; padding-bottom: 40px; }
+  .subnav button:hover { color: var(--ink); }
+  .subnav button.active { color: var(--gold-bright); border-bottom-color: var(--gold); }
+  .admin-tab { display: none; padding-bottom: 60px; }
   .admin-tab.active { display: block; }
 
-  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); padding: 24px; margin-bottom: 24px; }
-  .panel h3 { font-size: 1rem; font-weight: 700; margin-bottom: 18px; letter-spacing: .01em; }
-  .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 14px; }
+  .panel { background: var(--card); border: 1px solid var(--line); padding: 30px; margin-bottom: 28px; }
+  .panel h3 {
+    font-family: "Didot", "Bodoni MT", Georgia, serif;
+    font-size: 1.3rem; font-weight: 400; margin-bottom: 24px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--line);
+  }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 16px; }
   .form-grid .full { grid-column: 1 / -1; }
 
-  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 24px; }
-  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); padding: 18px; }
-  .stat .label { color: var(--muted); font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; }
-  .stat .value { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.7rem; margin-top: 8px; font-variant-numeric: tabular-nums; }
-  .stat .sub { color: var(--muted); font-size: .78rem; margin-top: 4px; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .stat { background: var(--card); border: 1px solid var(--line); padding: 22px; }
+  .stat .label { color: var(--muted); font-size: .58rem; font-weight: 700; text-transform: uppercase; letter-spacing: .24em; }
+  .stat .value { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 2rem; margin-top: 12px; color: var(--gold-bright); font-variant-numeric: tabular-nums; }
+  .stat .sub { color: var(--muted); font-size: .76rem; margin-top: 6px; }
 
-  .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; align-items: center; }
+  .toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; align-items: center; }
   .toolbar input, .toolbar select { width: auto; min-width: 150px; }
-  .toolbar .grow { flex: 1; min-width: 180px; }
+  .toolbar .grow { flex: 1; min-width: 190px; }
 
   table { width: 100%; border-collapse: collapse; font-size: .88rem; }
-  th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { color: var(--muted); font-size: .66rem; text-transform: uppercase; letter-spacing: .12em; }
-  tr:hover td { background: var(--hover); }
+  th, td { text-align: left; padding: 13px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-size: .58rem; text-transform: uppercase; letter-spacing: .22em; }
+  tr:hover td { background: rgba(236,228,208,.025); }
   .table-wrap { overflow-x: auto; }
 
-  .chip { display: inline-block; font-size: .64rem; font-weight: 700; padding: 4px 9px; border-radius: 3px; text-transform: uppercase; letter-spacing: .1em; }
-  .chip.sale { background: var(--ok-soft); color: var(--ok); }
-  .chip.rent { background: var(--accent-soft); color: var(--accent-strong); }
-  .chip.closed { background: var(--chip-closed-bg); color: var(--chip-closed-ink); }
+  .chip { display: inline-block; font-size: .56rem; font-weight: 700; padding: 5px 10px; text-transform: uppercase; letter-spacing: .2em; border: 1px solid; }
+  .chip.sale { color: var(--ok); border-color: rgba(127,185,143,.4); }
+  .chip.rent { color: var(--gold-bright); border-color: var(--gold-deep); }
+  .chip.closed { color: var(--muted); border-color: var(--line-strong); }
 
-  /* Yönetim ilan satır kartı */
-  .admin-listing { display: flex; gap: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); margin-bottom: 12px; align-items: center; flex-wrap: wrap; }
-  .admin-listing.passive { opacity: .6; }
-  .admin-thumb { width: 92px; height: 68px; border-radius: 5px; overflow: hidden; flex-shrink: 0; }
+  .admin-listing { display: flex; gap: 18px; padding: 18px; border: 1px solid var(--line); background: var(--card); margin-bottom: 14px; align-items: center; flex-wrap: wrap; }
+  .admin-listing.passive { opacity: .55; }
+  .admin-thumb { width: 104px; height: 74px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--line); }
   .admin-thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .admin-thumb .ph .mono { font-size: 1.3rem; }
-  .admin-thumb .ph .cat, .admin-thumb .ph .bar { display: none; }
-  .al-main { flex: 1; min-width: 200px; }
-  .al-title { font-weight: 600; font-size: .93rem; }
-  .al-sub { color: var(--muted); font-size: .8rem; margin-top: 2px; }
-  .al-owner { font-size: .78rem; color: var(--muted); margin-top: 4px; }
-  .al-price { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.1rem; color: var(--accent-strong); white-space: nowrap; font-variant-numeric: tabular-nums; }
-  .al-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+  .admin-thumb .ph .mono { font-size: 1.6rem; }
+  .admin-thumb .ph .cat { display: none; }
+  .al-main { flex: 1; min-width: 210px; }
+  .al-title { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.05rem; }
+  .al-sub { color: var(--muted); font-size: .78rem; margin-top: 6px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .al-owner { font-size: .78rem; color: var(--muted); margin-top: 6px; }
+  .al-price { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.25rem; color: var(--gold-bright); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .al-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
-  /* Fotoğraf yükleme */
-  .photo-drop { border: 1px dashed var(--line); border-radius: 6px; padding: 14px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-  .thumb { position: relative; width: 84px; height: 64px; border-radius: 4px; overflow: hidden; }
+  .photo-drop { border: 1px dashed var(--line-strong); padding: 16px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .thumb { position: relative; width: 88px; height: 66px; overflow: hidden; border: 1px solid var(--line); }
   .thumb img { width: 100%; height: 100%; object-fit: cover; }
   .thumb button {
     position: absolute; top: 3px; right: 3px; width: 20px; height: 20px;
-    border: none; border-radius: 50%; cursor: pointer;
-    background: rgba(10,17,25,.75); color: #fff; font-size: .7rem; line-height: 1;
+    border: none; cursor: pointer;
+    background: rgba(4,6,10,.8); color: var(--ink); font-size: .68rem; line-height: 1;
   }
 
-  /* Eşleştirme */
-  .match-block { border: 1px solid var(--line); border-radius: 8px; padding: 18px; margin-bottom: 14px; background: var(--card); }
-  .match-block .cust { font-weight: 700; }
-  .match-block .crit { color: var(--muted); font-size: .82rem; margin: 4px 0 12px; }
-  .match-item { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 12px; border-radius: 5px; background: var(--accent-soft); margin-bottom: 6px; font-size: .88rem; cursor: pointer; }
-  .match-item:hover { filter: brightness(1.04); }
-  .match-item .mprice { font-weight: 700; color: var(--accent-strong); font-variant-numeric: tabular-nums; }
+  .match-block { border: 1px solid var(--line); padding: 22px; margin-bottom: 16px; background: var(--card); }
+  .match-block .cust { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.05rem; }
+  .match-block .crit { color: var(--muted); font-size: .8rem; margin: 8px 0 14px; letter-spacing: .04em; }
+  .match-item {
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    padding: 12px 14px; border: 1px solid var(--gold-deep); background: var(--gold-soft);
+    margin-bottom: 8px; font-size: .88rem; cursor: pointer;
+    transition: background .2s;
+  }
+  .match-item:hover { background: rgba(198,161,91,.18); }
+  .match-item .mprice { font-weight: 700; color: var(--gold-bright); font-variant-numeric: tabular-nums; }
   .no-match { color: var(--muted); font-size: .85rem; font-style: italic; }
 
-  /* Komisyon */
-  .commission-result { background: var(--accent-soft); border-radius: 8px; padding: 18px; margin-top: 16px; display: none; }
+  .commission-result { border: 1px solid var(--gold-deep); background: var(--gold-soft); padding: 22px; margin-top: 18px; display: none; }
   .commission-result.show { display: block; }
-  .commission-result .row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: .92rem; font-variant-numeric: tabular-nums; }
-  .commission-result .row:last-of-type { border-bottom: none; font-weight: 700; font-size: 1.05rem; }
+  .commission-result .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed var(--line-strong); font-size: .92rem; font-variant-numeric: tabular-nums; }
+  .commission-result .row:last-of-type { border-bottom: none; font-weight: 700; font-size: 1.08rem; color: var(--gold-bright); }
 
-  /* ================= Alt gezinme (mobil) ================= */
+  /* ================= Mobil dock ================= */
   .tabbar {
-    position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+    position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+    z-index: 50;
     display: none;
-    background: color-mix(in srgb, var(--card) 92%, transparent);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-top: 1px solid var(--line);
-    padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+    background: rgba(12,18,26,.92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--line-strong);
+    padding: 8px 10px;
+    gap: 4px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.5);
   }
   .tabbar button {
-    flex: 1; background: none; border: none; cursor: pointer;
-    display: flex; flex-direction: column; align-items: center; gap: 3px;
-    padding: 6px 4px; color: var(--muted); font-size: .62rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    background: none; border: none; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 8px 20px; color: var(--muted);
+    font-size: .55rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
   }
-  .tabbar button svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 1.7; }
-  .tabbar button.active { color: var(--accent-strong); }
-  @media (max-width: 860px) {
+  .tabbar button svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+  .tabbar button.active { color: var(--gold-bright); }
+  @media (max-width: 900px) {
     .tabbar { display: flex; }
-    body { padding-bottom: 68px; }
+    body { padding-bottom: 92px; }
   }
 
   /* ================= Footer ================= */
-  footer { border-top: 1px solid var(--line); margin-top: 72px; padding: 40px 0 48px; color: var(--muted); font-size: .85rem; }
-  footer .f-inner { max-width: 1240px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
-  footer .f-brand { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.1rem; color: var(--ink); }
+  footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 56px 0 64px; color: var(--muted); font-size: .82rem; }
+  footer .f-inner { max-width: 1320px; margin: 0 auto; padding: 0 28px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: flex-end; }
+  footer .f-brand { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.4rem; color: var(--ink); }
+  footer .f-tag { font-size: .58rem; letter-spacing: .36em; text-transform: uppercase; color: var(--gold); margin-top: 6px; }
+  footer .f-contact { margin-top: 14px; line-height: 1.8; }
 
   /* ================= Toast ================= */
   #toast {
-    position: fixed; bottom: 84px; left: 50%;
+    position: fixed; bottom: 110px; left: 50%;
     transform: translateX(-50%) translateY(16px);
-    background: #101923; color: #e9e5da; border: 1px solid rgba(201,163,92,.4);
-    padding: 12px 22px; border-radius: 6px; font-size: .88rem;
+    background: var(--card2); color: var(--ink);
+    border: 1px solid var(--gold-deep);
+    padding: 13px 26px; font-size: .85rem; letter-spacing: .04em;
     opacity: 0; pointer-events: none;
     transition: opacity .25s, transform .25s;
-    z-index: 100; box-shadow: 0 10px 30px rgba(0,0,0,.4);
+    z-index: 100; box-shadow: 0 14px 44px rgba(0,0,0,.5);
     max-width: 90vw; text-align: center;
   }
   #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -502,11 +624,12 @@
   <div class="topbar-inner">
     <div class="brand" onclick="showView('home')">
       <span class="name" id="brandName">EmlakPro</span>
+      <span class="sep"></span>
       <span class="tag">International</span>
     </div>
     <nav class="topnav" id="topnav">
       <button data-view="home" onclick="showView('home')" data-i18n="nav_home">Ana Sayfa</button>
-      <button data-view="listings" onclick="showView('listings')" data-i18n="nav_listings">İlanlar</button>
+      <button data-view="listings" onclick="showView('listings')" data-i18n="nav_listings">Koleksiyon</button>
       <button data-view="admin" onclick="showView('admin')" data-i18n="nav_admin">Yönetim</button>
     </nav>
     <div class="top-tools">
@@ -528,74 +651,84 @@
   <!-- ================= ANA SAYFA ================= -->
   <section id="view-home" class="view active">
     <div class="hero">
-      <div class="hero-inner">
-        <div class="eyebrow" data-i18n="hero_eyebrow">Uluslararası Gayrimenkul</div>
-        <h1 class="serif" data-i18n="hero_title">Hayalinizdeki mülke açılan kapı</h1>
-        <div class="rule"></div>
-        <p class="lead" data-i18n="hero_sub">Özenle seçilmiş satılık ve kiralık mülklerden oluşan seçkin portföyümüzü keşfedin. Her mülk, yerinde incelenerek ve titizlikle belgelenerek sunulur.</p>
+      <canvas id="heroCanvas" aria-hidden="true"></canvas>
+      <div class="hero-inner fade-seq">
+        <div class="eyebrow" data-i18n="hero_eyebrow">Özel Portföy · Uluslararası</div>
+        <h1 id="heroTitle"></h1>
+        <p class="lead" data-i18n="hero_sub">Her mülk yerinde incelenir, titizlikle belgelenir ve yalnızca hak edene sunulur. Portföyümüz bir liste değil; bir seçkidir.</p>
       </div>
+      <div class="cue" data-i18n="hero_cue">Keşfedin</div>
     </div>
 
-    <form class="search-card" onsubmit="heroSearch(event)">
-      <div class="field">
-        <label for="hDeal" data-i18n="f_deal">İşlem</label>
-        <select id="hDeal">
-          <option value="" data-i18n="opt_deal_any">Satılık + Kiralık</option>
-          <option value="satilik" data-i18n="deal_sale">Satılık</option>
-          <option value="kiralik" data-i18n="deal_rent">Kiralık</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="hCat" data-i18n="f_cat">Kategori</label>
-        <select id="hCat">
-          <option value="" data-i18n="opt_cat_any">Tüm Kategoriler</option>
-          <option>Daire</option><option>Villa</option><option>Müstakil Ev</option>
-          <option>Arsa</option><option>İşyeri / Dükkan</option><option>Ofis</option><option>Tarla / Bahçe</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="hLoc" data-i18n="f_loc">Konum</label>
-        <input id="hLoc" data-i18n-ph="ph_loc" placeholder="İl, ilçe veya mahalle">
-      </div>
-      <div class="field">
-        <label for="hBudget" data-i18n="f_budget">Maks. Bütçe (₺)</label>
-        <input id="hBudget" type="number" min="0" placeholder="—">
-      </div>
-      <button class="btn btn-gold" type="submit" data-i18n="btn_search">Mülk Ara</button>
-    </form>
+    <div class="concierge">
+      <form onsubmit="heroSearch(event)">
+        <div class="field">
+          <label for="hDeal" data-i18n="f_deal">İşlem</label>
+          <select id="hDeal">
+            <option value="" data-i18n="opt_deal_any">Satılık + Kiralık</option>
+            <option value="satilik" data-i18n="deal_sale">Satılık</option>
+            <option value="kiralik" data-i18n="deal_rent">Kiralık</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="hCat" data-i18n="f_cat">Kategori</label>
+          <select id="hCat">
+            <option value="" data-i18n="opt_cat_any">Tüm Kategoriler</option>
+            <option>Daire</option><option>Villa</option><option>Müstakil Ev</option>
+            <option>Arsa</option><option>İşyeri / Dükkan</option><option>Ofis</option><option>Tarla / Bahçe</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="hLoc" data-i18n="f_loc">Konum</label>
+          <input id="hLoc" data-i18n-ph="ph_loc" placeholder="İl, ilçe veya mahalle">
+        </div>
+        <div class="field">
+          <label for="hBudget" data-i18n="f_budget">Maks. Bütçe (₺)</label>
+          <input id="hBudget" type="number" min="0" placeholder="—">
+        </div>
+        <button class="btn btn-gold" type="submit" data-i18n="btn_search">Mülk Ara</button>
+      </form>
+    </div>
+
+    <div class="ticker" id="ticker" aria-hidden="true"></div>
 
     <div class="container">
       <div class="section">
         <div class="section-head">
           <div>
-            <div class="eyebrow" data-i18n="feat_eyebrow">Seçkin Portföy</div>
-            <h2 data-i18n="feat_title">Öne Çıkan Mülkler</h2>
+            <div class="eyebrow" data-i18n="feat_eyebrow">Seçki</div>
+            <h2><span data-i18n="feat_title">Koleksiyon</span> <span class="count" id="featCount"></span></h2>
           </div>
-          <a class="more" href="#" onclick="showView('listings');return false" data-i18n="feat_all">Tümünü Gör →</a>
+          <a class="more" href="#" onclick="showView('listings');return false" data-i18n="feat_all">Tamamını İnceleyin</a>
         </div>
-        <div class="listing-grid" id="featuredGrid"></div>
+        <div class="collection-grid" id="featuredGrid"></div>
         <div id="featuredEmpty" class="empty" style="display:none">
-          <div class="serif" data-i18n="empty_title">Portföyünüz sizi bekliyor</div>
-          <p data-i18n="empty_sub">İlk mülkünüzü Yönetim panelinden ekleyin veya örnek portföyle başlayın.</p>
-          <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <div class="serif" data-i18n="empty_title">Galeriniz açılışa hazır</div>
+          <p data-i18n="empty_sub">İlk mülkünüzü Yönetim panelinden ekleyin veya örnek koleksiyonla başlayın.</p>
+          <div style="margin-top:26px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
             <button class="btn btn-gold" onclick="showView('admin');showAdminTab('portfoy')" data-i18n="btn_add_first">İlk Mülkü Ekle</button>
-            <button class="btn btn-outline" onclick="loadDemo()" data-i18n="btn_demo">Örnek Portföy Yükle</button>
+            <button class="btn btn-outline" onclick="loadDemo()" data-i18n="btn_demo">Örnek Koleksiyon Yükle</button>
           </div>
         </div>
       </div>
 
-      <div class="stats-strip" id="statsStrip"></div>
+      <div class="figures" id="statsStrip"></div>
+    </div>
+
+    <div class="creed">
+      <div class="eyebrow" data-i18n="creed_eyebrow">Yaklaşımımız</div>
+      <blockquote id="creedText"></blockquote>
     </div>
   </section>
 
-  <!-- ================= İLANLAR ================= -->
+  <!-- ================= KOLEKSİYON ================= -->
   <section id="view-listings" class="view">
     <div class="container">
-      <div class="section" style="padding-top:44px">
+      <div class="section" style="padding-top:56px">
         <div class="section-head">
           <div>
             <div class="eyebrow" data-i18n="list_eyebrow">Portföy</div>
-            <h2 data-i18n="list_title">Tüm Mülkler</h2>
+            <h2><span data-i18n="list_title">Tüm Mülkler</span> <span class="count" id="pubCount"></span></h2>
           </div>
         </div>
         <div class="toolbar">
@@ -617,9 +750,9 @@
             <option value="priceDesc" data-i18n="sort_desc">Fiyat: Azalan</option>
           </select>
         </div>
-        <div class="listing-grid" id="pubGrid"></div>
+        <div class="collection-grid" id="pubGrid"></div>
         <div id="pubEmpty" class="empty" style="display:none">
-          <div class="serif" data-i18n="noresult_title">Sonuç bulunamadı</div>
+          <div class="serif" data-i18n="noresult_title">Aradığınız incelikte bir sonuç yok</div>
           <p data-i18n="noresult_sub">Filtreleri genişleterek tekrar deneyin.</p>
         </div>
       </div>
@@ -731,13 +864,13 @@
               <div class="full">
                 <label data-i18n="f_photos">Fotoğraflar (en fazla 8)</label>
                 <div class="photo-drop">
-                  <div id="photoThumbs" style="display:flex;gap:10px;flex-wrap:wrap"></div>
+                  <div id="photoThumbs" style="display:flex;gap:12px;flex-wrap:wrap"></div>
                   <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('photoInput').click()" data-i18n="btn_add_photo">+ Fotoğraf Ekle</button>
                   <input type="file" id="photoInput" accept="image/*" multiple style="display:none" onchange="addPhotos(this)">
                 </div>
               </div>
             </div>
-            <div style="margin-top:18px;display:flex;gap:10px">
+            <div style="margin-top:22px;display:flex;gap:12px">
               <button class="btn btn-gold" type="submit" data-i18n="btn_save">Kaydet</button>
               <button class="btn btn-outline" type="button" id="propCancelBtn" style="display:none" onclick="resetPropertyForm()" data-i18n="btn_cancel">İptal</button>
             </div>
@@ -821,7 +954,7 @@
                 <textarea id="custNotes" data-i18n-ph="ph_notes" placeholder="Krediyle alacak, acil arıyor..."></textarea>
               </div>
             </div>
-            <div style="margin-top:18px;display:flex;gap:10px">
+            <div style="margin-top:22px;display:flex;gap:12px">
               <button class="btn btn-gold" type="submit" data-i18n="btn_save">Kaydet</button>
               <button class="btn btn-outline" type="button" id="custCancelBtn" style="display:none" onclick="resetCustomerForm()" data-i18n="btn_cancel">İptal</button>
             </div>
@@ -860,7 +993,7 @@
       <div id="atab-eslestirme" class="admin-tab">
         <div class="panel">
           <h3 data-i18n="match_title">Müşteri – Mülk Eşleştirme</h3>
-          <p style="color:var(--muted);font-size:.88rem;margin-bottom:18px" data-i18n="match_sub">
+          <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px" data-i18n="match_sub">
             Her müşterinin talebi aktif portföyle otomatik karşılaştırılır. Eşleşmeye tıklayarak ilan detayını açabilirsiniz.
           </p>
           <div id="matchList"></div>
@@ -869,7 +1002,7 @@
 
       <!-- Komisyon -->
       <div id="atab-komisyon" class="admin-tab">
-        <div class="panel" style="max-width:580px">
+        <div class="panel" style="max-width:600px">
           <h3 data-i18n="comm_title">Komisyon Hesaplayıcı</h3>
           <div class="form-grid">
             <div>
@@ -893,7 +1026,7 @@
             </div>
           </div>
           <div class="commission-result" id="comResult"></div>
-          <p style="color:var(--muted);font-size:.78rem;margin-top:14px" data-i18n="comm_note">
+          <p style="color:var(--muted);font-size:.78rem;margin-top:16px" data-i18n="comm_note">
             Satışta taraf başına yaygın oran %2'dir; kiralamada bir aylık kira + KDV uygulanır. Bu araç bilgilendirme amaçlıdır.
           </p>
         </div>
@@ -901,7 +1034,7 @@
 
       <!-- Ayarlar -->
       <div id="atab-ayarlar" class="admin-tab">
-        <div class="panel" style="max-width:680px">
+        <div class="panel" style="max-width:700px">
           <h3 data-i18n="set_agency">Ajans Bilgileri</h3>
           <form onsubmit="saveSettings(event)">
             <div class="form-grid">
@@ -930,17 +1063,17 @@
                 <input id="setEur" type="number" min="0" step="0.01" placeholder="48">
               </div>
             </div>
-            <div style="margin-top:18px">
+            <div style="margin-top:22px">
               <button class="btn btn-gold" type="submit" data-i18n="btn_save">Kaydet</button>
             </div>
           </form>
         </div>
-        <div class="panel" style="max-width:680px">
+        <div class="panel" style="max-width:700px">
           <h3 data-i18n="set_backup">Yedekleme</h3>
-          <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px" data-i18n="set_backup_sub">
+          <p style="color:var(--muted);font-size:.88rem;margin-bottom:18px" data-i18n="set_backup_sub">
             Tüm veriler bu cihazın tarayıcısında saklanır. Düzenli yedek almanız önerilir.
           </p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
             <button class="btn btn-gold" onclick="exportData()" data-i18n="btn_export">Yedek Al (.json)</button>
             <button class="btn btn-outline" onclick="document.getElementById('importFile').click()" data-i18n="btn_import">Yedek Yükle</button>
             <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(this)">
@@ -960,18 +1093,18 @@
   </div>
 </div>
 
-<!-- ================= Mobil Alt Bar ================= -->
+<!-- ================= Mobil Dock ================= -->
 <nav class="tabbar">
   <button data-view="home" onclick="showView('home')">
     <svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5.5 10v9h13v-9"/></svg>
     <span data-i18n="nav_home">Ana Sayfa</span>
   </button>
   <button data-view="listings" onclick="showView('listings')">
-    <svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>
-    <span data-i18n="nav_listings">İlanlar</span>
+    <svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg>
+    <span data-i18n="nav_listings">Koleksiyon</span>
   </button>
   <button data-view="admin" onclick="showView('admin')">
-    <svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M9 7V5a3 3 0 0 1 6 0v2M4 13h16"/></svg>
+    <svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13"/><path d="M9 7V5a3 3 0 0 1 6 0v2M4 13h16"/></svg>
     <span data-i18n="nav_admin">Yönetim</span>
   </button>
 </nav>
@@ -979,12 +1112,12 @@
 <footer>
   <div class="f-inner">
     <div>
-      <div class="f-brand" id="footBrand">EmlakPro International</div>
-      <div style="margin-top:4px" id="footContact"></div>
+      <div class="f-brand" id="footBrand">EmlakPro</div>
+      <div class="f-tag" data-i18n="foot_note">Seçkin Gayrimenkul Danışmanlığı</div>
+      <div class="f-contact" id="footContact"></div>
     </div>
     <div style="text-align:right">
-      <span data-i18n="foot_note">Seçkin gayrimenkul danışmanlığı</span><br>
-      <span style="font-size:.75rem">© 2026</span>
+      <span style="font-size:.72rem;letter-spacing:.2em">MMXXVI</span>
     </div>
   </div>
 </footer>
@@ -995,19 +1128,23 @@
 /* =================== Sözlük =================== */
 const I18N = {
   tr: {
-    nav_home:'Ana Sayfa', nav_listings:'İlanlar', nav_admin:'Yönetim',
-    hero_eyebrow:'Uluslararası Gayrimenkul', hero_title:'Hayalinizdeki mülke açılan kapı',
-    hero_sub:'Özenle seçilmiş satılık ve kiralık mülklerden oluşan seçkin portföyümüzü keşfedin. Her mülk, yerinde incelenerek ve titizlikle belgelenerek sunulur.',
+    nav_home:'Ana Sayfa', nav_listings:'Koleksiyon', nav_admin:'Yönetim',
+    hero_eyebrow:'Özel Portföy · Uluslararası',
+    hero_title:'Nadide mülkler, |seçkin| adresler.',
+    hero_sub:'Her mülk yerinde incelenir, titizlikle belgelenir ve özenle sunulur. Portföyümüz bir liste değil; bir seçkidir.',
+    hero_cue:'Keşfedin',
+    creed_eyebrow:'Yaklaşımımız',
+    creed:'Bir mülk satın almazsınız; |bir yaşamın sahnesini| seçersiniz.',
     f_deal:'İşlem', f_cat:'Kategori', f_loc:'Konum', f_budget:'Maks. Bütçe (₺)',
     opt_deal_any:'Satılık + Kiralık', deal_sale:'Satılık', deal_rent:'Kiralık',
     opt_cat_any:'Tüm Kategoriler', ph_loc:'İl, ilçe veya mahalle', btn_search:'Mülk Ara',
-    feat_eyebrow:'Seçkin Portföy', feat_title:'Öne Çıkan Mülkler', feat_all:'Tümünü Gör →',
-    empty_title:'Portföyünüz sizi bekliyor', empty_sub:'İlk mülkünüzü Yönetim panelinden ekleyin veya örnek portföyle başlayın.',
-    btn_add_first:'İlk Mülkü Ekle', btn_demo:'Örnek Portföy Yükle',
-    stat_active:'Aktif İlan', stat_locations:'Bölge', stat_closed:'Kapanan İşlem',
+    feat_eyebrow:'Seçki', feat_title:'Koleksiyon', feat_all:'Tamamını İnceleyin',
+    empty_title:'Galeriniz açılışa hazır', empty_sub:'İlk mülkünüzü Yönetim panelinden ekleyin veya örnek koleksiyonla başlayın.',
+    btn_add_first:'İlk Mülkü Ekle', btn_demo:'Örnek Koleksiyon Yükle',
+    stat_active:'Aktif Mülk', stat_locations:'Seçkin Bölge', stat_closed:'Tamamlanan İşlem',
     list_eyebrow:'Portföy', list_title:'Tüm Mülkler', ph_search:'Ara: başlık, konum...', ph_budget:'Maks. bütçe (₺)',
     sort_new:'Yeniden Eskiye', sort_asc:'Fiyat: Artan', sort_desc:'Fiyat: Azalan',
-    noresult_title:'Sonuç bulunamadı', noresult_sub:'Filtreleri genişleterek tekrar deneyin.',
+    noresult_title:'Aradığınız incelikte bir sonuç yok', noresult_sub:'Filtreleri genişleterek tekrar deneyin.',
     badge_sale:'Satılık', badge_rent:'Kiralık', badge_sold:'Satıldı', badge_rented:'Kiralandı',
     per_month:'/ay', rooms:'Oda', area:'m²', age:'Bina Yaşı', floor:'Kat', category:'Kategori', deal:'İşlem',
     d_desc:'Açıklama', d_contact_call:'Ara', d_advisor:'Gayrimenkul Danışmanı',
@@ -1048,31 +1185,36 @@ const I18N = {
     f_rate_usd:'1 USD = ? ₺', f_rate_eur:'1 EUR = ? ₺',
     set_backup:'Yedekleme', set_backup_sub:'Tüm veriler bu cihazın tarayıcısında saklanır. Düzenli yedek almanız önerilir.',
     btn_export:'Yedek Al (.json)', btn_import:'Yedek Yükle',
-    foot_note:'Seçkin gayrimenkul danışmanlığı',
-    t_saved:'Kaydedildi', t_prop_added:'Mülk portföye eklendi', t_prop_updated:'Mülk güncellendi', t_prop_deleted:'Mülk silindi',
+    foot_note:'Seçkin Gayrimenkul Danışmanlığı',
+    t_saved:'Kaydedildi', t_prop_added:'Mülk koleksiyona eklendi', t_prop_updated:'Mülk güncellendi', t_prop_deleted:'Mülk silindi',
     t_cust_added:'Müşteri eklendi', t_cust_updated:'Müşteri güncellendi', t_cust_deleted:'Müşteri silindi',
     t_closed_sale:'Satıldı olarak işaretlendi', t_closed_rent:'Kiralandı olarak işaretlendi', t_reopened:'Tekrar aktif yapıldı',
-    t_demo:'Örnek portföy yüklendi', t_export:'Yedek dosyası indirildi', t_import:'Yedek geri yüklendi',
+    t_demo:'Örnek koleksiyon yüklendi', t_export:'Yedek dosyası indirildi', t_import:'Yedek geri yüklendi',
     t_quota:'Depolama alanı doldu — bazı fotoğrafları küçültün veya silin', t_photo_limit:'En fazla 8 fotoğraf eklenebilir',
     c_del_prop:'Bu mülkü silmek istediğinize emin misiniz?', c_del_cust:'Bu müşteriyi silmek istediğinize emin misiniz?',
     c_demo:'Örnek ilanlar mevcut portföyünüze eklenecek. Devam edilsin mi?',
     c_import:'Mevcut veriler yedek dosyasındakilerle DEĞİŞTİRİLECEK. Devam edilsin mi?',
-    t_import_err:'Geçersiz yedek dosyası.'
+    t_import_err:'Geçersiz yedek dosyası.',
+    tk_props:'mülk', tk_deals:'işlem'
   },
   en: {
-    nav_home:'Home', nav_listings:'Properties', nav_admin:'Manage',
-    hero_eyebrow:'International Real Estate', hero_title:'The door to your dream property',
-    hero_sub:'Discover our curated portfolio of properties for sale and rent. Every property is personally inspected and meticulously documented.',
+    nav_home:'Home', nav_listings:'Collection', nav_admin:'Manage',
+    hero_eyebrow:'Private Portfolio · International',
+    hero_title:'Rare properties, |distinguished| addresses.',
+    hero_sub:'Every property is inspected in person, meticulously documented, and presented with care. Our portfolio is not a list; it is a curation.',
+    hero_cue:'Discover',
+    creed_eyebrow:'Our Approach',
+    creed:'You do not buy a property; you choose |the stage of a life|.',
     f_deal:'Type', f_cat:'Category', f_loc:'Location', f_budget:'Max Budget (₺)',
     opt_deal_any:'Buy + Rent', deal_sale:'For Sale', deal_rent:'For Rent',
     opt_cat_any:'All Categories', ph_loc:'City, district or area', btn_search:'Search',
-    feat_eyebrow:'Curated Portfolio', feat_title:'Featured Properties', feat_all:'View All →',
-    empty_title:'Your portfolio awaits', empty_sub:'Add your first property from the Manage panel, or start with sample data.',
-    btn_add_first:'Add First Property', btn_demo:'Load Sample Portfolio',
-    stat_active:'Active Listings', stat_locations:'Locations', stat_closed:'Closed Deals',
+    feat_eyebrow:'Curation', feat_title:'The Collection', feat_all:'View the Full Collection',
+    empty_title:'Your gallery awaits its opening', empty_sub:'Add your first property from the Manage panel, or begin with a sample collection.',
+    btn_add_first:'Add First Property', btn_demo:'Load Sample Collection',
+    stat_active:'Active Properties', stat_locations:'Prime Locations', stat_closed:'Completed Deals',
     list_eyebrow:'Portfolio', list_title:'All Properties', ph_search:'Search: title, location...', ph_budget:'Max budget (₺)',
     sort_new:'Newest First', sort_asc:'Price: Low to High', sort_desc:'Price: High to Low',
-    noresult_title:'No results', noresult_sub:'Try widening your filters.',
+    noresult_title:'Nothing of that refinement found', noresult_sub:'Try widening your filters.',
     badge_sale:'For Sale', badge_rent:'For Rent', badge_sold:'Sold', badge_rented:'Rented',
     per_month:'/mo', rooms:'Rooms', area:'m²', age:'Building Age', floor:'Floor', category:'Category', deal:'Type',
     d_desc:'Description', d_contact_call:'Call', d_advisor:'Real Estate Advisor',
@@ -1113,16 +1255,17 @@ const I18N = {
     f_rate_usd:'1 USD = ? ₺', f_rate_eur:'1 EUR = ? ₺',
     set_backup:'Backup', set_backup_sub:'All data is stored in this browser on this device. Regular backups are recommended.',
     btn_export:'Export Backup (.json)', btn_import:'Restore Backup',
-    foot_note:'Distinguished real estate advisory',
-    t_saved:'Saved', t_prop_added:'Property added to portfolio', t_prop_updated:'Property updated', t_prop_deleted:'Property deleted',
+    foot_note:'Distinguished Real Estate Advisory',
+    t_saved:'Saved', t_prop_added:'Property added to the collection', t_prop_updated:'Property updated', t_prop_deleted:'Property deleted',
     t_cust_added:'Client added', t_cust_updated:'Client updated', t_cust_deleted:'Client deleted',
     t_closed_sale:'Marked as sold', t_closed_rent:'Marked as rented', t_reopened:'Reactivated',
-    t_demo:'Sample portfolio loaded', t_export:'Backup file downloaded', t_import:'Backup restored',
+    t_demo:'Sample collection loaded', t_export:'Backup file downloaded', t_import:'Backup restored',
     t_quota:'Storage full — remove or shrink some photos', t_photo_limit:'Up to 8 photos allowed',
     c_del_prop:'Delete this property?', c_del_cust:'Delete this client?',
     c_demo:'Sample listings will be added to your portfolio. Continue?',
     c_import:'Current data will be REPLACED with the backup. Continue?',
-    t_import_err:'Invalid backup file.'
+    t_import_err:'Invalid backup file.',
+    tk_props:'properties', tk_deals:'deals'
   }
 };
 
@@ -1148,18 +1291,17 @@ function load() {
   } catch (e) { console.error(e); }
 }
 function persist() {
-  try {
-    localStorage.setItem(STORE_KEY, JSON.stringify(db));
-    return true;
-  } catch (e) {
-    toast(t('t_quota'));
-    return false;
-  }
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(db)); return true; }
+  catch (e) { toast(t('t_quota')); return false; }
 }
 function persistPrefs() { try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch (e) {} }
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
 function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function t(k) { return (I18N[prefs.lang] && I18N[prefs.lang][k]) || I18N.tr[k] || k; }
+/* |kelime| kalıbını italik altına çevirir */
+function emphasize(s) {
+  return esc(s).replace(/\|([^|]+)\|/g, '<em>$1</em>');
+}
 function toast(msg) {
   const el = document.getElementById('toast');
   el.textContent = msg;
@@ -1183,10 +1325,12 @@ function money(n) {
 }
 const fmtTL2 = new Intl.NumberFormat('tr-TR', { style:'currency', currency:'TRY', minimumFractionDigits:2 });
 
-/* =================== i18n uygula =================== */
+/* =================== i18n =================== */
 function applyI18n() {
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
   document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  document.getElementById('heroTitle').innerHTML = emphasize(t('hero_title'));
+  document.getElementById('creedText').innerHTML = emphasize(t('creed')).replace(/<em>/g, '<strong>').replace(/<\/em>/g, '</strong>');
   document.getElementById('langTR').classList.toggle('active', prefs.lang === 'tr');
   document.getElementById('langEN').classList.toggle('active', prefs.lang === 'en');
   document.documentElement.lang = prefs.lang;
@@ -1218,54 +1362,55 @@ function showAdminTab(name) {
   if (name === 'eslestirme') renderMatches();
 }
 
-/* =================== Kart parçaları =================== */
+/* =================== Plaka parçaları =================== */
 const CAT_GRAD = {
-  'Daire': ['#1c2b3a', '#3d5a74'],
-  'Villa': ['#22321f', '#47663f'],
-  'Müstakil Ev': ['#37291f', '#6b5138'],
-  'Arsa': ['#2e351f', '#5b6d3c'],
-  'İşyeri / Dükkan': ['#282434', '#4e4568'],
-  'Ofis': ['#1e2c33', '#3e5a66'],
-  'Tarla / Bahçe': ['#31371c', '#647040']
+  'Daire': ['#131e2c', '#27435e'],
+  'Villa': ['#14231a', '#2c4a35'],
+  'Müstakil Ev': ['#241b12', '#4a3a26'],
+  'Arsa': ['#1c2213', '#3a4a26'],
+  'İşyeri / Dükkan': ['#191627', '#332c4e'],
+  'Ofis': ['#12212a', '#28444f'],
+  'Tarla / Bahçe': ['#20240f', '#454e28']
 };
-function phBlock(p, mini) {
-  const g = CAT_GRAD[p.category] || ['#1c2431', '#3a4a5e'];
-  return `<div class="ph" style="background:linear-gradient(150deg,${g[0]},${g[1]})">
+function phBlock(p) {
+  const g = CAT_GRAD[p.category] || ['#131b28', '#2b3a4e'];
+  return `<div class="ph" style="background:linear-gradient(155deg,${g[0]},${g[1]})">
     <div class="mono">${esc((p.category || 'M')[0])}</div>
-    ${mini ? '' : `<div class="bar"></div><div class="cat">${esc(p.category)}</div>`}
+    <div class="cat">${esc(p.category)}</div>
   </div>`;
 }
-function mediaBlock(p, mini) {
-  if (p.photos && p.photos.length) {
-    return `<img src="${p.photos[0]}" alt="${esc(p.title)}" loading="lazy">`;
-  }
-  return phBlock(p, mini);
+function mediaBlock(p) {
+  if (p.photos && p.photos.length) return `<img src="${p.photos[0]}" alt="${esc(p.title)}" loading="lazy">`;
+  return phBlock(p);
 }
-function badgeFor(p) {
-  if (p.status === 'satildi') return `<span class="card-badge closed">${t('badge_sold')}</span>`;
-  if (p.status === 'kiralandi') return `<span class="card-badge closed">${t('badge_rented')}</span>`;
-  return `<span class="card-badge">${p.dealType === 'satilik' ? t('badge_sale') : t('badge_rent')}</span>`;
+function tagFor(p) {
+  if (p.status === 'satildi') return `<span class="tag closed">${t('badge_sold')}</span>`;
+  if (p.status === 'kiralandi') return `<span class="tag closed">${t('badge_rented')}</span>`;
+  return `<span class="tag">${p.dealType === 'satilik' ? t('badge_sale') : t('badge_rent')}</span>`;
 }
 function locText(p) { return [p.city, p.district, p.neighborhood].filter(Boolean).join(' · '); }
+function shortLoc(p) { return [p.district || p.city, p.neighborhood].filter(Boolean).join(' — '); }
 
-function publicCard(p) {
+function plate(p, lead) {
   const meta = [
     p.rooms && esc(p.rooms),
-    p.area && `${p.area} m²`,
-    (p.age !== '' && p.age != null) && `${esc(p.age)} ${prefs.lang === 'tr' ? 'yaş' : 'yrs'}`
-  ].filter(Boolean).map(x => `<span>${x}</span>`).join('');
+    p.area && `${p.area} m²`
+  ].filter(Boolean).join(' · ');
   return `
-  <article class="listing-card" onclick="openDetail('${p.id}')">
-    <div class="card-media">
+  <article class="plate${lead ? ' lead' : ''}" onclick="openDetail('${p.id}')">
+    <div class="media">
       ${mediaBlock(p)}
-      ${badgeFor(p)}
-      ${p.photos && p.photos.length > 1 ? `<span class="photo-count">${p.photos.length} 📷</span>` : ''}
+      <div class="frame"></div>
+      ${tagFor(p)}
+      ${p.photos && p.photos.length > 1 ? `<span class="photo-count">${p.photos.length} ●</span>` : ''}
+      <div class="overlay">
+        <div class="o-price">${money(p.price)}${p.dealType === 'kiralik' ? `<span class="per">${t('per_month')}</span>` : ''}</div>
+        ${shortLoc(p) ? `<div class="o-loc">${esc(shortLoc(p))}</div>` : ''}
+      </div>
     </div>
-    <div class="card-body">
-      <div class="card-price">${money(p.price)}${p.dealType === 'kiralik' ? `<span class="per"> ${t('per_month')}</span>` : ''}</div>
-      <div class="card-title">${esc(p.title)}</div>
-      <div class="card-loc">${esc(locText(p)) || esc(p.category)}</div>
-      ${meta ? `<div class="card-meta">${meta}</div>` : ''}
+    <div class="caption">
+      <div class="c-title serif">${esc(p.title)}</div>
+      ${meta ? `<div class="c-meta">${meta}</div>` : ''}
     </div>
   </article>`;
 }
@@ -1273,9 +1418,10 @@ function publicCard(p) {
 /* =================== Ana sayfa =================== */
 function renderHome() {
   const act = db.properties.filter(p => p.status === 'aktif');
-  const featured = [...act].sort((a, b) => b.createdAt - a.createdAt).slice(0, 6);
-  document.getElementById('featuredGrid').innerHTML = featured.map(publicCard).join('');
+  const featured = [...act].sort((a, b) => b.createdAt - a.createdAt).slice(0, 5);
+  document.getElementById('featuredGrid').innerHTML = featured.map((p, i) => plate(p, i === 0)).join('');
   document.getElementById('featuredEmpty').style.display = featured.length ? 'none' : '';
+  document.getElementById('featCount').textContent = act.length ? `(${act.length})` : '';
 
   const locs = new Set(act.map(p => p.district || p.city).filter(Boolean));
   const closed = db.properties.filter(p => p.status !== 'aktif').length;
@@ -1283,6 +1429,23 @@ function renderHome() {
     <div class="cell"><div class="num">${act.length}</div><div class="lbl">${t('stat_active')}</div></div>
     <div class="cell"><div class="num">${locs.size}</div><div class="lbl">${t('stat_locations')}</div></div>
     <div class="cell"><div class="num">${closed}</div><div class="lbl">${t('stat_closed')}</div></div>`;
+
+  renderTicker(act, locs);
+}
+
+function renderTicker(act, locs) {
+  const el = document.getElementById('ticker');
+  const items = [];
+  if (locs && locs.size) {
+    [...locs].slice(0, 8).forEach(l => items.push(l.toLocaleUpperCase(prefs.lang === 'tr' ? 'tr' : 'en')));
+  }
+  items.push(`${act.length} ${t('tk_props').toLocaleUpperCase(prefs.lang === 'tr' ? 'tr' : 'en')}`);
+  const sale = act.filter(p => p.dealType === 'satilik').length;
+  const rent = act.length - sale;
+  items.push(`${sale} ${t('badge_sale').toLocaleUpperCase('tr')}`, `${rent} ${t('badge_rent').toLocaleUpperCase('tr')}`);
+  if (items.length < 6) items.push('İSTANBUL', 'BODRUM', 'ÇEŞME', 'ANTALYA');
+  const seq = items.map(i => `<span>${esc(i)}</span>`).join('');
+  el.innerHTML = `<div class="ticker-track">${seq}${seq}</div>`;
 }
 
 function heroSearch(e) {
@@ -1294,7 +1457,7 @@ function heroSearch(e) {
   showView('listings');
 }
 
-/* =================== İlanlar (vitrin) =================== */
+/* =================== Koleksiyon =================== */
 function renderPublic() {
   const q = document.getElementById('pubSearch').value.toLocaleLowerCase('tr');
   const deal = document.getElementById('pubDeal').value;
@@ -1317,7 +1480,8 @@ function renderPublic() {
   else if (sort === 'priceDesc') list.sort((a, b) => b.price - a.price);
   else list.sort((a, b) => b.createdAt - a.createdAt);
 
-  document.getElementById('pubGrid').innerHTML = list.map(publicCard).join('');
+  document.getElementById('pubGrid').innerHTML = list.map((p, i) => plate(p, i === 0 && !q && !deal && !cat && !budget)).join('');
+  document.getElementById('pubCount').textContent = list.length ? `(${list.length})` : '';
   document.getElementById('pubEmpty').style.display = list.length ? 'none' : '';
 }
 
@@ -1364,7 +1528,7 @@ function renderDetail(p) {
   const contact = `
     <div class="d-contact">
       <div class="who">
-        <div class="n">${esc(s.agency || 'EmlakPro')}</div>
+        <div class="n serif">${esc(s.agency || 'EmlakPro')}</div>
         <div class="r">${t('d_advisor')}</div>
       </div>
       ${s.phone ? `<a class="btn btn-gold btn-sm" href="tel:${esc(s.phone.replace(/\s/g,''))}">${t('d_contact_call')}</a>` : ''}
@@ -1372,17 +1536,20 @@ function renderDetail(p) {
       ${s.email ? `<a class="btn btn-outline btn-sm" href="mailto:${esc(s.email)}">E-mail</a>` : ''}
     </div>`;
 
+  const chipCls = p.status !== 'aktif' ? 'closed' : (p.dealType === 'satilik' ? 'sale' : 'rent');
+  const chipTxt = p.status === 'satildi' ? t('badge_sold') : p.status === 'kiralandi' ? t('badge_rented') : (p.dealType === 'satilik' ? t('badge_sale') : t('badge_rent'));
+
   document.getElementById('detailContent').innerHTML = `
     ${gallery}
     <div class="sheet-body">
-      <div style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline">
-        <div class="d-price">${money(p.price)}${p.dealType === 'kiralik' ? `<span style="font-size:.9rem;color:var(--muted)"> ${t('per_month')}</span>` : ''}</div>
-        ${badgeFor(p).replace('card-badge', 'chip ' + (p.status !== 'aktif' ? 'closed' : (p.dealType === 'satilik' ? 'sale' : 'rent')))}
+      <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline">
+        <div class="d-price">${money(p.price)}${p.dealType === 'kiralik' ? `<span style="font-size:.85rem;color:var(--muted)"> ${t('per_month')}</span>` : ''}</div>
+        <span class="chip ${chipCls}">${chipTxt}</span>
       </div>
-      <div class="d-title serif">${esc(p.title)}</div>
+      <div class="d-title">${esc(p.title)}</div>
       <div class="d-loc">${esc(locText(p))}</div>
       <div class="spec-grid">${specs}</div>
-      ${p.desc ? `<div class="eyebrow" style="margin-bottom:10px">${t('d_desc')}</div><div class="d-desc">${esc(p.desc)}</div>` : ''}
+      ${p.desc ? `<div class="eyebrow" style="margin-bottom:12px">${t('d_desc')}</div><div class="d-desc">${esc(p.desc)}</div>` : ''}
       ${contact}
     </div>`;
 }
@@ -1522,18 +1689,18 @@ function renderAdminProps() {
 
   document.getElementById('admList').innerHTML = list.map(p => `
     <div class="admin-listing${p.status !== 'aktif' ? ' passive' : ''}">
-      <div class="admin-thumb">${mediaBlock(p, true)}</div>
+      <div class="admin-thumb">${mediaBlock(p)}</div>
       <div class="al-main">
         <div class="al-title">${esc(p.title)}</div>
         <div class="al-sub">
           <span class="chip ${p.status !== 'aktif' ? 'closed' : (p.dealType === 'satilik' ? 'sale' : 'rent')}">
             ${p.status === 'satildi' ? t('badge_sold') : p.status === 'kiralandi' ? t('badge_rented') : (p.dealType === 'satilik' ? t('badge_sale') : t('badge_rent'))}
           </span>
-          &nbsp;${esc(p.category)}${locText(p) ? ' · ' + esc(locText(p)) : ''}
+          <span>${esc(p.category)}${locText(p) ? ' · ' + esc(locText(p)) : ''}</span>
         </div>
-        ${p.ownerName || p.ownerPhone ? `<div class="al-owner">👤 ${esc(p.ownerName || '—')}${p.ownerPhone ? ` · <a href="tel:${esc(p.ownerPhone.replace(/\s/g,''))}">${esc(p.ownerPhone)}</a>` : ''}</div>` : ''}
+        ${p.ownerName || p.ownerPhone ? `<div class="al-owner">${esc(p.ownerName || '—')}${p.ownerPhone ? ` · <a href="tel:${esc(p.ownerPhone.replace(/\s/g,''))}">${esc(p.ownerPhone)}</a>` : ''}</div>` : ''}
       </div>
-      <div class="al-price">${money(p.price)}${p.dealType === 'kiralik' ? `<span style="font-size:.7rem;color:var(--muted)">${t('per_month')}</span>` : ''}</div>
+      <div class="al-price">${money(p.price)}${p.dealType === 'kiralik' ? `<span style="font-size:.65rem;color:var(--muted)">${t('per_month')}</span>` : ''}</div>
       <div class="al-actions">
         <button class="btn btn-outline btn-sm" onclick="openDetail('${p.id}')">${t('btn_view')}</button>
         <button class="btn btn-quiet btn-sm" onclick="editProperty('${p.id}')">${t('btn_edit')}</button>
@@ -1620,10 +1787,10 @@ function renderCustomers() {
       <td><strong>${esc(c.name)}</strong></td>
       <td><a href="tel:${esc(c.phone.replace(/\s/g,''))}">${esc(c.phone)}</a></td>
       <td><span class="chip ${c.dealType === 'satilik' ? 'sale' : 'rent'}">${c.dealType === 'satilik' ? t('chip_buyer') : t('chip_renter')}</span>
-          ${c.category ? `<div style="margin-top:4px;font-size:.78rem;color:var(--muted)">${esc(c.category)}</div>` : ''}</td>
+          ${c.category ? `<div style="margin-top:6px;font-size:.76rem;color:var(--muted)">${esc(c.category)}</div>` : ''}</td>
       <td style="font-variant-numeric:tabular-nums">${budgetText(c)}</td>
-      <td>${esc(c.area || '—')}${c.rooms ? `<div style="font-size:.75rem;color:var(--muted)">${t('m_min')} ${esc(c.rooms)}</div>` : ''}</td>
-      <td style="max-width:220px;font-size:.82rem;color:var(--muted)">${esc(c.notes || '—')}</td>
+      <td>${esc(c.area || '—')}${c.rooms ? `<div style="font-size:.74rem;color:var(--muted)">${t('m_min')} ${esc(c.rooms)}</div>` : ''}</td>
+      <td style="max-width:220px;font-size:.8rem;color:var(--muted)">${esc(c.notes || '—')}</td>
       <td style="white-space:nowrap">
         <button class="btn btn-quiet btn-sm" onclick="editCustomer('${c.id}')">${t('btn_edit')}</button>
         <button class="btn btn-danger btn-sm" onclick="deleteCustomer('${c.id}')">${t('btn_delete')}</button>
@@ -1675,7 +1842,7 @@ function renderMatches() {
     return `
       <div class="match-block">
         <div class="cust">${esc(c.name)} — <a href="tel:${esc(c.phone.replace(/\s/g,''))}">${esc(c.phone)}</a>
-          <span class="chip ${c.dealType === 'satilik' ? 'sale' : 'rent'}" style="margin-left:8px">${m.length} ${t('m_count')}</span>
+          <span class="chip ${c.dealType === 'satilik' ? 'sale' : 'rent'}" style="margin-left:10px">${m.length} ${t('m_count')}</span>
         </div>
         <div class="crit">${esc(crit)}</div>
         ${items}
@@ -1694,14 +1861,14 @@ function renderDashboard() {
 
   document.getElementById('statGrid').innerHTML = `
     <div class="stat"><div class="label">${t('s_active')}</div><div class="value">${act.length}</div><div class="sub">${sale.length} ${t('s_sale')} · ${rent.length} ${t('s_rent')}</div></div>
-    <div class="stat"><div class="label">${t('s_value')}</div><div class="value" style="font-size:1.15rem">${money(totalSaleValue)}</div><div class="sub">${t('s_value_sub')}</div></div>
+    <div class="stat"><div class="label">${t('s_value')}</div><div class="value" style="font-size:1.25rem">${money(totalSaleValue)}</div><div class="sub">${t('s_value_sub')}</div></div>
     <div class="stat"><div class="label">${t('s_clients')}</div><div class="value">${db.customers.length}</div><div class="sub">${db.customers.filter(c => c.dealType === 'satilik').length} ${t('s_buyers')} · ${db.customers.filter(c => c.dealType === 'kiralik').length} ${t('s_renters')}</div></div>
     <div class="stat"><div class="label">${t('s_match')}</div><div class="value">${matchCount}</div><div class="sub">${t('s_match_sub')}</div></div>
     <div class="stat"><div class="label">${t('s_closed')}</div><div class="value">${closed.length}</div><div class="sub">${t('s_closed_sub')}</div></div>`;
 
   const recent = [...db.properties].sort((a, b) => b.createdAt - a.createdAt).slice(0, 3);
   document.getElementById('recentListings').innerHTML = recent.length
-    ? `<div class="listing-grid">${recent.map(publicCard).join('')}</div>`
+    ? `<div class="collection-grid">${recent.map(p => plate(p, false)).join('')}</div>`
     : `<div class="empty">${t('adm_empty')}</div>`;
 
   const recentC = [...db.customers].sort((a, b) => b.createdAt - a.createdAt).slice(0, 5);
@@ -1769,7 +1936,7 @@ function saveSettings(e) {
 function applyBrand() {
   const s = db.settings;
   document.getElementById('brandName').textContent = s.agency || 'EmlakPro';
-  document.getElementById('footBrand').textContent = (s.agency || 'EmlakPro') + ' International';
+  document.getElementById('footBrand').textContent = s.agency || 'EmlakPro';
   document.getElementById('footContact').textContent = [s.phone, s.email].filter(Boolean).join(' · ');
 }
 
@@ -1824,6 +1991,86 @@ function importData(input) {
   reader.readAsText(file);
 }
 
+/* =================== Hero Canvas: alacakaranlık silüeti =================== */
+function initHeroCanvas() {
+  const cv = document.getElementById('heroCanvas');
+  const ctx = cv.getContext('2d');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W, H, lights = [], buildings = [];
+
+  function build() {
+    W = cv.width = cv.offsetWidth * devicePixelRatio;
+    H = cv.height = cv.offsetHeight * devicePixelRatio;
+    buildings = [];
+    lights = [];
+    /* Silüet: sağa yaslı, yükseklikleri değişen bloklar */
+    let x = W * 0.32;
+    while (x < W) {
+      const bw = (30 + Math.random() * 90) * devicePixelRatio;
+      const bh = H * (0.14 + Math.random() * 0.34);
+      buildings.push({ x, w: bw, h: bh });
+      /* pencere ışıkları */
+      const cols = Math.max(2, Math.floor(bw / (16 * devicePixelRatio)));
+      const rows = Math.max(3, Math.floor(bh / (26 * devicePixelRatio)));
+      for (let c = 0; c < cols; c++) {
+        for (let r = 0; r < rows; r++) {
+          if (Math.random() < 0.16) {
+            lights.push({
+              x: x + (c + 0.5) * (bw / cols),
+              y: H - bh + (r + 0.5) * (bh / rows),
+              p: Math.random() * Math.PI * 2,
+              s: 0.4 + Math.random() * 0.9
+            });
+          }
+        }
+      }
+      x += bw + (6 + Math.random() * 26) * devicePixelRatio;
+    }
+  }
+
+  function draw(tms) {
+    ctx.clearRect(0, 0, W, H);
+    /* gökyüzü */
+    const sky = ctx.createLinearGradient(0, 0, 0, H);
+    sky.addColorStop(0, 'rgba(13,20,32,0)');
+    sky.addColorStop(.55, 'rgba(19,27,42,.35)');
+    sky.addColorStop(1, 'rgba(9,13,19,.9)');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H);
+    /* ufukta altın sızıntısı */
+    const glow = ctx.createRadialGradient(W * .74, H, 0, W * .74, H, H * .8);
+    glow.addColorStop(0, 'rgba(198,161,91,.14)');
+    glow.addColorStop(1, 'rgba(198,161,91,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+    /* silüet */
+    ctx.fillStyle = 'rgba(5,8,13,.88)';
+    buildings.forEach(b => ctx.fillRect(b.x, H - b.h, b.w, b.h));
+    /* çatı çizgisi */
+    ctx.strokeStyle = 'rgba(198,161,91,.12)';
+    ctx.lineWidth = devicePixelRatio;
+    buildings.forEach(b => {
+      ctx.beginPath();
+      ctx.moveTo(b.x, H - b.h);
+      ctx.lineTo(b.x + b.w, H - b.h);
+      ctx.stroke();
+    });
+    /* pencere ışıkları — yavaş nefes alır */
+    const tt = (tms || 0) / 1000;
+    lights.forEach(l => {
+      const a = reduced ? .5 : (.28 + .38 * (0.5 + 0.5 * Math.sin(tt * l.s + l.p)));
+      ctx.fillStyle = `rgba(227,196,136,${a})`;
+      ctx.fillRect(l.x, l.y, 2.2 * devicePixelRatio, 3 * devicePixelRatio);
+    });
+    if (!reduced) requestAnimationFrame(draw);
+  }
+
+  build();
+  draw(0);
+  let rz;
+  addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { build(); if (reduced) draw(0); }, 200); });
+}
+
 /* =================== Başlat =================== */
 function renderAll() {
   applyI18n();
@@ -1837,6 +2084,7 @@ document.getElementById('curSelect').value = prefs.currency;
 applyBrand();
 renderAll();
 showView('home');
+initHeroCanvas();
 </script>
 </body>
 </html>
