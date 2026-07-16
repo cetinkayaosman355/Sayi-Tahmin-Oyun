@@ -27,7 +27,7 @@
     --ok-soft: rgba(127,185,143,.12);
     --danger: #d98d7e;
     --danger-soft: rgba(217,141,126,.12);
-    --veil: linear-gradient(180deg, transparent 30%, rgba(6,9,14,.55) 68%, rgba(5,8,12,.92) 100%);
+    --veil: linear-gradient(180deg, transparent 34%, rgba(6,9,14,.42) 68%, rgba(5,8,12,.85) 100%);
     --shadow: 0 4px 12px rgba(0,0,0,.4), 0 24px 60px rgba(0,0,0,.45);
   }
 
@@ -319,10 +319,13 @@
   }
   .plate:hover .frame { border-color: rgba(227,196,136,.55); }
   .plate .tag {
-    position: absolute; top: 22px; left: 22px; z-index: 4;
+    position: absolute; top: 16px; left: 16px; z-index: 4;
     font-size: .58rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase;
     color: var(--gold-bright);
     display: flex; align-items: center; gap: 10px;
+    background: rgba(7,11,17,.66);
+    padding: 7px 13px 7px 11px;
+    backdrop-filter: blur(4px);
   }
   .plate .tag::before { content: ""; width: 22px; height: 1px; background: var(--gold); }
   .plate .tag.closed { color: var(--muted); }
@@ -356,8 +359,11 @@
   .plate.lead .c-title { font-size: 1.4rem; }
   .plate .c-meta { color: var(--muted); font-size: .74rem; letter-spacing: .1em; white-space: nowrap; font-variant-numeric: tabular-nums; }
   .plate .photo-count {
-    position: absolute; top: 22px; right: 22px; z-index: 4;
+    position: absolute; top: 16px; right: 16px; z-index: 4;
     font-size: .62rem; letter-spacing: .14em; color: var(--ink-dim);
+    background: rgba(7,11,17,.66);
+    padding: 7px 10px;
+    backdrop-filter: blur(4px);
   }
 
   /* Kategori plakası (fotoğrafsız) */
@@ -1364,13 +1370,13 @@ function showAdminTab(name) {
 
 /* =================== Plaka parçaları =================== */
 const CAT_GRAD = {
-  'Daire': ['#131e2c', '#27435e'],
-  'Villa': ['#14231a', '#2c4a35'],
-  'Müstakil Ev': ['#241b12', '#4a3a26'],
-  'Arsa': ['#1c2213', '#3a4a26'],
-  'İşyeri / Dükkan': ['#191627', '#332c4e'],
-  'Ofis': ['#12212a', '#28444f'],
-  'Tarla / Bahçe': ['#20240f', '#454e28']
+  'Daire': ['#2c4c74', '#6488ad'],
+  'Villa': ['#2b5c45', '#66937a'],
+  'Müstakil Ev': ['#6e5335', '#a8875e'],
+  'Arsa': ['#4c5c2e', '#7f9055'],
+  'İşyeri / Dükkan': ['#463d63', '#75699c'],
+  'Ofis': ['#2e5468', '#5e8ba0'],
+  'Tarla / Bahçe': ['#57652c', '#8b9a55']
 };
 function phBlock(p) {
   const g = CAT_GRAD[p.category] || ['#131b28', '#2b3a4e'];
@@ -1940,22 +1946,238 @@ function applyBrand() {
   document.getElementById('footContact').textContent = [s.phone, s.email].filter(Boolean).join(' · ');
 }
 
+/* =================== Örnek koleksiyon görselleri (canvas ressamı) =================== */
+function grad2(x, x0, y0, x1, y1, stops) {
+  const g = x.createLinearGradient(x0, y0, x1, y1);
+  stops.forEach(([o, c]) => g.addColorStop(o, c));
+  return g;
+}
+function glowAt(x, cx, cy, r, color) {
+  const g = x.createRadialGradient(cx, cy, 0, cx, cy, r);
+  g.addColorStop(0, color);
+  g.addColorStop(1, 'rgba(255,255,255,0)');
+  x.fillStyle = g;
+  x.fillRect(cx - r, cy - r, r * 2, r * 2);
+}
+function shimmer(x, y0, y1, cx, color, n) {
+  for (let i = 0; i < n; i++) {
+    const y = y0 + Math.random() * (y1 - y0);
+    const w = 16 + Math.random() * 100;
+    const xx = cx + (Math.random() - .5) * 340;
+    x.globalAlpha = .12 + Math.random() * .3;
+    x.fillStyle = color;
+    x.fillRect(xx - w / 2, y, w, 2.4);
+  }
+  x.globalAlpha = 1;
+}
+function litWindows(x, bx, by, bw, bh, cols, rows, colors, density) {
+  for (let c = 0; c < cols; c++) for (let r = 0; r < rows; r++) {
+    if (Math.random() < density) {
+      x.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+      x.fillRect(bx + 5 + c * (bw - 10) / cols, by + 7 + r * (bh - 14) / rows, 4.6, 6.4);
+    }
+  }
+}
+function cypress(x, cx, baseY, h, color) {
+  x.fillStyle = color;
+  x.beginPath();
+  x.moveTo(cx, baseY - h);
+  x.quadraticCurveTo(cx + h * .18, baseY - h * .5, cx + h * .1, baseY);
+  x.lineTo(cx - h * .1, baseY);
+  x.quadraticCurveTo(cx - h * .18, baseY - h * .5, cx, baseY - h);
+  x.fill();
+}
+const ART = {
+  /* Boğaz'da gün batımı — sıcak turuncu gök, parıldayan deniz, yalı silüetleri */
+  bogaz(x, W, H, v) {
+    const hz = H * .6, sx = W * (.3 + v * .34);
+    x.fillStyle = grad2(x, 0, 0, 0, hz, [[0, '#28466e'], [.58, '#b06c48'], [1, '#f0c88b']]);
+    x.fillRect(0, 0, W, hz);
+    glowAt(x, sx, hz - 10, 210, 'rgba(255,216,150,.85)');
+    x.fillStyle = '#ffe6b0';
+    x.beginPath(); x.arc(sx, hz - 12, 27, 0, 7); x.fill();
+    x.fillStyle = grad2(x, 0, hz, 0, H, [[0, '#42618a'], [1, '#182a42']]);
+    x.fillRect(0, hz, W, H - hz);
+    shimmer(x, hz + 10, H - 26, sx, '#f7dca4', 48);
+    x.fillStyle = '#1d3350';
+    x.beginPath();
+    x.moveTo(0, hz);
+    x.quadraticCurveTo(W * .18, hz - 74, W * .42, hz - 20);
+    x.quadraticCurveTo(W * .5, hz - 4, W * .55, hz);
+    x.closePath(); x.fill();
+    x.fillStyle = '#152841';
+    for (let i = 0; i < 6; i++) {
+      const bx = W * .58 + i * W * .07, bw = W * .05, bh = 34 + Math.random() * 40;
+      x.fillRect(bx, hz - bh, bw, bh);
+      litWindows(x, bx, hz - bh, bw, bh, 3, 3, ['#ffd98c'], .4);
+    }
+  },
+  /* Yalıkavak — masmavi gök, turkuaz deniz ve sonsuzluk havuzu, beyaz villa */
+  pool(x, W, H, v) {
+    const hz = H * .5;
+    x.fillStyle = grad2(x, 0, 0, 0, hz, [[0, '#8fd0de'], [1, '#dff0f3']]);
+    x.fillRect(0, 0, W, hz);
+    glowAt(x, W * (.7 + v * .12), H * .14, 150, 'rgba(255,250,225,.9)');
+    x.fillStyle = grad2(x, 0, hz, 0, H * .72, [[0, '#54b9c8'], [1, '#2e94ab']]);
+    x.fillRect(0, hz, W, H * .72 - hz);
+    x.fillStyle = grad2(x, 0, H * .72, 0, H, [[0, '#3ec2d4'], [1, '#1f9cb4']]);
+    x.fillRect(0, H * .72, W, H * .28);
+    shimmer(x, hz + 6, H - 18, W * .55, '#ffffff', 54);
+    const vx = W * (.06 + v * .06), vy = H * .3;
+    x.fillStyle = '#f6f1e5'; x.fillRect(vx, vy, W * .3, H * .42);
+    x.fillStyle = '#ddd2bd'; x.fillRect(vx + W * .3, vy + 14, W * .05, H * .42 - 14);
+    x.fillStyle = '#9fd0d8'; x.fillRect(vx + W * .04, vy + H * .07, W * .22, H * .12);
+    x.fillStyle = '#f0ebdd'; x.fillRect(vx - W * .02, vy + H * .3, W * .38, 12);
+    cypress(x, vx + W * .4, H * .72, 130, '#2c5842');
+    cypress(x, vx + W * .45, H * .72, 96, '#367052');
+  },
+  /* Alaçatı — sıcak taş dokusu, kemerli kapı, begonvil */
+  stone(x, W, H, v) {
+    x.fillStyle = grad2(x, 0, 0, 0, H, [[0, '#e5cda2'], [1, '#bb9264']]);
+    x.fillRect(0, 0, W, H);
+    glowAt(x, W * (.2 + v * .2), H * .12, 240, 'rgba(255,243,214,.75)');
+    x.strokeStyle = 'rgba(120,88,52,.16)';
+    x.lineWidth = 2;
+    for (let i = 0; i < 26; i++) {
+      const y = Math.random() * H, w = 60 + Math.random() * 130;
+      x.strokeRect(Math.random() * W, y, w, 26 + Math.random() * 18);
+    }
+    const dx = W * (.52 + v * .08), dw = W * .18, dtop = H * .34;
+    x.fillStyle = '#5e4229';
+    x.beginPath();
+    x.moveTo(dx, H * .88); x.lineTo(dx, dtop + dw / 2);
+    x.arc(dx + dw / 2, dtop + dw / 2, dw / 2, Math.PI, 0);
+    x.lineTo(dx + dw, H * .88);
+    x.closePath(); x.fill();
+    x.fillStyle = '#3e6d8e';
+    x.fillRect(W * .16, H * .4, W * .11, H * .2);
+    x.strokeStyle = '#2c5069'; x.strokeRect(W * .16, H * .4, W * .11, H * .2);
+    for (let i = 0; i < 90; i++) {
+      const a = Math.random() * Math.PI * 2, r = Math.random() * 62;
+      x.fillStyle = ['#c2497a', '#d5659a', '#a83a68'][i % 3];
+      x.globalAlpha = .5 + Math.random() * .5;
+      x.beginPath();
+      x.arc(dx + dw + 40 + Math.cos(a) * r, dtop - 6 + Math.sin(a) * r * .8, 3.6, 0, 7);
+      x.fill();
+    }
+    x.globalAlpha = 1;
+    x.fillStyle = '#c9a877'; x.fillRect(0, H * .88, W, H * .12);
+    cypress(x, W * .07, H * .9, 190, '#33604a');
+  },
+  /* Nişantaşı — gece şehri, ay ve ışıklı kuleler */
+  night(x, W, H, v) {
+    x.fillStyle = grad2(x, 0, 0, 0, H, [[0, '#131a36'], [.7, '#33295a'], [1, '#1a1830']]);
+    x.fillRect(0, 0, W, H);
+    const mx = W * (.2 + v * .5);
+    glowAt(x, mx, H * .18, 120, 'rgba(220,226,255,.5)');
+    x.fillStyle = '#e8ecff';
+    x.beginPath(); x.arc(mx, H * .18, 22, 0, 7); x.fill();
+    for (let i = 0; i < 40; i++) {
+      x.fillStyle = 'rgba(255,255,255,' + (.2 + Math.random() * .5) + ')';
+      x.fillRect(Math.random() * W, Math.random() * H * .5, 1.6, 1.6);
+    }
+    let bx2 = -20;
+    while (bx2 < W) {
+      const bw = 60 + Math.random() * 110, bh = H * (.3 + Math.random() * .42);
+      x.fillStyle = '#0e1428';
+      x.fillRect(bx2, H - bh, bw, bh);
+      litWindows(x, bx2, H - bh, bw, bh, Math.floor(bw / 15), Math.floor(bh / 24), ['#ffd98c', '#cfe0ff', '#f7b96b'], .3);
+      bx2 += bw + 10 + Math.random() * 26;
+    }
+  },
+  /* Kalkan — pembe gün batımı, koy ve falezler */
+  kalkan(x, W, H, v) {
+    const hz = H * .58, sx = W * (.4 + v * .24);
+    x.fillStyle = grad2(x, 0, 0, 0, hz, [[0, '#41365f'], [.55, '#c96e86'], [1, '#f4bd90']]);
+    x.fillRect(0, 0, W, hz);
+    glowAt(x, sx, hz - 4, 190, 'rgba(255,205,165,.9)');
+    x.fillStyle = '#ffe0bd';
+    x.beginPath(); x.arc(sx, hz - 6, 24, 0, 7); x.fill();
+    x.fillStyle = grad2(x, 0, hz, 0, H, [[0, '#77597f'], [1, '#25314f']]);
+    x.fillRect(0, hz, W, H - hz);
+    shimmer(x, hz + 8, H - 24, sx, '#f6c8a0', 44);
+    x.fillStyle = '#20263e';
+    x.beginPath();
+    x.moveTo(0, hz - 8); x.quadraticCurveTo(W * .12, hz - 92, W * .3, hz);
+    x.lineTo(0, hz); x.closePath(); x.fill();
+    x.beginPath();
+    x.moveTo(W, hz - 4); x.quadraticCurveTo(W * .88, hz - 64, W * .74, hz);
+    x.lineTo(W, hz); x.closePath(); x.fill();
+    x.fillStyle = '#ece4d2';
+    x.fillRect(W * .06, H * .74, W * .26, H * .1);
+    x.fillStyle = '#68c9d8';
+    x.fillRect(W * .09, H * .78, W * .2, H * .035);
+  },
+  /* Levent — gündüz cam kuleler */
+  towers(x, W, H, v) {
+    x.fillStyle = grad2(x, 0, 0, 0, H, [[0, '#a3c1d8'], [1, '#e9f1f6']]);
+    x.fillRect(0, 0, W, H);
+    glowAt(x, W * (.14 + v * .1), H * .1, 190, 'rgba(255,252,240,.95)');
+    const specs = [[.1, .34], [.26, .52], [.44, .28], [.58, .62], [.78, .4]];
+    specs.forEach(([px, ph], i) => {
+      const bx = W * px, bw = W * .13, bh = H * ph, by = H - bh;
+      x.fillStyle = grad2(x, bx, 0, bx + bw, 0, [[0, '#557f9e'], [.5, '#86aec8'], [1, '#48708d']]);
+      x.fillRect(bx, by, bw, bh);
+      x.strokeStyle = 'rgba(235,245,250,.4)';
+      x.lineWidth = 1;
+      for (let f = 1; f < bh / 22; f++) {
+        x.beginPath(); x.moveTo(bx, by + f * 22); x.lineTo(bx + bw, by + f * 22); x.stroke();
+      }
+      x.fillStyle = 'rgba(255,255,255,.5)';
+      x.fillRect(bx + bw * .12 + v * 8, by, 8, bh);
+    });
+    x.fillStyle = '#41607b';
+    x.fillRect(0, H * .94, W, H * .06);
+  }
+};
+function makeArt(scene) {
+  if (!ART[scene]) return [];
+  return [0, 1].map(v => {
+    const c = document.createElement('canvas');
+    c.width = 880; c.height = 620;
+    ART[scene](c.getContext('2d'), 880, 620, v);
+    return c.toDataURL('image/jpeg', .82);
+  });
+}
+
 /* =================== Örnek veri =================== */
+const DEMO_DEFS = [
+  { scene:'bogaz', title:"Bebek'te Boğaz Manzaralı Yalı Dairesi", dealType:'satilik', category:'Daire', price:85000000, city:'İstanbul', district:'Beşiktaş', neighborhood:'Bebek Mah.', area:240, rooms:'4+1', age:'8', floor:'2 / 4', ownerName:'Selim Aksoy', ownerPhone:'0532 210 40 40', desc:'Boğaz hattında, birinci sırada, panoramik deniz manzaralı, özel iskele kullanımlı seçkin daire. Tavan yüksekliği 3,4 m; orijinal parke ve karo desenler korunmuştur.' },
+  { scene:'pool', title:"Yalıkavak'ta Sonsuzluk Havuzlu Villa", dealType:'satilik', category:'Villa', price:120000000, city:'Muğla', district:'Bodrum', neighborhood:'Yalıkavak Mah.', area:380, rooms:'5+1 ve üzeri', age:'2', floor:'', ownerName:'Nur Kılıç', ownerPhone:'0533 355 12 12', desc:'Marina manzaralı, sonsuzluk havuzlu, akıllı ev sistemli modern villa. 1.100 m² peyzajlı bahçe, kapalı otopark, personel dairesi.' },
+  { scene:'stone', title:"Alaçatı'da Restore Taş Ev", dealType:'satilik', category:'Müstakil Ev', price:42000000, city:'İzmir', district:'Çeşme', neighborhood:'Alaçatı Mah.', area:145, rooms:'3+1', age:'90', floor:'', ownerName:'Halil Öztürk', ownerPhone:'0542 660 78 78', desc:'Alaçatı çarşıya yürüme mesafesinde, aslına uygun restore edilmiş taş ev. İç avlu, şömine, geleneksel sakız mimarisi detayları.' },
+  { scene:'night', title:"Nişantaşı'nda Rezidans Katı", dealType:'kiralik', category:'Daire', price:180000, city:'İstanbul', district:'Şişli', neighborhood:'Teşvikiye Mah.', area:110, rooms:'2+1', age:'5', floor:'9 / 14', ownerName:'Merve Şen', ownerPhone:'0555 909 33 33', desc:'7/24 concierge, vale ve fitness hizmetli rezidansta, eşyalı, şehir manzaralı kat.' },
+  { scene:'kalkan', title:"Kalkan'da Deniz Manzaralı Kiralık Villa", dealType:'kiralik', category:'Villa', price:350000, city:'Antalya', district:'Kaş', neighborhood:'Kalkan Mah.', area:260, rooms:'4+1', age:'3', floor:'', ownerName:'Okan Derin', ownerPhone:'0536 484 25 25', desc:'Korunaklı ısıtmalı havuz, gün batımı terası, tam donanımlı mutfak. Uzun dönem kiralamaya uygundur.' },
+  { scene:'towers', title:"Levent'te A+ Plaza Ofis Katı", dealType:'kiralik', category:'Ofis', price:600000, city:'İstanbul', district:'Beşiktaş', neighborhood:'Levent Mah.', area:450, rooms:'', age:'12', floor:'17 / 30', ownerName:'Plaza Yönetimi', ownerPhone:'0212 350 60 60', desc:'Metro bağlantılı A+ plazada, bölünebilir açık plan ofis katı. Yükseltilmiş döşeme, jeneratör, 8 araçlık otopark tahsisi.' }
+];
+function seedDemo() {
+  const now = Date.now();
+  const items = DEMO_DEFS.map((d, i) => {
+    const { scene, ...rest } = d;
+    return { ...rest, id: uid() + i, createdAt: now - i * 3600e3, status: 'aktif', photos: makeArt(scene) };
+  });
+  db.properties.push(...items);
+  prefs.seeded = true;
+  persistPrefs();
+  persist();
+}
 function loadDemo() {
   if (!confirm(t('c_demo'))) return;
-  const now = Date.now();
-  const demo = [
-    { title:"Bebek'te Boğaz Manzaralı Yalı Dairesi", dealType:'satilik', category:'Daire', price:85000000, city:'İstanbul', district:'Beşiktaş', neighborhood:'Bebek Mah.', area:240, rooms:'4+1', age:'8', floor:'2 / 4', ownerName:'Selim Aksoy', ownerPhone:'0532 210 40 40', desc:'Boğaz hattında, birinci sırada, panoramik deniz manzaralı, özel iskele kullanımlı seçkin daire. Tavan yüksekliği 3,4 m; orijinal parke ve karo desenler korunmuştur.' },
-    { title:"Yalıkavak'ta Sonsuzluk Havuzlu Villa", dealType:'satilik', category:'Villa', price:120000000, city:'Muğla', district:'Bodrum', neighborhood:'Yalıkavak Mah.', area:380, rooms:'5+1 ve üzeri', age:'2', floor:'', ownerName:'Nur Kılıç', ownerPhone:'0533 355 12 12', desc:'Marina manzaralı, sonsuzluk havuzlu, akıllı ev sistemli modern villa. 1.100 m² peyzajlı bahçe, kapalı otopark, personel dairesi.' },
-    { title:"Alaçatı'da Restore Taş Ev", dealType:'satilik', category:'Müstakil Ev', price:42000000, city:'İzmir', district:'Çeşme', neighborhood:'Alaçatı Mah.', area:145, rooms:'3+1', age:'90', floor:'', ownerName:'Halil Öztürk', ownerPhone:'0542 660 78 78', desc:'Alaçatı çarşıya yürüme mesafesinde, aslına uygun restore edilmiş taş ev. İç avlu, şömine, geleneksel sakız mimarisi detayları.' },
-    { title:"Nişantaşı'nda Rezidans Katı", dealType:'kiralik', category:'Daire', price:180000, city:'İstanbul', district:'Şişli', neighborhood:'Teşvikiye Mah.', area:110, rooms:'2+1', age:'5', floor:'9 / 14', ownerName:'Merve Şen', ownerPhone:'0555 909 33 33', desc:'7/24 concierge, vale ve fitness hizmetli rezidansta, eşyalı, şehir manzaralı kat.' },
-    { title:"Kalkan'da Deniz Manzaralı Kiralık Villa", dealType:'kiralik', category:'Villa', price:350000, city:'Antalya', district:'Kaş', neighborhood:'Kalkan Mah.', area:260, rooms:'4+1', age:'3', floor:'', ownerName:'Okan Derin', ownerPhone:'0536 484 25 25', desc:'Korunaklı ısıtmalı havuz, gün batımı terası, tam donanımlı mutfak. Uzun dönem kiralamaya uygundur.' },
-    { title:"Levent'te A+ Plaza Ofis Katı", dealType:'kiralik', category:'Ofis', price:600000, city:'İstanbul', district:'Beşiktaş', neighborhood:'Levent Mah.', area:450, rooms:'', age:'12', floor:'17 / 30', ownerName:'Plaza Yönetimi', ownerPhone:'0212 350 60 60', desc:'Metro bağlantılı A+ plazada, bölünebilir açık plan ofis katı. Yükseltilmiş döşeme, jeneratör, 8 araçlık otopark tahsisi.' }
-  ].map((d, i) => ({ ...d, id: uid() + i, createdAt: now - i * 3600e3, status: 'aktif', photos: [] }));
-  db.properties.push(...demo);
-  persist();
+  seedDemo();
   toast(t('t_demo'));
   renderAll();
+}
+/* Daha önce fotoğrafsız yüklenmiş örnek ilanlara görsellerini sonradan işler */
+function retrofitDemoArt() {
+  const map = {};
+  DEMO_DEFS.forEach(d => { map[d.title] = d.scene; });
+  let changed = false;
+  db.properties.forEach(p => {
+    if ((!p.photos || !p.photos.length) && map[p.title]) {
+      p.photos = makeArt(map[p.title]);
+      changed = true;
+    }
+  });
+  if (changed) persist();
 }
 
 /* =================== Yedekleme =================== */
@@ -2080,6 +2302,8 @@ function renderAll() {
   calcCommission();
 }
 load();
+retrofitDemoArt();
+if (!db.properties.length && !prefs.seeded) seedDemo();
 document.getElementById('curSelect').value = prefs.currency;
 applyBrand();
 renderAll();
