@@ -3,210 +3,213 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EmlakPro — Emlak Yönetim Sistemi</title>
+<title>EmlakPro International — Gayrimenkul</title>
 <style>
+  /* ================= Tokenlar ================= */
   :root {
-    --bg: #f4f6f9;
-    --card: #ffffff;
-    --ink: #1e2a3a;
-    --muted: #6b7a90;
-    --line: #e3e8ef;
-    --brand: #1f6f54;
-    --brand-dark: #17553f;
-    --brand-soft: #e6f2ed;
-    --accent: #c98f2d;
-    --danger: #c0392b;
-    --danger-soft: #fdecea;
-    --ok: #2e7d32;
-    --ok-soft: #e8f5e9;
-    --blue: #1f5f8b;
-    --blue-soft: #e7f0f7;
+    --bg: #f3f2ee;
+    --card: #fcfbf8;
+    --ink: #17222d;
+    --muted: #5f6c7b;
+    --line: #e3e1d8;
+    --accent: #a57c3b;
+    --accent-strong: #8a6428;
+    --accent-soft: rgba(165,124,59,.12);
     --input-bg: #ffffff;
-    --hover: #fafbfc;
-    --chip-closed-bg: #ebebeb;
-    --chip-closed-ink: #666666;
-    --cat-bg: #f3ecdd;
-    --radius: 12px;
-    --shadow: 0 1px 3px rgba(30,42,58,.08), 0 4px 16px rgba(30,42,58,.06);
+    --hover: #f6f4ee;
+    --ok: #2e6b46;
+    --ok-soft: rgba(46,107,70,.12);
+    --danger: #a83a2e;
+    --danger-soft: rgba(168,58,46,.1);
+    --chip-closed-bg: #e7e5dd;
+    --chip-closed-ink: #75726a;
+    --sheet: #fcfbf8;
+    --shadow: 0 2px 6px rgba(23,34,45,.06), 0 12px 32px rgba(23,34,45,.08);
+    --shadow-lift: 0 6px 16px rgba(23,34,45,.1), 0 20px 48px rgba(23,34,45,.14);
+    --hero-ink: #f0ead9;
+    --hero-muted: #b8ad93;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #101720;
-      --card: #18212d;
-      --ink: #e6ebf2;
-      --muted: #8b99ac;
-      --line: #27313f;
-      --brand: #3fa07c;
-      --brand-dark: #1d5b44;
-      --brand-soft: rgba(63,160,124,.16);
-      --accent: #d9a84e;
-      --danger: #e07a6d;
-      --danger-soft: rgba(224,122,109,.16);
-      --ok: #72c17a;
-      --ok-soft: rgba(114,193,122,.16);
-      --blue: #74add9;
-      --blue-soft: rgba(116,173,217,.16);
-      --input-bg: #101720;
-      --hover: #1e2937;
-      --chip-closed-bg: #2a3442;
-      --chip-closed-ink: #96a3b5;
-      --cat-bg: rgba(217,168,78,.16);
-      --shadow: 0 1px 3px rgba(0,0,0,.35), 0 4px 16px rgba(0,0,0,.25);
+      --bg: #0c141d;
+      --card: #141f2b;
+      --ink: #e9e5da;
+      --muted: #92a0ae;
+      --line: #243140;
+      --accent: #c9a35c;
+      --accent-strong: #dcb877;
+      --accent-soft: rgba(201,163,92,.14);
+      --input-bg: #0e1822;
+      --hover: #1a2735;
+      --ok: #6fb98a;
+      --ok-soft: rgba(111,185,138,.14);
+      --danger: #d97e6f;
+      --danger-soft: rgba(217,126,111,.14);
+      --chip-closed-bg: #26313e;
+      --chip-closed-ink: #8b98a6;
+      --sheet: #121c27;
+      --shadow: 0 2px 6px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.3);
+      --shadow-lift: 0 6px 16px rgba(0,0,0,.4), 0 20px 48px rgba(0,0,0,.4);
     }
   }
   :root[data-theme="light"] {
-    --bg: #f4f6f9;
-    --card: #ffffff;
-    --ink: #1e2a3a;
-    --muted: #6b7a90;
-    --line: #e3e8ef;
-    --brand: #1f6f54;
-    --brand-dark: #17553f;
-    --brand-soft: #e6f2ed;
-    --accent: #c98f2d;
-    --danger: #c0392b;
-    --danger-soft: #fdecea;
-    --ok: #2e7d32;
-    --ok-soft: #e8f5e9;
-    --blue: #1f5f8b;
-    --blue-soft: #e7f0f7;
-    --input-bg: #ffffff;
-    --hover: #fafbfc;
-    --chip-closed-bg: #ebebeb;
-    --chip-closed-ink: #666666;
-    --cat-bg: #f3ecdd;
-    --shadow: 0 1px 3px rgba(30,42,58,.08), 0 4px 16px rgba(30,42,58,.06);
+    --bg: #f3f2ee; --card: #fcfbf8; --ink: #17222d; --muted: #5f6c7b; --line: #e3e1d8;
+    --accent: #a57c3b; --accent-strong: #8a6428; --accent-soft: rgba(165,124,59,.12);
+    --input-bg: #ffffff; --hover: #f6f4ee;
+    --ok: #2e6b46; --ok-soft: rgba(46,107,70,.12);
+    --danger: #a83a2e; --danger-soft: rgba(168,58,46,.1);
+    --chip-closed-bg: #e7e5dd; --chip-closed-ink: #75726a; --sheet: #fcfbf8;
+    --shadow: 0 2px 6px rgba(23,34,45,.06), 0 12px 32px rgba(23,34,45,.08);
+    --shadow-lift: 0 6px 16px rgba(23,34,45,.1), 0 20px 48px rgba(23,34,45,.14);
   }
   :root[data-theme="dark"] {
-    --bg: #101720;
-    --card: #18212d;
-    --ink: #e6ebf2;
-    --muted: #8b99ac;
-    --line: #27313f;
-    --brand: #3fa07c;
-    --brand-dark: #1d5b44;
-    --brand-soft: rgba(63,160,124,.16);
-    --accent: #d9a84e;
-    --danger: #e07a6d;
-    --danger-soft: rgba(224,122,109,.16);
-    --ok: #72c17a;
-    --ok-soft: rgba(114,193,122,.16);
-    --blue: #74add9;
-    --blue-soft: rgba(116,173,217,.16);
-    --input-bg: #101720;
-    --hover: #1e2937;
-    --chip-closed-bg: #2a3442;
-    --chip-closed-ink: #96a3b5;
-    --cat-bg: rgba(217,168,78,.16);
-    --shadow: 0 1px 3px rgba(0,0,0,.35), 0 4px 16px rgba(0,0,0,.25);
+    --bg: #0c141d; --card: #141f2b; --ink: #e9e5da; --muted: #92a0ae; --line: #243140;
+    --accent: #c9a35c; --accent-strong: #dcb877; --accent-soft: rgba(201,163,92,.14);
+    --input-bg: #0e1822; --hover: #1a2735;
+    --ok: #6fb98a; --ok-soft: rgba(111,185,138,.14);
+    --danger: #d97e6f; --danger-soft: rgba(217,126,111,.14);
+    --chip-closed-bg: #26313e; --chip-closed-ink: #8b98a6; --sheet: #121c27;
+    --shadow: 0 2px 6px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.3);
+    --shadow-lift: 0 6px 16px rgba(0,0,0,.4), 0 20px 48px rgba(0,0,0,.4);
   }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  a { color: var(--blue); }
+  html { scroll-behavior: smooth; }
   body {
-    font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", sans-serif;
     background: var(--bg);
     color: var(--ink);
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .serif { font-family: "Didot", "Bodoni MT", "Playfair Display", Georgia, "Times New Roman", serif; }
+  a { color: var(--accent-strong); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button { font-family: inherit; }
+  img { max-width: 100%; display: block; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .eyebrow {
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
   }
 
-  /* ---------- Üst bar ---------- */
-  header {
-    background: linear-gradient(135deg, var(--brand-dark), var(--brand));
-    color: #fff;
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-    box-shadow: var(--shadow);
-  }
-  header h1 { font-size: 1.35rem; display: flex; align-items: center; gap: 10px; }
-  header h1 .logo { font-size: 1.6rem; }
-  .header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
-  /* ---------- Sekmeler ---------- */
-  nav {
-    background: var(--card);
-    border-bottom: 1px solid var(--line);
-    display: flex;
-    gap: 4px;
-    padding: 0 16px;
-    overflow-x: auto;
+  /* ================= Üst bar ================= */
+  .topbar {
     position: sticky;
     top: 0;
-    z-index: 20;
+    z-index: 40;
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
   }
-  nav button {
-    background: none;
-    border: none;
-    border-bottom: 3px solid transparent;
-    padding: 14px 18px;
-    font-size: .95rem;
-    font-weight: 600;
-    color: var(--muted);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: color .15s, border-color .15s;
+  .topbar-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
   }
-  nav button:hover { color: var(--brand); }
-  nav button.active { color: var(--brand); border-bottom-color: var(--brand); }
-  nav button .count {
-    background: var(--brand-soft);
-    color: var(--brand);
-    border-radius: 999px;
-    font-size: .75rem;
-    padding: 2px 8px;
-    margin-left: 6px;
+  .brand { display: flex; flex-direction: column; cursor: pointer; user-select: none; }
+  .brand .name { font-family: "Didot", "Bodoni MT", "Playfair Display", Georgia, serif; font-size: 1.3rem; letter-spacing: .02em; line-height: 1.1; }
+  .brand .tag { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent-strong); }
+  .topnav { display: flex; gap: 4px; margin-left: 12px; }
+  .topnav button {
+    background: none; border: none; cursor: pointer;
+    color: var(--muted); font-size: .85rem; font-weight: 600;
+    letter-spacing: .04em; padding: 8px 14px; border-radius: 4px;
+    transition: color .15s, background .15s;
   }
+  .topnav button:hover { color: var(--ink); background: var(--hover); }
+  .topnav button.active { color: var(--accent-strong); }
+  .top-tools { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+  .lang-switch { display: flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+  .lang-switch button {
+    background: none; border: none; cursor: pointer; padding: 6px 10px;
+    font-size: .75rem; font-weight: 700; letter-spacing: .08em; color: var(--muted);
+  }
+  .lang-switch button.active { background: var(--accent); color: #10131a; }
+  .cur-select {
+    background: var(--input-bg); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 4px;
+    padding: 6px 8px; font-size: .78rem; font-weight: 600; cursor: pointer;
+  }
+  @media (max-width: 860px) { .topnav { display: none; } .topbar-inner { padding: 12px 16px; } }
 
-  main { max-width: 1200px; margin: 0 auto; padding: 24px 16px 60px; }
-  .tab { display: none; }
-  .tab.active { display: block; animation: fadeIn .2s ease; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  /* ================= Görünümler ================= */
+  .view { display: none; }
+  .view.active { display: block; animation: viewIn .35s ease; }
+  @keyframes viewIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .view.active, .sheet-panel, .listing-card, .fade-up { animation: none !important; transition: none !important; }
+  }
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 640px) { .container { padding: 0 16px; } }
 
-  /* ---------- Kartlar / genel ---------- */
-  .card {
+  /* ================= Hero ================= */
+  .hero {
+    position: relative;
+    background:
+      radial-gradient(120% 90% at 78% 0%, rgba(201,163,92,.16), transparent 55%),
+      radial-gradient(90% 70% at 12% 100%, rgba(38,74,96,.5), transparent 60%),
+      linear-gradient(168deg, #0a1119 0%, #0e1a26 46%, #14202c 100%);
+    color: var(--hero-ink);
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg, rgba(240,234,217,.025) 0 1px, transparent 1px 96px);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 1240px; margin: 0 auto;
+    padding: 88px 24px 96px;
+  }
+  .hero .eyebrow { color: #c9a35c; }
+  .hero h1 {
+    font-family: "Didot", "Bodoni MT", "Playfair Display", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(2.3rem, 5.4vw, 4.2rem);
+    line-height: 1.08;
+    letter-spacing: .005em;
+    margin: 18px 0 14px;
+    max-width: 15ch;
+    text-wrap: balance;
+  }
+  .hero .rule { width: 64px; height: 1px; background: #c9a35c; margin: 22px 0; }
+  .hero p.lead { color: var(--hero-muted); font-size: 1.02rem; max-width: 52ch; line-height: 1.7; }
+  @media (max-width: 640px) { .hero-inner { padding: 56px 16px 72px; } }
+
+  .search-card {
+    position: relative; z-index: 2;
     background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-  h2 { font-size: 1.15rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-  h3 { font-size: 1rem; margin-bottom: 12px; }
-
-  .stat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 14px;
-    margin-bottom: 20px;
-  }
-  .stat {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 16px;
-  }
-  .stat .label { color: var(--muted); font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; }
-  .stat .value { font-size: 1.5rem; font-weight: 700; margin-top: 6px; }
-  .stat .sub { color: var(--muted); font-size: .8rem; margin-top: 4px; }
-
-  /* ---------- Form ---------- */
-  .form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-    gap: 14px;
-  }
-  .form-grid .full { grid-column: 1 / -1; }
-  label { display: block; font-size: .82rem; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
-  input, select, textarea {
-    width: 100%;
-    padding: 9px 12px;
     border: 1px solid var(--line);
     border-radius: 8px;
+    box-shadow: var(--shadow-lift);
+    padding: 18px;
+    margin: -52px auto 0;
+    max-width: 1080px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.4fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+  }
+  .search-card .field label { display: block; font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  @media (max-width: 900px) { .search-card { grid-template-columns: 1fr 1fr; margin: -40px 16px 0; } .search-card .btn-gold { grid-column: 1 / -1; } }
+
+  /* ================= Form elemanları ================= */
+  input, select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
     font-size: .92rem;
     font-family: inherit;
     background: var(--input-bg);
@@ -214,487 +217,1222 @@
   }
   input:focus, select:focus, textarea:focus {
     outline: none;
-    border-color: var(--brand);
-    box-shadow: 0 0 0 3px rgba(31,111,84,.12);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
   }
-  textarea { resize: vertical; min-height: 70px; }
+  textarea { resize: vertical; min-height: 80px; }
+  label { font-size: .8rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 5px; }
 
-  /* ---------- Butonlar ---------- */
+  /* ================= Butonlar ================= */
   .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 9px 16px;
-    border: none;
-    border-radius: 8px;
-    font-size: .9rem;
-    font-weight: 600;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 11px 22px;
+    border: none; border-radius: 4px;
+    font-size: .82rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
     cursor: pointer;
-    transition: filter .15s, transform .05s;
+    transition: filter .15s, transform .06s, background .15s;
   }
-  .btn:active { transform: scale(.98); }
-  .btn:hover { filter: brightness(1.08); }
-  .btn-primary { background: var(--brand); color: #fff; }
-  .btn-secondary { background: var(--blue-soft); color: var(--blue); }
+  .btn:active { transform: scale(.985); }
+  .btn-gold { background: linear-gradient(160deg, #d3ad64, #a57c3b); color: #14100a; }
+  .btn-gold:hover { filter: brightness(1.07); }
+  .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent-strong); }
+  .btn-quiet { background: var(--accent-soft); color: var(--accent-strong); }
   .btn-danger { background: var(--danger-soft); color: var(--danger); }
-  .btn-ghost { background: rgba(255,255,255,.15); color: #fff; border: 1px solid rgba(255,255,255,.35); }
-  .btn-sm { padding: 5px 10px; font-size: .8rem; border-radius: 6px; }
+  .btn-sm { padding: 7px 12px; font-size: .72rem; }
 
-  /* ---------- Tablo / liste ---------- */
-  .toolbar {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-    align-items: center;
+  /* ================= Bölüm başlıkları ================= */
+  .section { padding: 64px 0 24px; }
+  .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
+  .section-head h2 {
+    font-family: "Didot", "Bodoni MT", "Playfair Display", Georgia, serif;
+    font-weight: 500; font-size: clamp(1.5rem, 3vw, 2.1rem); letter-spacing: .005em;
+    margin-top: 8px; text-wrap: balance;
   }
+  .section-head .more { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+
+  /* ================= Sayı şeridi ================= */
+  .stats-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    margin-top: 56px;
+  }
+  .stats-strip .cell { padding: 22px 12px; text-align: center; }
+  .stats-strip .cell + .cell { border-left: 1px solid var(--line); }
+  .stats-strip .num { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.9rem; font-variant-numeric: tabular-nums; }
+  .stats-strip .lbl { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+  /* ================= İlan kartları (vitrin) ================= */
+  .listing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 26px;
+  }
+  .listing-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform .22s ease, box-shadow .22s ease;
+    display: flex; flex-direction: column;
+  }
+  .listing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+  .card-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+  .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+  .listing-card:hover .card-media img { transform: scale(1.04); }
+  .ph {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    color: rgba(240,234,217,.85);
+    position: relative;
+  }
+  .ph::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 2px, transparent 2px 14px); }
+  .ph .mono { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 3rem; opacity: .5; line-height: 1; }
+  .ph .cat { font-size: .62rem; letter-spacing: .28em; text-transform: uppercase; opacity: .8; }
+  .ph .bar { width: 32px; height: 1px; background: #c9a35c; opacity: .8; }
+  .card-badge {
+    position: absolute; top: 12px; left: 12px;
+    font-size: .62rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+    padding: 6px 10px; border-radius: 3px;
+    background: rgba(10,17,25,.78); color: #e8dcbb;
+    backdrop-filter: blur(4px);
+  }
+  .card-badge.closed { background: rgba(10,17,25,.85); color: #97a2ad; text-decoration: line-through; }
+  .photo-count {
+    position: absolute; bottom: 10px; right: 12px;
+    font-size: .68rem; padding: 3px 8px; border-radius: 3px;
+    background: rgba(10,17,25,.7); color: #e9e5da;
+  }
+  .card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+  .card-price { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.35rem; color: var(--accent-strong); font-variant-numeric: tabular-nums; }
+  .card-price .per { font-family: "Avenir Next", "Segoe UI", sans-serif; font-size: .72rem; color: var(--muted); letter-spacing: .04em; }
+  .card-title { font-weight: 600; font-size: .98rem; line-height: 1.35; }
+  .card-loc { color: var(--muted); font-size: .82rem; letter-spacing: .02em; }
+  .card-meta { display: flex; gap: 14px; color: var(--muted); font-size: .78rem; border-top: 1px solid var(--line); padding-top: 10px; margin-top: auto; font-variant-numeric: tabular-nums; }
+
+  .empty {
+    text-align: center; color: var(--muted); padding: 56px 16px; font-size: .95rem;
+    border: 1px dashed var(--line); border-radius: 8px;
+  }
+  .empty .serif { font-size: 1.4rem; margin-bottom: 8px; color: var(--ink); }
+
+  /* ================= Detay sayfası (sheet) ================= */
+  .sheet {
+    position: fixed; inset: 0; z-index: 60;
+    display: none;
+    background: rgba(8,12,18,.6);
+    backdrop-filter: blur(6px);
+  }
+  .sheet.open { display: flex; align-items: flex-end; justify-content: center; }
+  .sheet-panel {
+    background: var(--sheet);
+    width: 100%; max-width: 980px;
+    max-height: 92vh; overflow-y: auto;
+    border-radius: 16px 16px 0 0;
+    animation: sheetUp .32s cubic-bezier(.32,.9,.35,1);
+  }
+  @keyframes sheetUp { from { transform: translateY(60px); opacity: .4; } to { transform: none; opacity: 1; } }
+  @media (min-width: 900px) {
+    .sheet.open { align-items: center; padding: 32px; }
+    .sheet-panel { border-radius: 12px; }
+  }
+  .sheet-close {
+    position: sticky; top: 14px; margin-left: auto; margin-right: 14px; z-index: 5;
+    width: 36px; height: 36px; border-radius: 50%;
+    border: none; cursor: pointer;
+    background: rgba(10,17,25,.7); color: #e9e5da; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    float: right;
+  }
+  .gallery { position: relative; aspect-ratio: 16 / 9; background: #0e1621; }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; }
+  .gal-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer;
+    background: rgba(10,17,25,.65); color: #e8dcbb; font-size: 1.1rem;
+  }
+  .gal-prev { left: 12px; } .gal-next { right: 12px; }
+  .gal-count { position: absolute; bottom: 12px; right: 14px; font-size: .72rem; background: rgba(10,17,25,.7); color: #e9e5da; padding: 4px 10px; border-radius: 3px; }
+  .sheet-body { padding: 26px 28px 34px; }
+  .sheet-body .d-price { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 2rem; color: var(--accent-strong); font-variant-numeric: tabular-nums; }
+  .sheet-body .d-title { font-size: 1.25rem; font-weight: 600; margin: 6px 0 2px; text-wrap: balance; }
+  .sheet-body .d-loc { color: var(--muted); font-size: .9rem; }
+  .spec-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1px; background: var(--line);
+    border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+    margin: 20px 0;
+  }
+  .spec { background: var(--card); padding: 12px 14px; }
+  .spec .k { font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .spec .v { font-weight: 600; margin-top: 3px; font-variant-numeric: tabular-nums; }
+  .d-desc { line-height: 1.75; color: var(--ink); max-width: 68ch; white-space: pre-wrap; font-size: .95rem; }
+  .d-contact { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); align-items: center; }
+  .d-contact .who { margin-right: auto; }
+  .d-contact .who .n { font-weight: 700; }
+  .d-contact .who .r { font-size: .74rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+  @media (max-width: 640px) { .sheet-body { padding: 20px 16px 90px; } }
+
+  /* ================= Yönetim ================= */
+  .admin-head { padding: 44px 0 0; }
+  .admin-head h2 { font-family: "Didot", "Bodoni MT", Georgia, serif; font-weight: 500; font-size: 1.8rem; margin-top: 8px; }
+  .subnav { display: flex; gap: 2px; border-bottom: 1px solid var(--line); margin: 22px 0 28px; overflow-x: auto; }
+  .subnav button {
+    background: none; border: none; border-bottom: 2px solid transparent;
+    padding: 12px 16px; cursor: pointer; white-space: nowrap;
+    color: var(--muted); font-size: .85rem; font-weight: 600; letter-spacing: .03em;
+  }
+  .subnav button.active { color: var(--accent-strong); border-bottom-color: var(--accent); }
+  .admin-tab { display: none; padding-bottom: 40px; }
+  .admin-tab.active { display: block; }
+
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); padding: 24px; margin-bottom: 24px; }
+  .panel h3 { font-size: 1rem; font-weight: 700; margin-bottom: 18px; letter-spacing: .01em; }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 14px; }
+  .form-grid .full { grid-column: 1 / -1; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); padding: 18px; }
+  .stat .label { color: var(--muted); font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; }
+  .stat .value { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.7rem; margin-top: 8px; font-variant-numeric: tabular-nums; }
+  .stat .sub { color: var(--muted); font-size: .78rem; margin-top: 4px; }
+
+  .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; align-items: center; }
   .toolbar input, .toolbar select { width: auto; min-width: 150px; }
   .toolbar .grow { flex: 1; min-width: 180px; }
 
-  .listing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-    gap: 16px;
-  }
-  .listing {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    position: relative;
-  }
-  .listing.status-sold, .listing.status-rented { opacity: .65; }
-  .listing .title { font-weight: 700; font-size: 1rem; padding-right: 70px; }
-  .listing .price { color: var(--brand); font-weight: 700; font-size: 1.15rem; }
-  .listing .meta { color: var(--muted); font-size: .85rem; display: flex; flex-wrap: wrap; gap: 6px 12px; }
-  .listing .owner { font-size: .85rem; color: var(--ink); background: var(--bg); border-radius: 8px; padding: 8px 10px; }
-  .listing .desc { font-size: .85rem; color: var(--muted); white-space: pre-wrap; }
-  .listing .actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; padding-top: 8px; }
-
-  .badge {
-    display: inline-block;
-    font-size: .72rem;
-    font-weight: 700;
-    padding: 3px 9px;
-    border-radius: 999px;
-    text-transform: uppercase;
-    letter-spacing: .02em;
-  }
-  .badge.sale { background: var(--ok-soft); color: var(--ok); }
-  .badge.rent { background: var(--blue-soft); color: var(--blue); }
-  .badge.sold, .badge.rented { background: var(--chip-closed-bg); color: var(--chip-closed-ink); }
-  .badge.cat { background: var(--cat-bg); color: var(--accent); }
-  .badge-corner { position: absolute; top: 14px; right: 14px; }
-
-  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+  th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-size: .66rem; text-transform: uppercase; letter-spacing: .12em; }
   tr:hover td { background: var(--hover); }
   .table-wrap { overflow-x: auto; }
 
-  .empty {
-    text-align: center;
-    color: var(--muted);
-    padding: 40px 16px;
-    font-size: .95rem;
-  }
-  .empty .big { font-size: 2.2rem; margin-bottom: 8px; }
+  .chip { display: inline-block; font-size: .64rem; font-weight: 700; padding: 4px 9px; border-radius: 3px; text-transform: uppercase; letter-spacing: .1em; }
+  .chip.sale { background: var(--ok-soft); color: var(--ok); }
+  .chip.rent { background: var(--accent-soft); color: var(--accent-strong); }
+  .chip.closed { background: var(--chip-closed-bg); color: var(--chip-closed-ink); }
 
-  /* ---------- Eşleştirme ---------- */
-  .match-block { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; background: var(--card); }
-  .match-block .cust { font-weight: 700; margin-bottom: 4px; }
-  .match-block .crit { color: var(--muted); font-size: .85rem; margin-bottom: 10px; }
-  .match-item {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    flex-wrap: wrap;
-    padding: 8px 12px;
-    border-radius: 8px;
-    background: var(--ok-soft);
-    margin-bottom: 6px;
-    font-size: .88rem;
+  /* Yönetim ilan satır kartı */
+  .admin-listing { display: flex; gap: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); margin-bottom: 12px; align-items: center; flex-wrap: wrap; }
+  .admin-listing.passive { opacity: .6; }
+  .admin-thumb { width: 92px; height: 68px; border-radius: 5px; overflow: hidden; flex-shrink: 0; }
+  .admin-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .admin-thumb .ph .mono { font-size: 1.3rem; }
+  .admin-thumb .ph .cat, .admin-thumb .ph .bar { display: none; }
+  .al-main { flex: 1; min-width: 200px; }
+  .al-title { font-weight: 600; font-size: .93rem; }
+  .al-sub { color: var(--muted); font-size: .8rem; margin-top: 2px; }
+  .al-owner { font-size: .78rem; color: var(--muted); margin-top: 4px; }
+  .al-price { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.1rem; color: var(--accent-strong); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .al-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  /* Fotoğraf yükleme */
+  .photo-drop { border: 1px dashed var(--line); border-radius: 6px; padding: 14px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .thumb { position: relative; width: 84px; height: 64px; border-radius: 4px; overflow: hidden; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .thumb button {
+    position: absolute; top: 3px; right: 3px; width: 20px; height: 20px;
+    border: none; border-radius: 50%; cursor: pointer;
+    background: rgba(10,17,25,.75); color: #fff; font-size: .7rem; line-height: 1;
   }
-  .match-item .mprice { font-weight: 700; color: var(--brand); }
+
+  /* Eşleştirme */
+  .match-block { border: 1px solid var(--line); border-radius: 8px; padding: 18px; margin-bottom: 14px; background: var(--card); }
+  .match-block .cust { font-weight: 700; }
+  .match-block .crit { color: var(--muted); font-size: .82rem; margin: 4px 0 12px; }
+  .match-item { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 12px; border-radius: 5px; background: var(--accent-soft); margin-bottom: 6px; font-size: .88rem; cursor: pointer; }
+  .match-item:hover { filter: brightness(1.04); }
+  .match-item .mprice { font-weight: 700; color: var(--accent-strong); font-variant-numeric: tabular-nums; }
   .no-match { color: var(--muted); font-size: .85rem; font-style: italic; }
 
-  /* ---------- Bildirim ---------- */
+  /* Komisyon */
+  .commission-result { background: var(--accent-soft); border-radius: 8px; padding: 18px; margin-top: 16px; display: none; }
+  .commission-result.show { display: block; }
+  .commission-result .row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: .92rem; font-variant-numeric: tabular-nums; }
+  .commission-result .row:last-of-type { border-bottom: none; font-weight: 700; font-size: 1.05rem; }
+
+  /* ================= Alt gezinme (mobil) ================= */
+  .tabbar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+    display: none;
+    background: color-mix(in srgb, var(--card) 92%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--line);
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+  }
+  .tabbar button {
+    flex: 1; background: none; border: none; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 6px 4px; color: var(--muted); font-size: .62rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  }
+  .tabbar button svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 1.7; }
+  .tabbar button.active { color: var(--accent-strong); }
+  @media (max-width: 860px) {
+    .tabbar { display: flex; }
+    body { padding-bottom: 68px; }
+  }
+
+  /* ================= Footer ================= */
+  footer { border-top: 1px solid var(--line); margin-top: 72px; padding: 40px 0 48px; color: var(--muted); font-size: .85rem; }
+  footer .f-inner { max-width: 1240px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+  footer .f-brand { font-family: "Didot", "Bodoni MT", Georgia, serif; font-size: 1.1rem; color: var(--ink); }
+
+  /* ================= Toast ================= */
   #toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: #1e2a3a;
-    color: #fff;
-    padding: 12px 22px;
-    border-radius: 10px;
-    font-size: .9rem;
-    opacity: 0;
-    pointer-events: none;
+    position: fixed; bottom: 84px; left: 50%;
+    transform: translateX(-50%) translateY(16px);
+    background: #101923; color: #e9e5da; border: 1px solid rgba(201,163,92,.4);
+    padding: 12px 22px; border-radius: 6px; font-size: .88rem;
+    opacity: 0; pointer-events: none;
     transition: opacity .25s, transform .25s;
-    z-index: 100;
-    box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    z-index: 100; box-shadow: 0 10px 30px rgba(0,0,0,.4);
+    max-width: 90vw; text-align: center;
   }
   #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-  /* ---------- Komisyon ---------- */
-  .commission-result {
-    background: var(--brand-soft);
-    border-radius: var(--radius);
-    padding: 16px;
-    margin-top: 14px;
-    display: none;
-  }
-  .commission-result.show { display: block; }
-  .commission-result .row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed rgba(31,111,84,.25); font-size: .92rem; }
-  .commission-result .row:last-child { border-bottom: none; font-weight: 700; font-size: 1.05rem; }
-
-  @media (max-width: 640px) {
-    header h1 { font-size: 1.1rem; }
-    main { padding: 16px 10px 60px; }
-  }
 </style>
 </head>
 <body>
 
-<header>
-  <h1><span class="logo">🏠</span> EmlakPro <span style="font-weight:400;font-size:.85rem;opacity:.85">— Emlak Yönetim Sistemi</span></h1>
-  <div class="header-actions">
-    <button class="btn btn-ghost btn-sm" onclick="exportData()">⬇ Yedek Al</button>
-    <button class="btn btn-ghost btn-sm" onclick="document.getElementById('importFile').click()">⬆ Yedek Yükle</button>
-    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(this)">
+<!-- ================= Üst Bar ================= -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand" onclick="showView('home')">
+      <span class="name" id="brandName">EmlakPro</span>
+      <span class="tag">International</span>
+    </div>
+    <nav class="topnav" id="topnav">
+      <button data-view="home" onclick="showView('home')" data-i18n="nav_home">Ana Sayfa</button>
+      <button data-view="listings" onclick="showView('listings')" data-i18n="nav_listings">İlanlar</button>
+      <button data-view="admin" onclick="showView('admin')" data-i18n="nav_admin">Yönetim</button>
+    </nav>
+    <div class="top-tools">
+      <div class="lang-switch" role="group" aria-label="Dil / Language">
+        <button id="langTR" onclick="setLang('tr')">TR</button>
+        <button id="langEN" onclick="setLang('en')">EN</button>
+      </div>
+      <select class="cur-select" id="curSelect" onchange="setCurrency(this.value)" aria-label="Para birimi">
+        <option value="TRY">₺ TRY</option>
+        <option value="USD">$ USD</option>
+        <option value="EUR">€ EUR</option>
+      </select>
+    </div>
   </div>
 </header>
 
-<nav>
-  <button class="active" data-tab="dashboard" onclick="showTab('dashboard')">📊 Özet</button>
-  <button data-tab="portfolio" onclick="showTab('portfolio')">🏘 Portföy <span class="count" id="countPortfolio">0</span></button>
-  <button data-tab="customers" onclick="showTab('customers')">👥 Müşteriler <span class="count" id="countCustomers">0</span></button>
-  <button data-tab="matching" onclick="showTab('matching')">🤝 Eşleştirme</button>
-  <button data-tab="commission" onclick="showTab('commission')">🧮 Komisyon</button>
-</nav>
-
 <main>
 
-  <!-- ======== ÖZET ======== -->
-  <section id="tab-dashboard" class="tab active">
-    <div class="stat-grid" id="statGrid"></div>
-    <div class="card">
-      <h2>🕒 Son Eklenen Portföyler</h2>
-      <div id="recentListings"></div>
-    </div>
-    <div class="card">
-      <h2>📞 Aranacak Müşteriler (Son Eklenenler)</h2>
-      <div id="recentCustomers"></div>
-    </div>
-  </section>
-
-  <!-- ======== PORTFÖY ======== -->
-  <section id="tab-portfolio" class="tab">
-    <div class="card">
-      <h2 id="propFormTitle">➕ Yeni Portföy Ekle</h2>
-      <form id="propForm" onsubmit="saveProperty(event)">
-        <input type="hidden" id="propId">
-        <div class="form-grid">
-          <div class="full">
-            <label>İlan Başlığı *</label>
-            <input id="propTitle" required placeholder="Örn: Merkez'de 3+1 Geniş Daire">
-          </div>
-          <div>
-            <label>İşlem Tipi *</label>
-            <select id="propDealType" required>
-              <option value="satilik">Satılık</option>
-              <option value="kiralik">Kiralık</option>
-            </select>
-          </div>
-          <div>
-            <label>Kategori *</label>
-            <select id="propCategory" required>
-              <option>Daire</option>
-              <option>Villa</option>
-              <option>Müstakil Ev</option>
-              <option>Arsa</option>
-              <option>İşyeri / Dükkan</option>
-              <option>Ofis</option>
-              <option>Tarla / Bahçe</option>
-            </select>
-          </div>
-          <div>
-            <label>Fiyat (₺) *</label>
-            <input id="propPrice" type="number" min="0" required placeholder="2500000">
-          </div>
-          <div>
-            <label>İl</label>
-            <input id="propCity" placeholder="İstanbul">
-          </div>
-          <div>
-            <label>İlçe</label>
-            <input id="propDistrict" placeholder="Kadıköy">
-          </div>
-          <div>
-            <label>Mahalle</label>
-            <input id="propNeighborhood" placeholder="Caferağa Mah.">
-          </div>
-          <div>
-            <label>m² (Brüt)</label>
-            <input id="propArea" type="number" min="0" placeholder="120">
-          </div>
-          <div>
-            <label>Oda Sayısı</label>
-            <select id="propRooms">
-              <option value="">—</option>
-              <option>1+0</option><option>1+1</option><option>2+1</option>
-              <option>3+1</option><option>4+1</option><option>5+1 ve üzeri</option>
-            </select>
-          </div>
-          <div>
-            <label>Bina Yaşı</label>
-            <input id="propAge" type="number" min="0" placeholder="5">
-          </div>
-          <div>
-            <label>Kat</label>
-            <input id="propFloor" placeholder="3 / 7">
-          </div>
-          <div>
-            <label>Mülk Sahibi Adı</label>
-            <input id="propOwnerName" placeholder="Ahmet Yılmaz">
-          </div>
-          <div>
-            <label>Mülk Sahibi Telefonu</label>
-            <input id="propOwnerPhone" placeholder="0532 000 00 00">
-          </div>
-          <div class="full">
-            <label>Açıklama / Notlar</label>
-            <textarea id="propDesc" placeholder="Kombili, güney cephe, otoparklı..."></textarea>
-          </div>
-        </div>
-        <div style="margin-top:16px;display:flex;gap:8px">
-          <button class="btn btn-primary" type="submit">💾 Kaydet</button>
-          <button class="btn btn-secondary" type="button" id="propCancelBtn" style="display:none" onclick="resetPropertyForm()">İptal</button>
-        </div>
-      </form>
+  <!-- ================= ANA SAYFA ================= -->
+  <section id="view-home" class="view active">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow" data-i18n="hero_eyebrow">Uluslararası Gayrimenkul</div>
+        <h1 class="serif" data-i18n="hero_title">Hayalinizdeki mülke açılan kapı</h1>
+        <div class="rule"></div>
+        <p class="lead" data-i18n="hero_sub">Özenle seçilmiş satılık ve kiralık mülklerden oluşan seçkin portföyümüzü keşfedin. Her mülk, yerinde incelenerek ve titizlikle belgelenerek sunulur.</p>
+      </div>
     </div>
 
-    <div class="card">
-      <h2>🏘 Portföy Listesi</h2>
-      <div class="toolbar">
-        <input class="grow" id="propSearch" placeholder="🔍 Ara: başlık, ilçe, mahalle, mülk sahibi..." oninput="renderProperties()">
-        <select id="propFilterDeal" onchange="renderProperties()">
-          <option value="">Tümü (Satılık/Kiralık)</option>
-          <option value="satilik">Satılık</option>
-          <option value="kiralik">Kiralık</option>
+    <form class="search-card" onsubmit="heroSearch(event)">
+      <div class="field">
+        <label for="hDeal" data-i18n="f_deal">İşlem</label>
+        <select id="hDeal">
+          <option value="" data-i18n="opt_deal_any">Satılık + Kiralık</option>
+          <option value="satilik" data-i18n="deal_sale">Satılık</option>
+          <option value="kiralik" data-i18n="deal_rent">Kiralık</option>
         </select>
-        <select id="propFilterCat" onchange="renderProperties()">
-          <option value="">Tüm Kategoriler</option>
+      </div>
+      <div class="field">
+        <label for="hCat" data-i18n="f_cat">Kategori</label>
+        <select id="hCat">
+          <option value="" data-i18n="opt_cat_any">Tüm Kategoriler</option>
           <option>Daire</option><option>Villa</option><option>Müstakil Ev</option>
           <option>Arsa</option><option>İşyeri / Dükkan</option><option>Ofis</option><option>Tarla / Bahçe</option>
         </select>
-        <select id="propFilterStatus" onchange="renderProperties()">
-          <option value="">Tüm Durumlar</option>
-          <option value="aktif">Aktif</option>
-          <option value="kapandi">Satıldı / Kiralandı</option>
-        </select>
-        <select id="propSort" onchange="renderProperties()">
-          <option value="new">Yeniden Eskiye</option>
-          <option value="priceAsc">Fiyat: Artan</option>
-          <option value="priceDesc">Fiyat: Azalan</option>
-        </select>
       </div>
-      <div class="listing-grid" id="propList"></div>
-      <div id="propEmpty" class="empty" style="display:none">
-        <div class="big">🏚</div>
-        Henüz portföy yok. Yukarıdaki formdan ilk ilanınızı ekleyin.
+      <div class="field">
+        <label for="hLoc" data-i18n="f_loc">Konum</label>
+        <input id="hLoc" data-i18n-ph="ph_loc" placeholder="İl, ilçe veya mahalle">
       </div>
-    </div>
-  </section>
+      <div class="field">
+        <label for="hBudget" data-i18n="f_budget">Maks. Bütçe (₺)</label>
+        <input id="hBudget" type="number" min="0" placeholder="—">
+      </div>
+      <button class="btn btn-gold" type="submit" data-i18n="btn_search">Mülk Ara</button>
+    </form>
 
-  <!-- ======== MÜŞTERİLER ======== -->
-  <section id="tab-customers" class="tab">
-    <div class="card">
-      <h2 id="custFormTitle">➕ Yeni Müşteri / Talep Ekle</h2>
-      <form id="custForm" onsubmit="saveCustomer(event)">
-        <input type="hidden" id="custId">
-        <div class="form-grid">
+    <div class="container">
+      <div class="section">
+        <div class="section-head">
           <div>
-            <label>Ad Soyad *</label>
-            <input id="custName" required placeholder="Ayşe Demir">
+            <div class="eyebrow" data-i18n="feat_eyebrow">Seçkin Portföy</div>
+            <h2 data-i18n="feat_title">Öne Çıkan Mülkler</h2>
           </div>
-          <div>
-            <label>Telefon *</label>
-            <input id="custPhone" required placeholder="0555 000 00 00">
-          </div>
-          <div>
-            <label>Talep Tipi *</label>
-            <select id="custDealType" required>
-              <option value="satilik">Satın Almak İstiyor</option>
-              <option value="kiralik">Kiralamak İstiyor</option>
-            </select>
-          </div>
-          <div>
-            <label>Aradığı Kategori</label>
-            <select id="custCategory">
-              <option value="">Farketmez</option>
-              <option>Daire</option><option>Villa</option><option>Müstakil Ev</option>
-              <option>Arsa</option><option>İşyeri / Dükkan</option><option>Ofis</option><option>Tarla / Bahçe</option>
-            </select>
-          </div>
-          <div>
-            <label>Bütçe Alt Limit (₺)</label>
-            <input id="custBudgetMin" type="number" min="0" placeholder="0">
-          </div>
-          <div>
-            <label>Bütçe Üst Limit (₺)</label>
-            <input id="custBudgetMax" type="number" min="0" placeholder="3000000">
-          </div>
-          <div>
-            <label>Tercih Ettiği Bölge (ilçe/mahalle)</label>
-            <input id="custArea" placeholder="Kadıköy">
-          </div>
-          <div>
-            <label>Min. Oda Sayısı</label>
-            <select id="custRooms">
-              <option value="">Farketmez</option>
-              <option>1+0</option><option>1+1</option><option>2+1</option>
-              <option>3+1</option><option>4+1</option><option>5+1 ve üzeri</option>
-            </select>
-          </div>
-          <div class="full">
-            <label>Notlar</label>
-            <textarea id="custNotes" placeholder="Krediyle alacak, acil arıyor, evcil hayvanı var..."></textarea>
+          <a class="more" href="#" onclick="showView('listings');return false" data-i18n="feat_all">Tümünü Gör →</a>
+        </div>
+        <div class="listing-grid" id="featuredGrid"></div>
+        <div id="featuredEmpty" class="empty" style="display:none">
+          <div class="serif" data-i18n="empty_title">Portföyünüz sizi bekliyor</div>
+          <p data-i18n="empty_sub">İlk mülkünüzü Yönetim panelinden ekleyin veya örnek portföyle başlayın.</p>
+          <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+            <button class="btn btn-gold" onclick="showView('admin');showAdminTab('portfoy')" data-i18n="btn_add_first">İlk Mülkü Ekle</button>
+            <button class="btn btn-outline" onclick="loadDemo()" data-i18n="btn_demo">Örnek Portföy Yükle</button>
           </div>
         </div>
-        <div style="margin-top:16px;display:flex;gap:8px">
-          <button class="btn btn-primary" type="submit">💾 Kaydet</button>
-          <button class="btn btn-secondary" type="button" id="custCancelBtn" style="display:none" onclick="resetCustomerForm()">İptal</button>
+      </div>
+
+      <div class="stats-strip" id="statsStrip"></div>
+    </div>
+  </section>
+
+  <!-- ================= İLANLAR ================= -->
+  <section id="view-listings" class="view">
+    <div class="container">
+      <div class="section" style="padding-top:44px">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow" data-i18n="list_eyebrow">Portföy</div>
+            <h2 data-i18n="list_title">Tüm Mülkler</h2>
+          </div>
         </div>
-      </form>
-    </div>
-
-    <div class="card">
-      <h2>👥 Müşteri Listesi</h2>
-      <div class="toolbar">
-        <input class="grow" id="custSearch" placeholder="🔍 Ara: isim, telefon, bölge..." oninput="renderCustomers()">
-        <select id="custFilterDeal" onchange="renderCustomers()">
-          <option value="">Tüm Talepler</option>
-          <option value="satilik">Satın Alacaklar</option>
-          <option value="kiralik">Kiralayacaklar</option>
-        </select>
-      </div>
-      <div class="table-wrap">
-        <table id="custTable">
-          <thead>
-            <tr>
-              <th>Ad Soyad</th><th>Telefon</th><th>Talep</th><th>Bütçe</th><th>Bölge</th><th>Notlar</th><th></th>
-            </tr>
-          </thead>
-          <tbody id="custList"></tbody>
-        </table>
-      </div>
-      <div id="custEmpty" class="empty" style="display:none">
-        <div class="big">🧑‍💼</div>
-        Henüz müşteri kaydı yok.
-      </div>
-    </div>
-  </section>
-
-  <!-- ======== EŞLEŞTİRME ======== -->
-  <section id="tab-matching" class="tab">
-    <div class="card">
-      <h2>🤝 Müşteri – Portföy Eşleştirme</h2>
-      <p style="color:var(--muted);font-size:.9rem;margin-bottom:16px">
-        Her müşterinin talebi (satılık/kiralık, kategori, bütçe, bölge, oda sayısı) aktif portföylerle otomatik karşılaştırılır.
-      </p>
-      <div id="matchList"></div>
-    </div>
-  </section>
-
-  <!-- ======== KOMİSYON ======== -->
-  <section id="tab-commission" class="tab">
-    <div class="card" style="max-width:560px">
-      <h2>🧮 Komisyon Hesaplayıcı</h2>
-      <div class="form-grid">
-        <div>
-          <label>İşlem Tipi</label>
-          <select id="comType" onchange="calcCommission()">
-            <option value="satilik">Satış</option>
-            <option value="kiralik">Kiralama</option>
+        <div class="toolbar">
+          <input class="grow" id="pubSearch" data-i18n-ph="ph_search" placeholder="Ara: başlık, konum..." oninput="renderPublic()">
+          <select id="pubDeal" onchange="renderPublic()">
+            <option value="" data-i18n="opt_deal_any">Satılık + Kiralık</option>
+            <option value="satilik" data-i18n="deal_sale">Satılık</option>
+            <option value="kiralik" data-i18n="deal_rent">Kiralık</option>
+          </select>
+          <select id="pubCat" onchange="renderPublic()">
+            <option value="" data-i18n="opt_cat_any">Tüm Kategoriler</option>
+            <option>Daire</option><option>Villa</option><option>Müstakil Ev</option>
+            <option>Arsa</option><option>İşyeri / Dükkan</option><option>Ofis</option><option>Tarla / Bahçe</option>
+          </select>
+          <input id="pubBudget" type="number" min="0" data-i18n-ph="ph_budget" placeholder="Maks. bütçe (₺)" oninput="renderPublic()">
+          <select id="pubSort" onchange="renderPublic()">
+            <option value="new" data-i18n="sort_new">Yeniden Eskiye</option>
+            <option value="priceAsc" data-i18n="sort_asc">Fiyat: Artan</option>
+            <option value="priceDesc" data-i18n="sort_desc">Fiyat: Azalan</option>
           </select>
         </div>
-        <div>
-          <label id="comPriceLabel">Satış Bedeli (₺)</label>
-          <input id="comPrice" type="number" min="0" placeholder="3000000" oninput="calcCommission()">
-        </div>
-        <div>
-          <label>Komisyon Oranı (%) <span style="font-weight:400">— satışta taraf başına genelde %2</span></label>
-          <input id="comRate" type="number" min="0" step="0.1" value="2" oninput="calcCommission()">
-        </div>
-        <div>
-          <label>KDV Oranı (%)</label>
-          <input id="comVat" type="number" min="0" step="1" value="20" oninput="calcCommission()">
+        <div class="listing-grid" id="pubGrid"></div>
+        <div id="pubEmpty" class="empty" style="display:none">
+          <div class="serif" data-i18n="noresult_title">Sonuç bulunamadı</div>
+          <p data-i18n="noresult_sub">Filtreleri genişleterek tekrar deneyin.</p>
         </div>
       </div>
-      <div class="commission-result" id="comResult"></div>
-      <p style="color:var(--muted);font-size:.8rem;margin-top:12px">
-        Not: Kiralamada yaygın uygulama bir aylık kira bedeli + KDV'dir; oranı %100 girip aylık kirayı yazabilirsiniz. Bu araç bilgilendirme amaçlıdır, güncel mevzuatı kontrol ediniz.
-      </p>
     </div>
   </section>
 
+  <!-- ================= YÖNETİM ================= -->
+  <section id="view-admin" class="view">
+    <div class="container">
+      <div class="admin-head">
+        <div class="eyebrow" data-i18n="admin_eyebrow">Danışman Paneli</div>
+        <h2 data-i18n="admin_title">Yönetim</h2>
+      </div>
+      <div class="subnav">
+        <button data-tab="ozet" onclick="showAdminTab('ozet')" data-i18n="tab_overview">Özet</button>
+        <button data-tab="portfoy" onclick="showAdminTab('portfoy')" data-i18n="tab_listings">Portföy</button>
+        <button data-tab="musteri" onclick="showAdminTab('musteri')" data-i18n="tab_clients">Müşteriler</button>
+        <button data-tab="eslestirme" onclick="showAdminTab('eslestirme')" data-i18n="tab_match">Eşleştirme</button>
+        <button data-tab="komisyon" onclick="showAdminTab('komisyon')" data-i18n="tab_comm">Komisyon</button>
+        <button data-tab="ayarlar" onclick="showAdminTab('ayarlar')" data-i18n="tab_settings">Ayarlar</button>
+      </div>
+
+      <!-- Özet -->
+      <div id="atab-ozet" class="admin-tab">
+        <div class="stat-grid" id="statGrid"></div>
+        <div class="panel">
+          <h3 data-i18n="recent_props">Son Eklenen Mülkler</h3>
+          <div id="recentListings"></div>
+        </div>
+        <div class="panel">
+          <h3 data-i18n="recent_clients">Son Eklenen Müşteriler</h3>
+          <div id="recentCustomers"></div>
+        </div>
+      </div>
+
+      <!-- Portföy -->
+      <div id="atab-portfoy" class="admin-tab">
+        <div class="panel">
+          <h3 id="propFormTitle" data-i18n="prop_form_new">Yeni Mülk Ekle</h3>
+          <form id="propForm" onsubmit="saveProperty(event)">
+            <input type="hidden" id="propId">
+            <div class="form-grid">
+              <div class="full">
+                <label data-i18n="f_title">İlan Başlığı *</label>
+                <input id="propTitle" required data-i18n-ph="ph_title" placeholder="Örn: Bebek'te Boğaz Manzaralı Yalı Dairesi">
+              </div>
+              <div>
+                <label data-i18n="f_deal">İşlem *</label>
+                <select id="propDealType" required>
+                  <option value="satilik" data-i18n="deal_sale">Satılık</option>
+                  <option value="kiralik" data-i18n="deal_rent">Kiralık</option>
+                </select>
+              </div>
+              <div>
+                <label data-i18n="f_cat">Kategori *</label>
+                <select id="propCategory" required>
+                  <option>Daire</option><option>Villa</option><option>Müstakil Ev</option>
+                  <option>Arsa</option><option>İşyeri / Dükkan</option><option>Ofis</option><option>Tarla / Bahçe</option>
+                </select>
+              </div>
+              <div>
+                <label data-i18n="f_price">Fiyat (₺) *</label>
+                <input id="propPrice" type="number" min="0" required placeholder="25000000">
+              </div>
+              <div>
+                <label data-i18n="f_city">İl</label>
+                <input id="propCity" placeholder="İstanbul">
+              </div>
+              <div>
+                <label data-i18n="f_district">İlçe</label>
+                <input id="propDistrict" placeholder="Beşiktaş">
+              </div>
+              <div>
+                <label data-i18n="f_hood">Mahalle</label>
+                <input id="propNeighborhood" placeholder="Bebek Mah.">
+              </div>
+              <div>
+                <label data-i18n="f_area">m² (Brüt)</label>
+                <input id="propArea" type="number" min="0" placeholder="185">
+              </div>
+              <div>
+                <label data-i18n="f_rooms">Oda Sayısı</label>
+                <select id="propRooms">
+                  <option value="">—</option>
+                  <option>1+0</option><option>1+1</option><option>2+1</option>
+                  <option>3+1</option><option>4+1</option><option>5+1 ve üzeri</option>
+                </select>
+              </div>
+              <div>
+                <label data-i18n="f_age">Bina Yaşı</label>
+                <input id="propAge" type="number" min="0" placeholder="3">
+              </div>
+              <div>
+                <label data-i18n="f_floor">Kat</label>
+                <input id="propFloor" placeholder="4 / 8">
+              </div>
+              <div>
+                <label data-i18n="f_owner">Mülk Sahibi</label>
+                <input id="propOwnerName" placeholder="Ad Soyad">
+              </div>
+              <div>
+                <label data-i18n="f_owner_phone">Sahibi Telefonu</label>
+                <input id="propOwnerPhone" placeholder="0532 000 00 00">
+              </div>
+              <div class="full">
+                <label data-i18n="f_desc">Açıklama</label>
+                <textarea id="propDesc" data-i18n-ph="ph_desc" placeholder="Mülkün öne çıkan özellikleri, konum avantajları, manzara..."></textarea>
+              </div>
+              <div class="full">
+                <label data-i18n="f_photos">Fotoğraflar (en fazla 8)</label>
+                <div class="photo-drop">
+                  <div id="photoThumbs" style="display:flex;gap:10px;flex-wrap:wrap"></div>
+                  <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('photoInput').click()" data-i18n="btn_add_photo">+ Fotoğraf Ekle</button>
+                  <input type="file" id="photoInput" accept="image/*" multiple style="display:none" onchange="addPhotos(this)">
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:18px;display:flex;gap:10px">
+              <button class="btn btn-gold" type="submit" data-i18n="btn_save">Kaydet</button>
+              <button class="btn btn-outline" type="button" id="propCancelBtn" style="display:none" onclick="resetPropertyForm()" data-i18n="btn_cancel">İptal</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h3 data-i18n="prop_list">Portföy Listesi</h3>
+          <div class="toolbar">
+            <input class="grow" id="admSearch" data-i18n-ph="ph_adm_search" placeholder="Ara: başlık, konum, mülk sahibi..." oninput="renderAdminProps()">
+            <select id="admDeal" onchange="renderAdminProps()">
+              <option value="" data-i18n="opt_deal_any">Satılık + Kiralık</option>
+              <option value="satilik" data-i18n="deal_sale">Satılık</option>
+              <option value="kiralik" data-i18n="deal_rent">Kiralık</option>
+            </select>
+            <select id="admStatus" onchange="renderAdminProps()">
+              <option value="" data-i18n="st_all">Tüm Durumlar</option>
+              <option value="aktif" data-i18n="st_active">Aktif</option>
+              <option value="kapandi" data-i18n="st_closed">Satıldı / Kiralandı</option>
+            </select>
+          </div>
+          <div id="admList"></div>
+          <div id="admEmpty" class="empty" style="display:none">
+            <div class="serif" data-i18n="adm_empty">Henüz mülk eklenmedi</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Müşteriler -->
+      <div id="atab-musteri" class="admin-tab">
+        <div class="panel">
+          <h3 id="custFormTitle" data-i18n="cust_form_new">Yeni Müşteri / Talep</h3>
+          <form id="custForm" onsubmit="saveCustomer(event)">
+            <input type="hidden" id="custId">
+            <div class="form-grid">
+              <div>
+                <label data-i18n="f_name">Ad Soyad *</label>
+                <input id="custName" required placeholder="Ayşe Demir">
+              </div>
+              <div>
+                <label data-i18n="f_phone">Telefon *</label>
+                <input id="custPhone" required placeholder="0555 000 00 00">
+              </div>
+              <div>
+                <label data-i18n="f_demand">Talep *</label>
+                <select id="custDealType" required>
+                  <option value="satilik" data-i18n="demand_buy">Satın Almak İstiyor</option>
+                  <option value="kiralik" data-i18n="demand_rent">Kiralamak İstiyor</option>
+                </select>
+              </div>
+              <div>
+                <label data-i18n="f_want_cat">Aradığı Kategori</label>
+                <select id="custCategory">
+                  <option value="" data-i18n="opt_any">Farketmez</option>
+                  <option>Daire</option><option>Villa</option><option>Müstakil Ev</option>
+                  <option>Arsa</option><option>İşyeri / Dükkan</option><option>Ofis</option><option>Tarla / Bahçe</option>
+                </select>
+              </div>
+              <div>
+                <label data-i18n="f_budget_min">Bütçe Alt (₺)</label>
+                <input id="custBudgetMin" type="number" min="0" placeholder="0">
+              </div>
+              <div>
+                <label data-i18n="f_budget_max">Bütçe Üst (₺)</label>
+                <input id="custBudgetMax" type="number" min="0" placeholder="30000000">
+              </div>
+              <div>
+                <label data-i18n="f_pref_area">Tercih Ettiği Bölge</label>
+                <input id="custArea" placeholder="Beşiktaş">
+              </div>
+              <div>
+                <label data-i18n="f_min_rooms">Min. Oda</label>
+                <select id="custRooms">
+                  <option value="" data-i18n="opt_any">Farketmez</option>
+                  <option>1+0</option><option>1+1</option><option>2+1</option>
+                  <option>3+1</option><option>4+1</option><option>5+1 ve üzeri</option>
+                </select>
+              </div>
+              <div class="full">
+                <label data-i18n="f_notes">Notlar</label>
+                <textarea id="custNotes" data-i18n-ph="ph_notes" placeholder="Krediyle alacak, acil arıyor..."></textarea>
+              </div>
+            </div>
+            <div style="margin-top:18px;display:flex;gap:10px">
+              <button class="btn btn-gold" type="submit" data-i18n="btn_save">Kaydet</button>
+              <button class="btn btn-outline" type="button" id="custCancelBtn" style="display:none" onclick="resetCustomerForm()" data-i18n="btn_cancel">İptal</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h3 data-i18n="cust_list">Müşteri Listesi</h3>
+          <div class="toolbar">
+            <input class="grow" id="custSearch" data-i18n-ph="ph_cust_search" placeholder="Ara: isim, telefon, bölge..." oninput="renderCustomers()">
+            <select id="custFilterDeal" onchange="renderCustomers()">
+              <option value="" data-i18n="all_demands">Tüm Talepler</option>
+              <option value="satilik" data-i18n="buyers">Alıcılar</option>
+              <option value="kiralik" data-i18n="renters">Kiracılar</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table id="custTable">
+              <thead>
+                <tr>
+                  <th data-i18n="th_name">Ad Soyad</th><th data-i18n="th_phone">Telefon</th>
+                  <th data-i18n="th_demand">Talep</th><th data-i18n="th_budget">Bütçe</th>
+                  <th data-i18n="th_area">Bölge</th><th data-i18n="th_notes">Notlar</th><th></th>
+                </tr>
+              </thead>
+              <tbody id="custList"></tbody>
+            </table>
+          </div>
+          <div id="custEmpty" class="empty" style="display:none">
+            <div class="serif" data-i18n="cust_empty">Henüz müşteri kaydı yok</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Eşleştirme -->
+      <div id="atab-eslestirme" class="admin-tab">
+        <div class="panel">
+          <h3 data-i18n="match_title">Müşteri – Mülk Eşleştirme</h3>
+          <p style="color:var(--muted);font-size:.88rem;margin-bottom:18px" data-i18n="match_sub">
+            Her müşterinin talebi aktif portföyle otomatik karşılaştırılır. Eşleşmeye tıklayarak ilan detayını açabilirsiniz.
+          </p>
+          <div id="matchList"></div>
+        </div>
+      </div>
+
+      <!-- Komisyon -->
+      <div id="atab-komisyon" class="admin-tab">
+        <div class="panel" style="max-width:580px">
+          <h3 data-i18n="comm_title">Komisyon Hesaplayıcı</h3>
+          <div class="form-grid">
+            <div>
+              <label data-i18n="f_deal">İşlem</label>
+              <select id="comType" onchange="calcCommission()">
+                <option value="satilik" data-i18n="comm_sale">Satış</option>
+                <option value="kiralik" data-i18n="comm_rent">Kiralama</option>
+              </select>
+            </div>
+            <div>
+              <label id="comPriceLabel" data-i18n="comm_price_sale">Satış Bedeli (₺)</label>
+              <input id="comPrice" type="number" min="0" placeholder="25000000" oninput="calcCommission()">
+            </div>
+            <div>
+              <label data-i18n="comm_rate">Komisyon Oranı (%)</label>
+              <input id="comRate" type="number" min="0" step="0.1" value="2" oninput="calcCommission()">
+            </div>
+            <div>
+              <label data-i18n="comm_vat">KDV Oranı (%)</label>
+              <input id="comVat" type="number" min="0" step="1" value="20" oninput="calcCommission()">
+            </div>
+          </div>
+          <div class="commission-result" id="comResult"></div>
+          <p style="color:var(--muted);font-size:.78rem;margin-top:14px" data-i18n="comm_note">
+            Satışta taraf başına yaygın oran %2'dir; kiralamada bir aylık kira + KDV uygulanır. Bu araç bilgilendirme amaçlıdır.
+          </p>
+        </div>
+      </div>
+
+      <!-- Ayarlar -->
+      <div id="atab-ayarlar" class="admin-tab">
+        <div class="panel" style="max-width:680px">
+          <h3 data-i18n="set_agency">Ajans Bilgileri</h3>
+          <form onsubmit="saveSettings(event)">
+            <div class="form-grid">
+              <div>
+                <label data-i18n="f_agency_name">Ajans Adı</label>
+                <input id="setName" placeholder="EmlakPro">
+              </div>
+              <div>
+                <label data-i18n="f_agency_phone">Telefon</label>
+                <input id="setPhone" placeholder="0212 000 00 00">
+              </div>
+              <div>
+                <label>WhatsApp</label>
+                <input id="setWhatsapp" placeholder="905320000000">
+              </div>
+              <div>
+                <label data-i18n="f_agency_email">E-posta</label>
+                <input id="setEmail" type="email" placeholder="info@ajans.com">
+              </div>
+              <div>
+                <label data-i18n="f_rate_usd">1 USD = ? ₺</label>
+                <input id="setUsd" type="number" min="0" step="0.01" placeholder="44">
+              </div>
+              <div>
+                <label data-i18n="f_rate_eur">1 EUR = ? ₺</label>
+                <input id="setEur" type="number" min="0" step="0.01" placeholder="48">
+              </div>
+            </div>
+            <div style="margin-top:18px">
+              <button class="btn btn-gold" type="submit" data-i18n="btn_save">Kaydet</button>
+            </div>
+          </form>
+        </div>
+        <div class="panel" style="max-width:680px">
+          <h3 data-i18n="set_backup">Yedekleme</h3>
+          <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px" data-i18n="set_backup_sub">
+            Tüm veriler bu cihazın tarayıcısında saklanır. Düzenli yedek almanız önerilir.
+          </p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-gold" onclick="exportData()" data-i18n="btn_export">Yedek Al (.json)</button>
+            <button class="btn btn-outline" onclick="document.getElementById('importFile').click()" data-i18n="btn_import">Yedek Yükle</button>
+            <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(this)">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 </main>
 
-<div id="toast"></div>
+<!-- ================= Detay Sheet ================= -->
+<div class="sheet" id="detailSheet" onclick="if(event.target===this)closeDetail()">
+  <div class="sheet-panel" role="dialog" aria-modal="true">
+    <button class="sheet-close" onclick="closeDetail()" aria-label="Kapat">✕</button>
+    <div id="detailContent"></div>
+  </div>
+</div>
+
+<!-- ================= Mobil Alt Bar ================= -->
+<nav class="tabbar">
+  <button data-view="home" onclick="showView('home')">
+    <svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5.5 10v9h13v-9"/></svg>
+    <span data-i18n="nav_home">Ana Sayfa</span>
+  </button>
+  <button data-view="listings" onclick="showView('listings')">
+    <svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>
+    <span data-i18n="nav_listings">İlanlar</span>
+  </button>
+  <button data-view="admin" onclick="showView('admin')">
+    <svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M9 7V5a3 3 0 0 1 6 0v2M4 13h16"/></svg>
+    <span data-i18n="nav_admin">Yönetim</span>
+  </button>
+</nav>
+
+<footer>
+  <div class="f-inner">
+    <div>
+      <div class="f-brand" id="footBrand">EmlakPro International</div>
+      <div style="margin-top:4px" id="footContact"></div>
+    </div>
+    <div style="text-align:right">
+      <span data-i18n="foot_note">Seçkin gayrimenkul danışmanlığı</span><br>
+      <span style="font-size:.75rem">© 2026</span>
+    </div>
+  </div>
+</footer>
+
+<div id="toast" role="status"></div>
 
 <script>
-/* =================== Veri Katmanı =================== */
+/* =================== Sözlük =================== */
+const I18N = {
+  tr: {
+    nav_home:'Ana Sayfa', nav_listings:'İlanlar', nav_admin:'Yönetim',
+    hero_eyebrow:'Uluslararası Gayrimenkul', hero_title:'Hayalinizdeki mülke açılan kapı',
+    hero_sub:'Özenle seçilmiş satılık ve kiralık mülklerden oluşan seçkin portföyümüzü keşfedin. Her mülk, yerinde incelenerek ve titizlikle belgelenerek sunulur.',
+    f_deal:'İşlem', f_cat:'Kategori', f_loc:'Konum', f_budget:'Maks. Bütçe (₺)',
+    opt_deal_any:'Satılık + Kiralık', deal_sale:'Satılık', deal_rent:'Kiralık',
+    opt_cat_any:'Tüm Kategoriler', ph_loc:'İl, ilçe veya mahalle', btn_search:'Mülk Ara',
+    feat_eyebrow:'Seçkin Portföy', feat_title:'Öne Çıkan Mülkler', feat_all:'Tümünü Gör →',
+    empty_title:'Portföyünüz sizi bekliyor', empty_sub:'İlk mülkünüzü Yönetim panelinden ekleyin veya örnek portföyle başlayın.',
+    btn_add_first:'İlk Mülkü Ekle', btn_demo:'Örnek Portföy Yükle',
+    stat_active:'Aktif İlan', stat_locations:'Bölge', stat_closed:'Kapanan İşlem',
+    list_eyebrow:'Portföy', list_title:'Tüm Mülkler', ph_search:'Ara: başlık, konum...', ph_budget:'Maks. bütçe (₺)',
+    sort_new:'Yeniden Eskiye', sort_asc:'Fiyat: Artan', sort_desc:'Fiyat: Azalan',
+    noresult_title:'Sonuç bulunamadı', noresult_sub:'Filtreleri genişleterek tekrar deneyin.',
+    badge_sale:'Satılık', badge_rent:'Kiralık', badge_sold:'Satıldı', badge_rented:'Kiralandı',
+    per_month:'/ay', rooms:'Oda', area:'m²', age:'Bina Yaşı', floor:'Kat', category:'Kategori', deal:'İşlem',
+    d_desc:'Açıklama', d_contact_call:'Ara', d_advisor:'Gayrimenkul Danışmanı',
+    admin_eyebrow:'Danışman Paneli', admin_title:'Yönetim',
+    tab_overview:'Özet', tab_listings:'Portföy', tab_clients:'Müşteriler', tab_match:'Eşleştirme', tab_comm:'Komisyon', tab_settings:'Ayarlar',
+    recent_props:'Son Eklenen Mülkler', recent_clients:'Son Eklenen Müşteriler',
+    s_active:'Aktif Portföy', s_value:'Satılık Portföy Değeri', s_clients:'Müşteri / Talep', s_match:'Otomatik Eşleşme', s_closed:'Kapanan İşlem',
+    s_sale:'satılık', s_rent:'kiralık', s_buyers:'alıcı', s_renters:'kiracı', s_value_sub:'aktif satılık ilanlar', s_match_sub:'müşteri-mülk uyumu', s_closed_sub:'satıldı / kiralandı',
+    prop_form_new:'Yeni Mülk Ekle', prop_form_edit:'Mülk Düzenle',
+    f_title:'İlan Başlığı *', ph_title:"Örn: Bebek'te Boğaz Manzaralı Yalı Dairesi",
+    f_price:'Fiyat (₺) *', f_city:'İl', f_district:'İlçe', f_hood:'Mahalle', f_area:'m² (Brüt)',
+    f_rooms:'Oda Sayısı', f_age:'Bina Yaşı', f_floor:'Kat', f_owner:'Mülk Sahibi', f_owner_phone:'Sahibi Telefonu',
+    f_desc:'Açıklama', ph_desc:'Mülkün öne çıkan özellikleri, konum avantajları, manzara...',
+    f_photos:'Fotoğraflar (en fazla 8)', btn_add_photo:'+ Fotoğraf Ekle',
+    btn_save:'Kaydet', btn_cancel:'İptal',
+    prop_list:'Portföy Listesi', ph_adm_search:'Ara: başlık, konum, mülk sahibi...',
+    st_all:'Tüm Durumlar', st_active:'Aktif', st_closed:'Satıldı / Kiralandı', adm_empty:'Henüz mülk eklenmedi',
+    btn_edit:'Düzenle', btn_close_sale:'Satıldı', btn_close_rent:'Kiralandı', btn_reopen:'Aktifleştir', btn_delete:'Sil', btn_view:'Görüntüle',
+    cust_form_new:'Yeni Müşteri / Talep', cust_form_edit:'Müşteri Düzenle',
+    f_name:'Ad Soyad *', f_phone:'Telefon *', f_demand:'Talep *',
+    demand_buy:'Satın Almak İstiyor', demand_rent:'Kiralamak İstiyor',
+    f_want_cat:'Aradığı Kategori', opt_any:'Farketmez', f_budget_min:'Bütçe Alt (₺)', f_budget_max:'Bütçe Üst (₺)',
+    f_pref_area:'Tercih Ettiği Bölge', f_min_rooms:'Min. Oda', f_notes:'Notlar', ph_notes:'Krediyle alacak, acil arıyor...',
+    cust_list:'Müşteri Listesi', ph_cust_search:'Ara: isim, telefon, bölge...',
+    all_demands:'Tüm Talepler', buyers:'Alıcılar', renters:'Kiracılar',
+    th_name:'Ad Soyad', th_phone:'Telefon', th_demand:'Talep', th_budget:'Bütçe', th_area:'Bölge', th_notes:'Notlar',
+    cust_empty:'Henüz müşteri kaydı yok', chip_buyer:'Alıcı', chip_renter:'Kiracı',
+    match_title:'Müşteri – Mülk Eşleştirme',
+    match_sub:'Her müşterinin talebi aktif portföyle otomatik karşılaştırılır. Eşleşmeye tıklayarak ilan detayını açabilirsiniz.',
+    match_empty:'Eşleştirme için önce müşteri ekleyin.', match_none:'Uygun mülk bulunamadı.',
+    m_will_buy:'Satın alacak', m_will_rent:'Kiralayacak', m_any_cat:'kategori farketmez', m_budget:'bütçe', m_area:'bölge', m_min:'min', m_count:'eşleşme',
+    comm_title:'Komisyon Hesaplayıcı', comm_sale:'Satış', comm_rent:'Kiralama',
+    comm_price_sale:'Satış Bedeli (₺)', comm_price_rent:'Aylık Kira (₺)',
+    comm_rate:'Komisyon Oranı (%)', comm_vat:'KDV Oranı (%)',
+    comm_row_price_sale:'Satış bedeli', comm_row_price_rent:'Aylık kira', comm_row_fee:'Komisyon', comm_row_vat:'KDV', comm_row_total:'KDV Dahil Komisyon', comm_row_both:'Alıcı + satıcıdan toplam',
+    comm_note:"Satışta taraf başına yaygın oran %2'dir; kiralamada bir aylık kira + KDV uygulanır. Bu araç bilgilendirme amaçlıdır.",
+    set_agency:'Ajans Bilgileri', f_agency_name:'Ajans Adı', f_agency_phone:'Telefon', f_agency_email:'E-posta',
+    f_rate_usd:'1 USD = ? ₺', f_rate_eur:'1 EUR = ? ₺',
+    set_backup:'Yedekleme', set_backup_sub:'Tüm veriler bu cihazın tarayıcısında saklanır. Düzenli yedek almanız önerilir.',
+    btn_export:'Yedek Al (.json)', btn_import:'Yedek Yükle',
+    foot_note:'Seçkin gayrimenkul danışmanlığı',
+    t_saved:'Kaydedildi', t_prop_added:'Mülk portföye eklendi', t_prop_updated:'Mülk güncellendi', t_prop_deleted:'Mülk silindi',
+    t_cust_added:'Müşteri eklendi', t_cust_updated:'Müşteri güncellendi', t_cust_deleted:'Müşteri silindi',
+    t_closed_sale:'Satıldı olarak işaretlendi', t_closed_rent:'Kiralandı olarak işaretlendi', t_reopened:'Tekrar aktif yapıldı',
+    t_demo:'Örnek portföy yüklendi', t_export:'Yedek dosyası indirildi', t_import:'Yedek geri yüklendi',
+    t_quota:'Depolama alanı doldu — bazı fotoğrafları küçültün veya silin', t_photo_limit:'En fazla 8 fotoğraf eklenebilir',
+    c_del_prop:'Bu mülkü silmek istediğinize emin misiniz?', c_del_cust:'Bu müşteriyi silmek istediğinize emin misiniz?',
+    c_demo:'Örnek ilanlar mevcut portföyünüze eklenecek. Devam edilsin mi?',
+    c_import:'Mevcut veriler yedek dosyasındakilerle DEĞİŞTİRİLECEK. Devam edilsin mi?',
+    t_import_err:'Geçersiz yedek dosyası.'
+  },
+  en: {
+    nav_home:'Home', nav_listings:'Properties', nav_admin:'Manage',
+    hero_eyebrow:'International Real Estate', hero_title:'The door to your dream property',
+    hero_sub:'Discover our curated portfolio of properties for sale and rent. Every property is personally inspected and meticulously documented.',
+    f_deal:'Type', f_cat:'Category', f_loc:'Location', f_budget:'Max Budget (₺)',
+    opt_deal_any:'Buy + Rent', deal_sale:'For Sale', deal_rent:'For Rent',
+    opt_cat_any:'All Categories', ph_loc:'City, district or area', btn_search:'Search',
+    feat_eyebrow:'Curated Portfolio', feat_title:'Featured Properties', feat_all:'View All →',
+    empty_title:'Your portfolio awaits', empty_sub:'Add your first property from the Manage panel, or start with sample data.',
+    btn_add_first:'Add First Property', btn_demo:'Load Sample Portfolio',
+    stat_active:'Active Listings', stat_locations:'Locations', stat_closed:'Closed Deals',
+    list_eyebrow:'Portfolio', list_title:'All Properties', ph_search:'Search: title, location...', ph_budget:'Max budget (₺)',
+    sort_new:'Newest First', sort_asc:'Price: Low to High', sort_desc:'Price: High to Low',
+    noresult_title:'No results', noresult_sub:'Try widening your filters.',
+    badge_sale:'For Sale', badge_rent:'For Rent', badge_sold:'Sold', badge_rented:'Rented',
+    per_month:'/mo', rooms:'Rooms', area:'m²', age:'Building Age', floor:'Floor', category:'Category', deal:'Type',
+    d_desc:'Description', d_contact_call:'Call', d_advisor:'Real Estate Advisor',
+    admin_eyebrow:'Advisor Panel', admin_title:'Manage',
+    tab_overview:'Overview', tab_listings:'Portfolio', tab_clients:'Clients', tab_match:'Matching', tab_comm:'Commission', tab_settings:'Settings',
+    recent_props:'Recently Added Properties', recent_clients:'Recently Added Clients',
+    s_active:'Active Portfolio', s_value:'For-Sale Portfolio Value', s_clients:'Clients / Demands', s_match:'Auto Matches', s_closed:'Closed Deals',
+    s_sale:'for sale', s_rent:'for rent', s_buyers:'buyers', s_renters:'renters', s_value_sub:'active sale listings', s_match_sub:'client-property fits', s_closed_sub:'sold / rented',
+    prop_form_new:'Add New Property', prop_form_edit:'Edit Property',
+    f_title:'Listing Title *', ph_title:'e.g. Bosphorus-View Residence in Bebek',
+    f_price:'Price (₺) *', f_city:'City', f_district:'District', f_hood:'Neighborhood', f_area:'m² (Gross)',
+    f_rooms:'Rooms', f_age:'Building Age', f_floor:'Floor', f_owner:'Owner', f_owner_phone:'Owner Phone',
+    f_desc:'Description', ph_desc:'Key features, location advantages, views...',
+    f_photos:'Photos (max 8)', btn_add_photo:'+ Add Photo',
+    btn_save:'Save', btn_cancel:'Cancel',
+    prop_list:'Portfolio List', ph_adm_search:'Search: title, location, owner...',
+    st_all:'All Statuses', st_active:'Active', st_closed:'Sold / Rented', adm_empty:'No properties yet',
+    btn_edit:'Edit', btn_close_sale:'Mark Sold', btn_close_rent:'Mark Rented', btn_reopen:'Reactivate', btn_delete:'Delete', btn_view:'View',
+    cust_form_new:'New Client / Demand', cust_form_edit:'Edit Client',
+    f_name:'Full Name *', f_phone:'Phone *', f_demand:'Demand *',
+    demand_buy:'Looking to Buy', demand_rent:'Looking to Rent',
+    f_want_cat:'Desired Category', opt_any:'Any', f_budget_min:'Budget Min (₺)', f_budget_max:'Budget Max (₺)',
+    f_pref_area:'Preferred Area', f_min_rooms:'Min. Rooms', f_notes:'Notes', ph_notes:'Mortgage buyer, urgent...',
+    cust_list:'Client List', ph_cust_search:'Search: name, phone, area...',
+    all_demands:'All Demands', buyers:'Buyers', renters:'Renters',
+    th_name:'Name', th_phone:'Phone', th_demand:'Demand', th_budget:'Budget', th_area:'Area', th_notes:'Notes',
+    cust_empty:'No clients yet', chip_buyer:'Buyer', chip_renter:'Renter',
+    match_title:'Client – Property Matching',
+    match_sub:'Each client demand is automatically compared against the active portfolio. Click a match to open the listing.',
+    match_empty:'Add clients to start matching.', match_none:'No suitable property found.',
+    m_will_buy:'Buying', m_will_rent:'Renting', m_any_cat:'any category', m_budget:'budget', m_area:'area', m_min:'min', m_count:'matches',
+    comm_title:'Commission Calculator', comm_sale:'Sale', comm_rent:'Rental',
+    comm_price_sale:'Sale Price (₺)', comm_price_rent:'Monthly Rent (₺)',
+    comm_rate:'Commission Rate (%)', comm_vat:'VAT Rate (%)',
+    comm_row_price_sale:'Sale price', comm_row_price_rent:'Monthly rent', comm_row_fee:'Commission', comm_row_vat:'VAT', comm_row_total:'Commission incl. VAT', comm_row_both:'Total from both parties',
+    comm_note:'A common rate is 2% per party on sales; one month of rent + VAT on rentals. For guidance only.',
+    set_agency:'Agency Details', f_agency_name:'Agency Name', f_agency_phone:'Phone', f_agency_email:'Email',
+    f_rate_usd:'1 USD = ? ₺', f_rate_eur:'1 EUR = ? ₺',
+    set_backup:'Backup', set_backup_sub:'All data is stored in this browser on this device. Regular backups are recommended.',
+    btn_export:'Export Backup (.json)', btn_import:'Restore Backup',
+    foot_note:'Distinguished real estate advisory',
+    t_saved:'Saved', t_prop_added:'Property added to portfolio', t_prop_updated:'Property updated', t_prop_deleted:'Property deleted',
+    t_cust_added:'Client added', t_cust_updated:'Client updated', t_cust_deleted:'Client deleted',
+    t_closed_sale:'Marked as sold', t_closed_rent:'Marked as rented', t_reopened:'Reactivated',
+    t_demo:'Sample portfolio loaded', t_export:'Backup file downloaded', t_import:'Backup restored',
+    t_quota:'Storage full — remove or shrink some photos', t_photo_limit:'Up to 8 photos allowed',
+    c_del_prop:'Delete this property?', c_del_cust:'Delete this client?',
+    c_demo:'Sample listings will be added to your portfolio. Continue?',
+    c_import:'Current data will be REPLACED with the backup. Continue?',
+    t_import_err:'Invalid backup file.'
+  }
+};
+
+/* =================== Veri =================== */
 const STORE_KEY = 'emlakpro_v1';
-let db = { properties: [], customers: [] };
+const PREF_KEY = 'emlakpro_prefs';
+const DEFAULT_SETTINGS = { agency:'EmlakPro', phone:'', whatsapp:'', email:'', usd:44, eur:48 };
+let db = { properties: [], customers: [], settings: { ...DEFAULT_SETTINGS } };
+let prefs = { lang:'tr', currency:'TRY' };
+let pendingPhotos = [];
 
 function load() {
   try {
     const raw = localStorage.getItem(STORE_KEY);
-    if (raw) db = Object.assign({ properties: [], customers: [] }, JSON.parse(raw));
-  } catch (e) { console.error('Veri okunamadı', e); }
+    if (raw) {
+      const d = JSON.parse(raw);
+      db.properties = Array.isArray(d.properties) ? d.properties : [];
+      db.customers = Array.isArray(d.customers) ? d.customers : [];
+      db.settings = Object.assign({ ...DEFAULT_SETTINGS }, d.settings || {});
+    }
+    const p = localStorage.getItem(PREF_KEY);
+    if (p) prefs = Object.assign(prefs, JSON.parse(p));
+  } catch (e) { console.error(e); }
 }
 function persist() {
-  localStorage.setItem(STORE_KEY, JSON.stringify(db));
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify(db));
+    return true;
+  } catch (e) {
+    toast(t('t_quota'));
+    return false;
+  }
 }
-function uid() {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-}
-const fmtTL = new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', maximumFractionDigits: 0 });
-const fmtTL2 = new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', minimumFractionDigits: 2 });
-function money(n) { return fmtTL.format(Number(n) || 0); }
-function esc(s) {
-  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
+function persistPrefs() { try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch (e) {} }
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function t(k) { return (I18N[prefs.lang] && I18N[prefs.lang][k]) || I18N.tr[k] || k; }
 function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(t._h);
-  t._h = setTimeout(() => t.classList.remove('show'), 2500);
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._h);
+  el._h = setTimeout(() => el.classList.remove('show'), 2600);
 }
 
-/* =================== Sekmeler =================== */
-function showTab(name) {
-  document.querySelectorAll('.tab').forEach(s => s.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
-  if (name === 'dashboard') renderDashboard();
-  if (name === 'matching') renderMatches();
+/* =================== Para =================== */
+function money(n) {
+  n = Number(n) || 0;
+  if (prefs.currency === 'USD') {
+    const r = Number(db.settings.usd) || 44;
+    return new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 }).format(n / r);
+  }
+  if (prefs.currency === 'EUR') {
+    const r = Number(db.settings.eur) || 48;
+    return new Intl.NumberFormat('de-DE', { style:'currency', currency:'EUR', maximumFractionDigits:0 }).format(n / r);
+  }
+  return new Intl.NumberFormat('tr-TR', { style:'currency', currency:'TRY', maximumFractionDigits:0 }).format(n);
+}
+const fmtTL2 = new Intl.NumberFormat('tr-TR', { style:'currency', currency:'TRY', minimumFractionDigits:2 });
+
+/* =================== i18n uygula =================== */
+function applyI18n() {
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  document.getElementById('langTR').classList.toggle('active', prefs.lang === 'tr');
+  document.getElementById('langEN').classList.toggle('active', prefs.lang === 'en');
+  document.documentElement.lang = prefs.lang;
+}
+function setLang(l) { prefs.lang = l; persistPrefs(); applyI18n(); renderAll(); }
+function setCurrency(c) {
+  prefs.currency = c;
+  document.getElementById('curSelect').value = c;
+  persistPrefs();
+  renderAll();
 }
 
-/* =================== Portföy =================== */
+/* =================== Görünümler =================== */
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  document.querySelectorAll('.topnav button, .tabbar button').forEach(b =>
+    b.classList.toggle('active', b.dataset.view === name));
+  window.scrollTo({ top: 0, behavior: 'auto' });
+  if (name === 'home') renderHome();
+  if (name === 'listings') renderPublic();
+  if (name === 'admin') renderAdmin();
+}
+function showAdminTab(name) {
+  document.querySelectorAll('.admin-tab').forEach(s => s.classList.remove('active'));
+  document.getElementById('atab-' + name).classList.add('active');
+  document.querySelectorAll('.subnav button').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  if (name === 'ozet') renderDashboard();
+  if (name === 'eslestirme') renderMatches();
+}
+
+/* =================== Kart parçaları =================== */
+const CAT_GRAD = {
+  'Daire': ['#1c2b3a', '#3d5a74'],
+  'Villa': ['#22321f', '#47663f'],
+  'Müstakil Ev': ['#37291f', '#6b5138'],
+  'Arsa': ['#2e351f', '#5b6d3c'],
+  'İşyeri / Dükkan': ['#282434', '#4e4568'],
+  'Ofis': ['#1e2c33', '#3e5a66'],
+  'Tarla / Bahçe': ['#31371c', '#647040']
+};
+function phBlock(p, mini) {
+  const g = CAT_GRAD[p.category] || ['#1c2431', '#3a4a5e'];
+  return `<div class="ph" style="background:linear-gradient(150deg,${g[0]},${g[1]})">
+    <div class="mono">${esc((p.category || 'M')[0])}</div>
+    ${mini ? '' : `<div class="bar"></div><div class="cat">${esc(p.category)}</div>`}
+  </div>`;
+}
+function mediaBlock(p, mini) {
+  if (p.photos && p.photos.length) {
+    return `<img src="${p.photos[0]}" alt="${esc(p.title)}" loading="lazy">`;
+  }
+  return phBlock(p, mini);
+}
+function badgeFor(p) {
+  if (p.status === 'satildi') return `<span class="card-badge closed">${t('badge_sold')}</span>`;
+  if (p.status === 'kiralandi') return `<span class="card-badge closed">${t('badge_rented')}</span>`;
+  return `<span class="card-badge">${p.dealType === 'satilik' ? t('badge_sale') : t('badge_rent')}</span>`;
+}
+function locText(p) { return [p.city, p.district, p.neighborhood].filter(Boolean).join(' · '); }
+
+function publicCard(p) {
+  const meta = [
+    p.rooms && esc(p.rooms),
+    p.area && `${p.area} m²`,
+    (p.age !== '' && p.age != null) && `${esc(p.age)} ${prefs.lang === 'tr' ? 'yaş' : 'yrs'}`
+  ].filter(Boolean).map(x => `<span>${x}</span>`).join('');
+  return `
+  <article class="listing-card" onclick="openDetail('${p.id}')">
+    <div class="card-media">
+      ${mediaBlock(p)}
+      ${badgeFor(p)}
+      ${p.photos && p.photos.length > 1 ? `<span class="photo-count">${p.photos.length} 📷</span>` : ''}
+    </div>
+    <div class="card-body">
+      <div class="card-price">${money(p.price)}${p.dealType === 'kiralik' ? `<span class="per"> ${t('per_month')}</span>` : ''}</div>
+      <div class="card-title">${esc(p.title)}</div>
+      <div class="card-loc">${esc(locText(p)) || esc(p.category)}</div>
+      ${meta ? `<div class="card-meta">${meta}</div>` : ''}
+    </div>
+  </article>`;
+}
+
+/* =================== Ana sayfa =================== */
+function renderHome() {
+  const act = db.properties.filter(p => p.status === 'aktif');
+  const featured = [...act].sort((a, b) => b.createdAt - a.createdAt).slice(0, 6);
+  document.getElementById('featuredGrid').innerHTML = featured.map(publicCard).join('');
+  document.getElementById('featuredEmpty').style.display = featured.length ? 'none' : '';
+
+  const locs = new Set(act.map(p => p.district || p.city).filter(Boolean));
+  const closed = db.properties.filter(p => p.status !== 'aktif').length;
+  document.getElementById('statsStrip').innerHTML = `
+    <div class="cell"><div class="num">${act.length}</div><div class="lbl">${t('stat_active')}</div></div>
+    <div class="cell"><div class="num">${locs.size}</div><div class="lbl">${t('stat_locations')}</div></div>
+    <div class="cell"><div class="num">${closed}</div><div class="lbl">${t('stat_closed')}</div></div>`;
+}
+
+function heroSearch(e) {
+  e.preventDefault();
+  document.getElementById('pubDeal').value = document.getElementById('hDeal').value;
+  document.getElementById('pubCat').value = document.getElementById('hCat').value;
+  document.getElementById('pubSearch').value = document.getElementById('hLoc').value;
+  document.getElementById('pubBudget').value = document.getElementById('hBudget').value;
+  showView('listings');
+}
+
+/* =================== İlanlar (vitrin) =================== */
+function renderPublic() {
+  const q = document.getElementById('pubSearch').value.toLocaleLowerCase('tr');
+  const deal = document.getElementById('pubDeal').value;
+  const cat = document.getElementById('pubCat').value;
+  const budget = Number(document.getElementById('pubBudget').value) || 0;
+  const sort = document.getElementById('pubSort').value;
+
+  let list = db.properties.filter(p => {
+    if (p.status !== 'aktif') return false;
+    if (deal && p.dealType !== deal) return false;
+    if (cat && p.category !== cat) return false;
+    if (budget && p.price > budget) return false;
+    if (q) {
+      const hay = [p.title, p.city, p.district, p.neighborhood, p.desc, p.category].join(' ').toLocaleLowerCase('tr');
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  if (sort === 'priceAsc') list.sort((a, b) => a.price - b.price);
+  else if (sort === 'priceDesc') list.sort((a, b) => b.price - a.price);
+  else list.sort((a, b) => b.createdAt - a.createdAt);
+
+  document.getElementById('pubGrid').innerHTML = list.map(publicCard).join('');
+  document.getElementById('pubEmpty').style.display = list.length ? 'none' : '';
+}
+
+/* =================== Detay =================== */
+let galIdx = 0, galId = null;
+function openDetail(id) {
+  const p = db.properties.find(x => x.id === id);
+  if (!p) return;
+  galId = id; galIdx = 0;
+  renderDetail(p);
+  document.getElementById('detailSheet').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDetail() {
+  document.getElementById('detailSheet').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function galMove(d) {
+  const p = db.properties.find(x => x.id === galId);
+  if (!p || !p.photos || p.photos.length < 2) return;
+  galIdx = (galIdx + d + p.photos.length) % p.photos.length;
+  renderDetail(p);
+}
+function renderDetail(p) {
+  const hasPhotos = p.photos && p.photos.length;
+  const gallery = `
+    <div class="gallery">
+      ${hasPhotos ? `<img src="${p.photos[galIdx]}" alt="${esc(p.title)}">` : phBlock(p)}
+      ${hasPhotos && p.photos.length > 1 ? `
+        <button class="gal-nav gal-prev" onclick="galMove(-1)" aria-label="Önceki">‹</button>
+        <button class="gal-nav gal-next" onclick="galMove(1)" aria-label="Sonraki">›</button>
+        <span class="gal-count">${galIdx + 1} / ${p.photos.length}</span>` : ''}
+    </div>`;
+  const specs = [
+    [t('deal'), p.dealType === 'satilik' ? t('badge_sale') : t('badge_rent')],
+    [t('category'), p.category],
+    p.area ? [t('area'), `${p.area} m²`] : null,
+    p.rooms ? [t('rooms'), p.rooms] : null,
+    (p.age !== '' && p.age != null) ? [t('age'), p.age] : null,
+    p.floor ? [t('floor'), p.floor] : null
+  ].filter(Boolean).map(([k, v]) => `<div class="spec"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`).join('');
+
+  const s = db.settings;
+  const contact = `
+    <div class="d-contact">
+      <div class="who">
+        <div class="n">${esc(s.agency || 'EmlakPro')}</div>
+        <div class="r">${t('d_advisor')}</div>
+      </div>
+      ${s.phone ? `<a class="btn btn-gold btn-sm" href="tel:${esc(s.phone.replace(/\s/g,''))}">${t('d_contact_call')}</a>` : ''}
+      ${s.whatsapp ? `<a class="btn btn-outline btn-sm" href="https://wa.me/${esc(s.whatsapp.replace(/\D/g,''))}" target="_blank" rel="noopener">WhatsApp</a>` : ''}
+      ${s.email ? `<a class="btn btn-outline btn-sm" href="mailto:${esc(s.email)}">E-mail</a>` : ''}
+    </div>`;
+
+  document.getElementById('detailContent').innerHTML = `
+    ${gallery}
+    <div class="sheet-body">
+      <div style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline">
+        <div class="d-price">${money(p.price)}${p.dealType === 'kiralik' ? `<span style="font-size:.9rem;color:var(--muted)"> ${t('per_month')}</span>` : ''}</div>
+        ${badgeFor(p).replace('card-badge', 'chip ' + (p.status !== 'aktif' ? 'closed' : (p.dealType === 'satilik' ? 'sale' : 'rent')))}
+      </div>
+      <div class="d-title serif">${esc(p.title)}</div>
+      <div class="d-loc">${esc(locText(p))}</div>
+      <div class="spec-grid">${specs}</div>
+      ${p.desc ? `<div class="eyebrow" style="margin-bottom:10px">${t('d_desc')}</div><div class="d-desc">${esc(p.desc)}</div>` : ''}
+      ${contact}
+    </div>`;
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+
+/* =================== Fotoğraflar =================== */
+function addPhotos(input) {
+  const files = Array.from(input.files || []);
+  input.value = '';
+  if (!files.length) return;
+  const room = 8 - pendingPhotos.length;
+  if (room <= 0) { toast(t('t_photo_limit')); return; }
+  Promise.all(files.slice(0, room).map(resizeToDataURI)).then(uris => {
+    pendingPhotos.push(...uris.filter(Boolean));
+    renderPhotoThumbs();
+  });
+}
+function resizeToDataURI(file) {
+  return new Promise(resolve => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      const MAX = 1000;
+      let { width: w, height: h } = img;
+      if (w > MAX || h > MAX) { const k = MAX / Math.max(w, h); w = Math.round(w * k); h = Math.round(h * k); }
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(url);
+      resolve(c.toDataURL('image/jpeg', 0.72));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(null); };
+    img.src = url;
+  });
+}
+function removePhoto(i) { pendingPhotos.splice(i, 1); renderPhotoThumbs(); }
+function renderPhotoThumbs() {
+  document.getElementById('photoThumbs').innerHTML = pendingPhotos.map((u, i) =>
+    `<div class="thumb"><img src="${u}" alt=""><button type="button" onclick="removePhoto(${i})" aria-label="Sil">✕</button></div>`).join('');
+}
+
+/* =================== Portföy CRUD =================== */
 function saveProperty(e) {
   e.preventDefault();
   const id = document.getElementById('propId').value;
+  const old = id ? db.properties.find(x => x.id === id) : null;
   const p = {
     id: id || uid(),
-    createdAt: id ? (db.properties.find(x => x.id === id)?.createdAt || Date.now()) : Date.now(),
+    createdAt: old ? old.createdAt : Date.now(),
+    status: old ? old.status : 'aktif',
     title: document.getElementById('propTitle').value.trim(),
     dealType: document.getElementById('propDealType').value,
     category: document.getElementById('propCategory').value,
@@ -709,23 +1447,20 @@ function saveProperty(e) {
     ownerName: document.getElementById('propOwnerName').value.trim(),
     ownerPhone: document.getElementById('propOwnerPhone').value.trim(),
     desc: document.getElementById('propDesc').value.trim(),
-    status: id ? (db.properties.find(x => x.id === id)?.status || 'aktif') : 'aktif'
+    photos: pendingPhotos.slice(0, 8)
   };
-  if (id) {
-    db.properties = db.properties.map(x => x.id === id ? p : x);
-    toast('✅ Portföy güncellendi');
-  } else {
-    db.properties.unshift(p);
-    toast('✅ Portföy eklendi');
+  if (id) db.properties = db.properties.map(x => x.id === id ? p : x);
+  else db.properties.unshift(p);
+  if (persist()) {
+    toast(id ? t('t_prop_updated') : t('t_prop_added'));
+    resetPropertyForm();
+    renderAll();
   }
-  persist();
-  resetPropertyForm();
-  renderAll();
 }
-
 function editProperty(id) {
   const p = db.properties.find(x => x.id === id);
   if (!p) return;
+  showView('admin'); showAdminTab('portfoy');
   document.getElementById('propId').value = p.id;
   document.getElementById('propTitle').value = p.title;
   document.getElementById('propDealType').value = p.dealType;
@@ -741,109 +1476,82 @@ function editProperty(id) {
   document.getElementById('propOwnerName').value = p.ownerName || '';
   document.getElementById('propOwnerPhone').value = p.ownerPhone || '';
   document.getElementById('propDesc').value = p.desc || '';
-  document.getElementById('propFormTitle').textContent = '✏️ Portföy Düzenle';
+  pendingPhotos = (p.photos || []).slice();
+  renderPhotoThumbs();
+  document.getElementById('propFormTitle').textContent = t('prop_form_edit');
   document.getElementById('propCancelBtn').style.display = '';
   document.getElementById('propForm').scrollIntoView({ behavior: 'smooth' });
 }
-
 function resetPropertyForm() {
   document.getElementById('propForm').reset();
   document.getElementById('propId').value = '';
-  document.getElementById('propFormTitle').textContent = '➕ Yeni Portföy Ekle';
+  pendingPhotos = [];
+  renderPhotoThumbs();
+  document.getElementById('propFormTitle').textContent = t('prop_form_new');
   document.getElementById('propCancelBtn').style.display = 'none';
 }
-
 function deleteProperty(id) {
-  const p = db.properties.find(x => x.id === id);
-  if (!p) return;
-  if (!confirm(`"${p.title}" portföyünü silmek istediğinize emin misiniz?`)) return;
+  if (!confirm(t('c_del_prop'))) return;
   db.properties = db.properties.filter(x => x.id !== id);
-  persist();
-  toast('🗑 Portföy silindi');
-  renderAll();
+  persist(); toast(t('t_prop_deleted')); renderAll();
 }
-
 function toggleStatus(id) {
   const p = db.properties.find(x => x.id === id);
   if (!p) return;
   if (p.status === 'aktif') {
     p.status = p.dealType === 'satilik' ? 'satildi' : 'kiralandi';
-    toast(p.dealType === 'satilik' ? '🎉 Satıldı olarak işaretlendi' : '🎉 Kiralandı olarak işaretlendi');
-  } else {
-    p.status = 'aktif';
-    toast('↩ Tekrar aktif yapıldı');
-  }
-  persist();
-  renderAll();
+    toast(p.dealType === 'satilik' ? t('t_closed_sale') : t('t_closed_rent'));
+  } else { p.status = 'aktif'; toast(t('t_reopened')); }
+  persist(); renderAll();
 }
 
-function propertyCard(p) {
-  const dealBadge = p.status !== 'aktif'
-    ? `<span class="badge ${p.dealType === 'satilik' ? 'sold' : 'rented'}">${p.status === 'satildi' ? 'SATILDI' : 'KİRALANDI'}</span>`
-    : `<span class="badge ${p.dealType === 'satilik' ? 'sale' : 'rent'}">${p.dealType === 'satilik' ? 'SATILIK' : 'KİRALIK'}</span>`;
-  const loc = [p.city, p.district, p.neighborhood].filter(Boolean).join(' / ');
-  const metaBits = [
-    loc && `📍 ${esc(loc)}`,
-    p.area && `📐 ${p.area} m²`,
-    p.rooms && `🛏 ${esc(p.rooms)}`,
-    p.age !== '' && p.age != null && `🏗 ${esc(p.age)} yaşında`,
-    p.floor && `🏢 Kat: ${esc(p.floor)}`
-  ].filter(Boolean).join('<span style="opacity:.4">·</span>');
-  const owner = (p.ownerName || p.ownerPhone)
-    ? `<div class="owner">👤 <strong>${esc(p.ownerName || '—')}</strong>${p.ownerPhone ? ` &nbsp;📞 <a href="tel:${esc(p.ownerPhone.replace(/\s/g,''))}">${esc(p.ownerPhone)}</a>` : ''}</div>`
-    : '';
-  return `
-    <div class="listing status-${p.status === 'aktif' ? 'active' : (p.status === 'satildi' ? 'sold' : 'rented')}">
-      <div class="badge-corner">${dealBadge}</div>
-      <div class="title">${esc(p.title)}</div>
-      <div><span class="badge cat">${esc(p.category)}</span></div>
-      <div class="price">${money(p.price)}${p.dealType === 'kiralik' ? ' <span style="font-size:.8rem;color:var(--muted)">/ay</span>' : ''}</div>
-      ${metaBits ? `<div class="meta">${metaBits}</div>` : ''}
-      ${owner}
-      ${p.desc ? `<div class="desc">${esc(p.desc)}</div>` : ''}
-      <div class="actions">
-        <button class="btn btn-secondary btn-sm" onclick="editProperty('${p.id}')">✏️ Düzenle</button>
-        <button class="btn btn-primary btn-sm" onclick="toggleStatus('${p.id}')">${p.status === 'aktif' ? (p.dealType === 'satilik' ? '✔ Satıldı' : '✔ Kiralandı') : '↩ Aktifleştir'}</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteProperty('${p.id}')">🗑 Sil</button>
-      </div>
-    </div>`;
-}
-
-function renderProperties() {
-  const q = document.getElementById('propSearch').value.toLocaleLowerCase('tr');
-  const deal = document.getElementById('propFilterDeal').value;
-  const cat = document.getElementById('propFilterCat').value;
-  const status = document.getElementById('propFilterStatus').value;
-  const sort = document.getElementById('propSort').value;
-
+function renderAdminProps() {
+  const q = document.getElementById('admSearch').value.toLocaleLowerCase('tr');
+  const deal = document.getElementById('admDeal').value;
+  const status = document.getElementById('admStatus').value;
   let list = db.properties.filter(p => {
     if (deal && p.dealType !== deal) return false;
-    if (cat && p.category !== cat) return false;
     if (status === 'aktif' && p.status !== 'aktif') return false;
     if (status === 'kapandi' && p.status === 'aktif') return false;
     if (q) {
-      const hay = [p.title, p.city, p.district, p.neighborhood, p.ownerName, p.ownerPhone, p.desc, p.category]
-        .join(' ').toLocaleLowerCase('tr');
+      const hay = [p.title, p.city, p.district, p.neighborhood, p.ownerName, p.ownerPhone, p.desc].join(' ').toLocaleLowerCase('tr');
       if (!hay.includes(q)) return false;
     }
     return true;
-  });
+  }).sort((a, b) => b.createdAt - a.createdAt);
 
-  if (sort === 'priceAsc') list.sort((a, b) => a.price - b.price);
-  else if (sort === 'priceDesc') list.sort((a, b) => b.price - a.price);
-  else list.sort((a, b) => b.createdAt - a.createdAt);
-
-  document.getElementById('propList').innerHTML = list.map(propertyCard).join('');
-  document.getElementById('propEmpty').style.display = list.length ? 'none' : '';
+  document.getElementById('admList').innerHTML = list.map(p => `
+    <div class="admin-listing${p.status !== 'aktif' ? ' passive' : ''}">
+      <div class="admin-thumb">${mediaBlock(p, true)}</div>
+      <div class="al-main">
+        <div class="al-title">${esc(p.title)}</div>
+        <div class="al-sub">
+          <span class="chip ${p.status !== 'aktif' ? 'closed' : (p.dealType === 'satilik' ? 'sale' : 'rent')}">
+            ${p.status === 'satildi' ? t('badge_sold') : p.status === 'kiralandi' ? t('badge_rented') : (p.dealType === 'satilik' ? t('badge_sale') : t('badge_rent'))}
+          </span>
+          &nbsp;${esc(p.category)}${locText(p) ? ' · ' + esc(locText(p)) : ''}
+        </div>
+        ${p.ownerName || p.ownerPhone ? `<div class="al-owner">👤 ${esc(p.ownerName || '—')}${p.ownerPhone ? ` · <a href="tel:${esc(p.ownerPhone.replace(/\s/g,''))}">${esc(p.ownerPhone)}</a>` : ''}</div>` : ''}
+      </div>
+      <div class="al-price">${money(p.price)}${p.dealType === 'kiralik' ? `<span style="font-size:.7rem;color:var(--muted)">${t('per_month')}</span>` : ''}</div>
+      <div class="al-actions">
+        <button class="btn btn-outline btn-sm" onclick="openDetail('${p.id}')">${t('btn_view')}</button>
+        <button class="btn btn-quiet btn-sm" onclick="editProperty('${p.id}')">${t('btn_edit')}</button>
+        <button class="btn btn-quiet btn-sm" onclick="toggleStatus('${p.id}')">${p.status === 'aktif' ? (p.dealType === 'satilik' ? t('btn_close_sale') : t('btn_close_rent')) : t('btn_reopen')}</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteProperty('${p.id}')">${t('btn_delete')}</button>
+      </div>
+    </div>`).join('');
+  document.getElementById('admEmpty').style.display = list.length ? 'none' : '';
 }
 
 /* =================== Müşteriler =================== */
 function saveCustomer(e) {
   e.preventDefault();
   const id = document.getElementById('custId').value;
+  const old = id ? db.customers.find(x => x.id === id) : null;
   const c = {
     id: id || uid(),
-    createdAt: id ? (db.customers.find(x => x.id === id)?.createdAt || Date.now()) : Date.now(),
+    createdAt: old ? old.createdAt : Date.now(),
     name: document.getElementById('custName').value.trim(),
     phone: document.getElementById('custPhone').value.trim(),
     dealType: document.getElementById('custDealType').value,
@@ -854,18 +1562,13 @@ function saveCustomer(e) {
     rooms: document.getElementById('custRooms').value,
     notes: document.getElementById('custNotes').value.trim()
   };
-  if (id) {
-    db.customers = db.customers.map(x => x.id === id ? c : x);
-    toast('✅ Müşteri güncellendi');
-  } else {
-    db.customers.unshift(c);
-    toast('✅ Müşteri eklendi');
-  }
+  if (id) db.customers = db.customers.map(x => x.id === id ? c : x);
+  else db.customers.unshift(c);
   persist();
+  toast(id ? t('t_cust_updated') : t('t_cust_added'));
   resetCustomerForm();
   renderAll();
 }
-
 function editCustomer(id) {
   const c = db.customers.find(x => x.id === id);
   if (!c) return;
@@ -879,28 +1582,27 @@ function editCustomer(id) {
   document.getElementById('custArea').value = c.area || '';
   document.getElementById('custRooms').value = c.rooms || '';
   document.getElementById('custNotes').value = c.notes || '';
-  document.getElementById('custFormTitle').textContent = '✏️ Müşteri Düzenle';
+  document.getElementById('custFormTitle').textContent = t('cust_form_edit');
   document.getElementById('custCancelBtn').style.display = '';
   document.getElementById('custForm').scrollIntoView({ behavior: 'smooth' });
 }
-
 function resetCustomerForm() {
   document.getElementById('custForm').reset();
   document.getElementById('custId').value = '';
-  document.getElementById('custFormTitle').textContent = '➕ Yeni Müşteri / Talep Ekle';
+  document.getElementById('custFormTitle').textContent = t('cust_form_new');
   document.getElementById('custCancelBtn').style.display = 'none';
 }
-
 function deleteCustomer(id) {
-  const c = db.customers.find(x => x.id === id);
-  if (!c) return;
-  if (!confirm(`"${c.name}" müşterisini silmek istediğinize emin misiniz?`)) return;
+  if (!confirm(t('c_del_cust'))) return;
   db.customers = db.customers.filter(x => x.id !== id);
-  persist();
-  toast('🗑 Müşteri silindi');
-  renderAll();
+  persist(); toast(t('t_cust_deleted')); renderAll();
 }
-
+function budgetText(c) {
+  if (!c.budgetMin && !c.budgetMax) return '—';
+  if (c.budgetMin && c.budgetMax) return `${money(c.budgetMin)} – ${money(c.budgetMax)}`;
+  if (c.budgetMax) return `≤ ${money(c.budgetMax)}`;
+  return `≥ ${money(c.budgetMin)}`;
+}
 function renderCustomers() {
   const q = document.getElementById('custSearch').value.toLocaleLowerCase('tr');
   const deal = document.getElementById('custFilterDeal').value;
@@ -911,37 +1613,28 @@ function renderCustomers() {
       if (!hay.includes(q)) return false;
     }
     return true;
-  });
-  list.sort((a, b) => b.createdAt - a.createdAt);
+  }).sort((a, b) => b.createdAt - a.createdAt);
 
   document.getElementById('custList').innerHTML = list.map(c => `
     <tr>
       <td><strong>${esc(c.name)}</strong></td>
       <td><a href="tel:${esc(c.phone.replace(/\s/g,''))}">${esc(c.phone)}</a></td>
-      <td><span class="badge ${c.dealType === 'satilik' ? 'sale' : 'rent'}">${c.dealType === 'satilik' ? 'ALICI' : 'KİRACI'}</span>
-          ${c.category ? `<br><span class="badge cat" style="margin-top:4px">${esc(c.category)}</span>` : ''}</td>
-      <td>${budgetText(c)}</td>
-      <td>${esc(c.area || '—')}${c.rooms ? `<br><small style="color:var(--muted)">Min ${esc(c.rooms)}</small>` : ''}</td>
-      <td style="max-width:220px;font-size:.85rem;color:var(--muted)">${esc(c.notes || '—')}</td>
+      <td><span class="chip ${c.dealType === 'satilik' ? 'sale' : 'rent'}">${c.dealType === 'satilik' ? t('chip_buyer') : t('chip_renter')}</span>
+          ${c.category ? `<div style="margin-top:4px;font-size:.78rem;color:var(--muted)">${esc(c.category)}</div>` : ''}</td>
+      <td style="font-variant-numeric:tabular-nums">${budgetText(c)}</td>
+      <td>${esc(c.area || '—')}${c.rooms ? `<div style="font-size:.75rem;color:var(--muted)">${t('m_min')} ${esc(c.rooms)}</div>` : ''}</td>
+      <td style="max-width:220px;font-size:.82rem;color:var(--muted)">${esc(c.notes || '—')}</td>
       <td style="white-space:nowrap">
-        <button class="btn btn-secondary btn-sm" onclick="editCustomer('${c.id}')">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteCustomer('${c.id}')">🗑</button>
+        <button class="btn btn-quiet btn-sm" onclick="editCustomer('${c.id}')">${t('btn_edit')}</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteCustomer('${c.id}')">${t('btn_delete')}</button>
       </td>
     </tr>`).join('');
   document.getElementById('custTable').style.display = list.length ? '' : 'none';
   document.getElementById('custEmpty').style.display = list.length ? 'none' : '';
 }
 
-function budgetText(c) {
-  if (!c.budgetMin && !c.budgetMax) return '—';
-  if (c.budgetMin && c.budgetMax) return `${money(c.budgetMin)} – ${money(c.budgetMax)}`;
-  if (c.budgetMax) return `En çok ${money(c.budgetMax)}`;
-  return `En az ${money(c.budgetMin)}`;
-}
-
 /* =================== Eşleştirme =================== */
 const ROOM_ORDER = ['1+0', '1+1', '2+1', '3+1', '4+1', '5+1 ve üzeri'];
-
 function matchesFor(c) {
   return db.properties.filter(p => {
     if (p.status !== 'aktif') return false;
@@ -950,43 +1643,39 @@ function matchesFor(c) {
     if (c.budgetMax && p.price > c.budgetMax) return false;
     if (c.budgetMin && p.price < c.budgetMin) return false;
     if (c.area) {
-      const want = c.area.toLocaleLowerCase('tr');
       const loc = [p.city, p.district, p.neighborhood].join(' ').toLocaleLowerCase('tr');
-      if (!loc.includes(want)) return false;
+      if (!loc.includes(c.area.toLocaleLowerCase('tr'))) return false;
     }
-    if (c.rooms && p.rooms) {
-      if (ROOM_ORDER.indexOf(p.rooms) < ROOM_ORDER.indexOf(c.rooms)) return false;
-    }
+    if (c.rooms && p.rooms && ROOM_ORDER.indexOf(p.rooms) < ROOM_ORDER.indexOf(c.rooms)) return false;
     return true;
   });
 }
-
 function renderMatches() {
   const wrap = document.getElementById('matchList');
   if (!db.customers.length) {
-    wrap.innerHTML = '<div class="empty"><div class="big">🤝</div>Eşleştirme için önce müşteri ekleyin.</div>';
+    wrap.innerHTML = `<div class="empty"><div class="serif">${t('match_empty')}</div></div>`;
     return;
   }
   wrap.innerHTML = db.customers.map(c => {
     const m = matchesFor(c);
     const crit = [
-      c.dealType === 'satilik' ? 'Satın alacak' : 'Kiralayacak',
-      c.category || 'kategori farketmez',
-      budgetText(c) !== '—' ? `bütçe: ${budgetText(c)}` : null,
-      c.area ? `bölge: ${c.area}` : null,
-      c.rooms ? `min ${c.rooms}` : null
+      c.dealType === 'satilik' ? t('m_will_buy') : t('m_will_rent'),
+      c.category || t('m_any_cat'),
+      (c.budgetMin || c.budgetMax) ? `${t('m_budget')}: ${budgetText(c)}` : null,
+      c.area ? `${t('m_area')}: ${c.area}` : null,
+      c.rooms ? `${t('m_min')} ${c.rooms}` : null
     ].filter(Boolean).join(' · ');
     const items = m.length
       ? m.map(p => `
-          <div class="match-item">
-            <span>🏠 <strong>${esc(p.title)}</strong> <span style="color:var(--muted)">(${esc([p.district, p.neighborhood].filter(Boolean).join(' / ') || p.category)})</span></span>
-            <span class="mprice">${money(p.price)}${p.dealType === 'kiralik' ? '/ay' : ''}</span>
-          </div>`).join('')
-      : '<div class="no-match">Uygun portföy bulunamadı.</div>';
+        <div class="match-item" onclick="openDetail('${p.id}')">
+          <span><strong>${esc(p.title)}</strong> <span style="color:var(--muted)">${esc([p.district, p.neighborhood].filter(Boolean).join(' / ') || p.category)}</span></span>
+          <span class="mprice">${money(p.price)}${p.dealType === 'kiralik' ? t('per_month') : ''}</span>
+        </div>`).join('')
+      : `<div class="no-match">${t('match_none')}</div>`;
     return `
       <div class="match-block">
-        <div class="cust">👤 ${esc(c.name)} — <a href="tel:${esc(c.phone.replace(/\s/g,''))}">${esc(c.phone)}</a>
-          <span class="badge ${c.dealType === 'satilik' ? 'sale' : 'rent'}" style="margin-left:6px">${m.length} eşleşme</span>
+        <div class="cust">${esc(c.name)} — <a href="tel:${esc(c.phone.replace(/\s/g,''))}">${esc(c.phone)}</a>
+          <span class="chip ${c.dealType === 'satilik' ? 'sale' : 'rent'}" style="margin-left:8px">${m.length} ${t('m_count')}</span>
         </div>
         <div class="crit">${esc(crit)}</div>
         ${items}
@@ -1004,48 +1693,102 @@ function renderDashboard() {
   const matchCount = db.customers.reduce((s, c) => s + matchesFor(c).length, 0);
 
   document.getElementById('statGrid').innerHTML = `
-    <div class="stat"><div class="label">Aktif Portföy</div><div class="value">${act.length}</div><div class="sub">${sale.length} satılık · ${rent.length} kiralık</div></div>
-    <div class="stat"><div class="label">Satılık Portföy Değeri</div><div class="value" style="font-size:1.15rem">${money(totalSaleValue)}</div><div class="sub">aktif satılık ilanlar</div></div>
-    <div class="stat"><div class="label">Müşteri / Talep</div><div class="value">${db.customers.length}</div><div class="sub">${db.customers.filter(c => c.dealType === 'satilik').length} alıcı · ${db.customers.filter(c => c.dealType === 'kiralik').length} kiracı</div></div>
-    <div class="stat"><div class="label">Otomatik Eşleşme</div><div class="value">${matchCount}</div><div class="sub">müşteri-portföy uyumu</div></div>
-    <div class="stat"><div class="label">Kapanan İşlem</div><div class="value">${closed.length}</div><div class="sub">satıldı / kiralandı</div></div>`;
+    <div class="stat"><div class="label">${t('s_active')}</div><div class="value">${act.length}</div><div class="sub">${sale.length} ${t('s_sale')} · ${rent.length} ${t('s_rent')}</div></div>
+    <div class="stat"><div class="label">${t('s_value')}</div><div class="value" style="font-size:1.15rem">${money(totalSaleValue)}</div><div class="sub">${t('s_value_sub')}</div></div>
+    <div class="stat"><div class="label">${t('s_clients')}</div><div class="value">${db.customers.length}</div><div class="sub">${db.customers.filter(c => c.dealType === 'satilik').length} ${t('s_buyers')} · ${db.customers.filter(c => c.dealType === 'kiralik').length} ${t('s_renters')}</div></div>
+    <div class="stat"><div class="label">${t('s_match')}</div><div class="value">${matchCount}</div><div class="sub">${t('s_match_sub')}</div></div>
+    <div class="stat"><div class="label">${t('s_closed')}</div><div class="value">${closed.length}</div><div class="sub">${t('s_closed_sub')}</div></div>`;
 
-  const recent = [...db.properties].sort((a, b) => b.createdAt - a.createdAt).slice(0, 4);
+  const recent = [...db.properties].sort((a, b) => b.createdAt - a.createdAt).slice(0, 3);
   document.getElementById('recentListings').innerHTML = recent.length
-    ? `<div class="listing-grid">${recent.map(propertyCard).join('')}</div>`
-    : '<div class="empty">Henüz portföy eklenmedi. <strong>Portföy</strong> sekmesinden başlayın.</div>';
+    ? `<div class="listing-grid">${recent.map(publicCard).join('')}</div>`
+    : `<div class="empty">${t('adm_empty')}</div>`;
 
   const recentC = [...db.customers].sort((a, b) => b.createdAt - a.createdAt).slice(0, 5);
   document.getElementById('recentCustomers').innerHTML = recentC.length
-    ? `<div class="table-wrap"><table><thead><tr><th>Ad</th><th>Telefon</th><th>Talep</th><th>Bütçe</th></tr></thead><tbody>` +
-      recentC.map(c => `<tr><td><strong>${esc(c.name)}</strong></td><td><a href="tel:${esc(c.phone.replace(/\s/g,''))}">${esc(c.phone)}</a></td><td>${c.dealType === 'satilik' ? 'Alıcı' : 'Kiracı'}${c.category ? ' · ' + esc(c.category) : ''}</td><td>${budgetText(c)}</td></tr>`).join('') +
+    ? `<div class="table-wrap"><table><thead><tr><th>${t('th_name')}</th><th>${t('th_phone')}</th><th>${t('th_demand')}</th><th>${t('th_budget')}</th></tr></thead><tbody>` +
+      recentC.map(c => `<tr><td><strong>${esc(c.name)}</strong></td><td><a href="tel:${esc(c.phone.replace(/\s/g,''))}">${esc(c.phone)}</a></td><td>${c.dealType === 'satilik' ? t('chip_buyer') : t('chip_renter')}${c.category ? ' · ' + esc(c.category) : ''}</td><td style="font-variant-numeric:tabular-nums">${budgetText(c)}</td></tr>`).join('') +
       `</tbody></table></div>`
-    : '<div class="empty">Henüz müşteri eklenmedi.</div>';
+    : `<div class="empty">${t('cust_empty')}</div>`;
+}
+function renderAdmin() {
+  renderDashboard();
+  renderAdminProps();
+  renderCustomers();
+  renderMatches();
+  fillSettings();
 }
 
 /* =================== Komisyon =================== */
 function calcCommission() {
   const type = document.getElementById('comType').value;
-  document.getElementById('comPriceLabel').textContent = type === 'satilik' ? 'Satış Bedeli (₺)' : 'Aylık Kira Bedeli (₺)';
+  document.getElementById('comPriceLabel').textContent = type === 'satilik' ? t('comm_price_sale') : t('comm_price_rent');
   const price = Number(document.getElementById('comPrice').value) || 0;
   const rate = Number(document.getElementById('comRate').value) || 0;
   const vat = Number(document.getElementById('comVat').value) || 0;
   const box = document.getElementById('comResult');
   if (!price) { box.classList.remove('show'); return; }
-
   const net = price * rate / 100;
   const vatAmt = net * vat / 100;
   const gross = net + vatAmt;
   let rows = `
-    <div class="row"><span>${type === 'satilik' ? 'Satış bedeli' : 'Aylık kira'}</span><span>${fmtTL2.format(price)}</span></div>
-    <div class="row"><span>Komisyon (%${rate})</span><span>${fmtTL2.format(net)}</span></div>
-    <div class="row"><span>KDV (%${vat})</span><span>${fmtTL2.format(vatAmt)}</span></div>
-    <div class="row"><span>KDV Dahil Komisyon</span><span>${fmtTL2.format(gross)}</span></div>`;
+    <div class="row"><span>${type === 'satilik' ? t('comm_row_price_sale') : t('comm_row_price_rent')}</span><span>${fmtTL2.format(price)}</span></div>
+    <div class="row"><span>${t('comm_row_fee')} (%${rate})</span><span>${fmtTL2.format(net)}</span></div>
+    <div class="row"><span>${t('comm_row_vat')} (%${vat})</span><span>${fmtTL2.format(vatAmt)}</span></div>
+    <div class="row"><span>${t('comm_row_total')}</span><span>${fmtTL2.format(gross)}</span></div>`;
   if (type === 'satilik') {
-    rows += `<div class="row" style="font-weight:400;font-size:.85rem;color:var(--muted);border:none"><span>Alıcı + satıcıdan ayrı ayrı alınırsa toplam</span><span>${fmtTL2.format(gross * 2)}</span></div>`;
+    rows += `<div class="row" style="font-weight:400;font-size:.84rem;color:var(--muted);border:none"><span>${t('comm_row_both')}</span><span>${fmtTL2.format(gross * 2)}</span></div>`;
   }
   box.innerHTML = rows;
   box.classList.add('show');
+}
+
+/* =================== Ayarlar =================== */
+function fillSettings() {
+  const s = db.settings;
+  document.getElementById('setName').value = s.agency || '';
+  document.getElementById('setPhone').value = s.phone || '';
+  document.getElementById('setWhatsapp').value = s.whatsapp || '';
+  document.getElementById('setEmail').value = s.email || '';
+  document.getElementById('setUsd').value = s.usd || '';
+  document.getElementById('setEur').value = s.eur || '';
+}
+function saveSettings(e) {
+  e.preventDefault();
+  db.settings.agency = document.getElementById('setName').value.trim() || 'EmlakPro';
+  db.settings.phone = document.getElementById('setPhone').value.trim();
+  db.settings.whatsapp = document.getElementById('setWhatsapp').value.trim();
+  db.settings.email = document.getElementById('setEmail').value.trim();
+  db.settings.usd = Number(document.getElementById('setUsd').value) || 44;
+  db.settings.eur = Number(document.getElementById('setEur').value) || 48;
+  persist();
+  toast(t('t_saved'));
+  applyBrand();
+  renderAll();
+}
+function applyBrand() {
+  const s = db.settings;
+  document.getElementById('brandName').textContent = s.agency || 'EmlakPro';
+  document.getElementById('footBrand').textContent = (s.agency || 'EmlakPro') + ' International';
+  document.getElementById('footContact').textContent = [s.phone, s.email].filter(Boolean).join(' · ');
+}
+
+/* =================== Örnek veri =================== */
+function loadDemo() {
+  if (!confirm(t('c_demo'))) return;
+  const now = Date.now();
+  const demo = [
+    { title:"Bebek'te Boğaz Manzaralı Yalı Dairesi", dealType:'satilik', category:'Daire', price:85000000, city:'İstanbul', district:'Beşiktaş', neighborhood:'Bebek Mah.', area:240, rooms:'4+1', age:'8', floor:'2 / 4', ownerName:'Selim Aksoy', ownerPhone:'0532 210 40 40', desc:'Boğaz hattında, birinci sırada, panoramik deniz manzaralı, özel iskele kullanımlı seçkin daire. Tavan yüksekliği 3,4 m; orijinal parke ve karo desenler korunmuştur.' },
+    { title:"Yalıkavak'ta Sonsuzluk Havuzlu Villa", dealType:'satilik', category:'Villa', price:120000000, city:'Muğla', district:'Bodrum', neighborhood:'Yalıkavak Mah.', area:380, rooms:'5+1 ve üzeri', age:'2', floor:'', ownerName:'Nur Kılıç', ownerPhone:'0533 355 12 12', desc:'Marina manzaralı, sonsuzluk havuzlu, akıllı ev sistemli modern villa. 1.100 m² peyzajlı bahçe, kapalı otopark, personel dairesi.' },
+    { title:"Alaçatı'da Restore Taş Ev", dealType:'satilik', category:'Müstakil Ev', price:42000000, city:'İzmir', district:'Çeşme', neighborhood:'Alaçatı Mah.', area:145, rooms:'3+1', age:'90', floor:'', ownerName:'Halil Öztürk', ownerPhone:'0542 660 78 78', desc:'Alaçatı çarşıya yürüme mesafesinde, aslına uygun restore edilmiş taş ev. İç avlu, şömine, geleneksel sakız mimarisi detayları.' },
+    { title:"Nişantaşı'nda Rezidans Katı", dealType:'kiralik', category:'Daire', price:180000, city:'İstanbul', district:'Şişli', neighborhood:'Teşvikiye Mah.', area:110, rooms:'2+1', age:'5', floor:'9 / 14', ownerName:'Merve Şen', ownerPhone:'0555 909 33 33', desc:'7/24 concierge, vale ve fitness hizmetli rezidansta, eşyalı, şehir manzaralı kat.' },
+    { title:"Kalkan'da Deniz Manzaralı Kiralık Villa", dealType:'kiralik', category:'Villa', price:350000, city:'Antalya', district:'Kaş', neighborhood:'Kalkan Mah.', area:260, rooms:'4+1', age:'3', floor:'', ownerName:'Okan Derin', ownerPhone:'0536 484 25 25', desc:'Korunaklı ısıtmalı havuz, gün batımı terası, tam donanımlı mutfak. Uzun dönem kiralamaya uygundur.' },
+    { title:"Levent'te A+ Plaza Ofis Katı", dealType:'kiralik', category:'Ofis', price:600000, city:'İstanbul', district:'Beşiktaş', neighborhood:'Levent Mah.', area:450, rooms:'', age:'12', floor:'17 / 30', ownerName:'Plaza Yönetimi', ownerPhone:'0212 350 60 60', desc:'Metro bağlantılı A+ plazada, bölünebilir açık plan ofis katı. Yükseltilmiş döşeme, jeneratör, 8 araçlık otopark tahsisi.' }
+  ].map((d, i) => ({ ...d, id: uid() + i, createdAt: now - i * 3600e3, status: 'aktif', photos: [] }));
+  db.properties.push(...demo);
+  persist();
+  toast(t('t_demo'));
+  renderAll();
 }
 
 /* =================== Yedekleme =================== */
@@ -1057,9 +1800,8 @@ function exportData() {
   a.download = `emlakpro-yedek-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}.json`;
   a.click();
   URL.revokeObjectURL(a.href);
-  toast('⬇ Yedek dosyası indirildi');
+  toast(t('t_export'));
 }
-
 function importData(input) {
   const file = input.files[0];
   if (!file) return;
@@ -1067,17 +1809,16 @@ function importData(input) {
   reader.onload = () => {
     try {
       const data = JSON.parse(reader.result);
-      if (!data || !Array.isArray(data.properties) || !Array.isArray(data.customers)) {
-        throw new Error('format');
-      }
-      if (!confirm('Mevcut veriler yedek dosyasındakilerle DEĞİŞTİRİLECEK. Devam edilsin mi?')) return;
-      db = { properties: data.properties, customers: data.customers };
-      persist();
-      renderAll();
-      toast('⬆ Yedek geri yüklendi');
-    } catch (e) {
-      alert('Geçersiz yedek dosyası. Lütfen EmlakPro ile alınmış bir .json dosyası seçin.');
-    }
+      if (!data || !Array.isArray(data.properties) || !Array.isArray(data.customers)) throw new Error('format');
+      if (!confirm(t('c_import'))) { input.value = ''; return; }
+      db = {
+        properties: data.properties,
+        customers: data.customers,
+        settings: Object.assign({ ...DEFAULT_SETTINGS }, data.settings || {})
+      };
+      persist(); applyBrand(); renderAll();
+      toast(t('t_import'));
+    } catch (e) { alert(t('t_import_err')); }
     input.value = '';
   };
   reader.readAsText(file);
@@ -1085,16 +1826,17 @@ function importData(input) {
 
 /* =================== Başlat =================== */
 function renderAll() {
-  document.getElementById('countPortfolio').textContent = db.properties.length;
-  document.getElementById('countCustomers').textContent = db.customers.length;
-  renderProperties();
-  renderCustomers();
-  renderDashboard();
-  renderMatches();
+  applyI18n();
+  renderHome();
+  renderPublic();
+  renderAdmin();
+  calcCommission();
 }
-
 load();
+document.getElementById('curSelect').value = prefs.currency;
+applyBrand();
 renderAll();
+showView('home');
 </script>
 </body>
 </html>
