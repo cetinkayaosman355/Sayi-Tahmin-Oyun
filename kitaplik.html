@@ -303,9 +303,27 @@
     left: 11px; top: 0; bottom: 0;
     width: 3px;
     background: linear-gradient(to right, rgba(0,0,0,.35), rgba(255,255,255,.14), rgba(0,0,0,.25));
+    z-index: 3;
+  }
+  .kapak-resim {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .kapak-golge {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to bottom,
+      rgba(10,8,5,.42) 0%, rgba(10,8,5,.05) 26%,
+      rgba(10,8,5,.05) 48%, rgba(8,6,3,.86) 92%);
   }
   .cerceve {
     position: relative;
+    z-index: 2;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -329,12 +347,7 @@
     text-align: center;
     color: var(--gold-bright);
     opacity: .95;
-  }
-  .kitap .amblem {
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 12px 0 4px;
-    filter: drop-shadow(0 2px 5px rgba(0,0,0,.5));
+    text-shadow: 0 1px 4px rgba(0,0,0,.9);
   }
   .kitap h3 {
     font-family: var(--serif-display);
@@ -342,10 +355,13 @@
     font-size: 1.06rem;
     line-height: 1.35;
     text-align: center;
-    margin-top: 4px;
     flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
     color: #f7efdc;
-    text-shadow: 0 1px 3px rgba(0,0,0,.5);
+    text-shadow: 0 1px 3px rgba(0,0,0,.85), 0 2px 10px rgba(0,0,0,.7);
+    padding-bottom: 8px;
   }
   .kitap .alt {
     display: flex;
@@ -357,6 +373,7 @@
     color: rgba(247,239,220,.85);
     padding-top: 10px;
     border-top: 1px solid rgba(233,207,142,.35);
+    text-shadow: 0 1px 3px rgba(0,0,0,.8);
   }
   .kitap .rozet-okundu {
     position: absolute;
@@ -419,6 +436,15 @@
   @keyframes kitapAcilis {
     from { opacity: 0; transform: translateY(30px) scale(.96); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .okuyucu-kapak {
+    width: 100%;
+    height: 148px;
+    object-fit: cover;
+    object-position: center 28%;
+    display: block;
+    border-bottom: 1px solid rgba(138,111,54,.5);
+    filter: sepia(.12) saturate(.95);
   }
   .sayfa-ust {
     display: flex;
@@ -612,6 +638,7 @@
 
 <div class="okuyucu" id="okuyucu" role="dialog" aria-modal="true" aria-labelledby="kitapBaslik">
   <div class="sayfa-kutusu">
+    <img class="okuyucu-kapak" id="okuyucuKapak" alt="">
     <div class="sayfa-ust">
       <div>
         <span class="dosya-no" id="dosyaNo"></span>
@@ -640,6 +667,7 @@
 const kitaplar = [
   {
     id: "gobeklitepe",
+    kapak: "https://d8j0ntlcm91z4.cloudfront.net/user_307wLSX1tDNKgJWvmbjFeQ0HpZF/hf_20260716_105758_d5095ce9-81e1-4ae7-be6c-ca333dd9bb6b.png",
     baslik: "İlk Tapınağın Sırrı: Göbeklitepe",
     donem: "ilkcag",
     donemAdi: "İlk Çağ Öncesi",
@@ -659,6 +687,7 @@ const kitaplar = [
   },
   {
     id: "troya",
+    kapak: "https://d8j0ntlcm91z4.cloudfront.net/user_307wLSX1tDNKgJWvmbjFeQ0HpZF/hf_20260716_105800_f147f031-e1f8-4f0f-b5c2-d186daecf7ce.png",
     baslik: "Tahta Atın İçinde: Troya",
     donem: "ilkcag",
     donemAdi: "İlk Çağ",
@@ -677,6 +706,7 @@ const kitaplar = [
   },
   {
     id: "malazgirt",
+    kapak: "https://d8j0ntlcm91z4.cloudfront.net/user_307wLSX1tDNKgJWvmbjFeQ0HpZF/hf_20260716_105810_8ec8c736-e767-41c9-ac8c-acddcc19cd45.png",
     baslik: "Anadolu'nun Kapısı: Malazgirt 1071",
     donem: "ortacag",
     donemAdi: "Orta Çağ",
@@ -695,6 +725,7 @@ const kitaplar = [
   },
   {
     id: "ipekyolu",
+    kapak: "https://d8j0ntlcm91z4.cloudfront.net/user_307wLSX1tDNKgJWvmbjFeQ0HpZF/hf_20260716_105813_8a435c57-9019-4687-8921-dcbe8b046cec.png",
     baslik: "Kervanla Bin Yıl: İpek Yolu",
     donem: "ortacag",
     donemAdi: "Orta Çağ",
@@ -713,6 +744,7 @@ const kitaplar = [
   },
   {
     id: "fetih",
+    kapak: "https://d8j0ntlcm91z4.cloudfront.net/user_307wLSX1tDNKgJWvmbjFeQ0HpZF/hf_20260716_105816_972db83b-9771-4ebb-8e61-7d9d493760b8.png",
     baslik: "Surların Ardında: İstanbul 1453",
     donem: "yenicag",
     donemAdi: "Yeni Çağ",
@@ -732,6 +764,7 @@ const kitaplar = [
   },
   {
     id: "pirireis",
+    kapak: "https://d8j0ntlcm91z4.cloudfront.net/user_307wLSX1tDNKgJWvmbjFeQ0HpZF/hf_20260716_105818_50d53c7d-c331-4b30-96ef-80899fb20979.png",
     baslik: "Kayıp Haritanın İzinde: Piri Reis",
     donem: "yenicag",
     donemAdi: "Yeni Çağ",
@@ -750,6 +783,7 @@ const kitaplar = [
   },
   {
     id: "canakkale",
+    kapak: "https://d8j0ntlcm91z4.cloudfront.net/user_307wLSX1tDNKgJWvmbjFeQ0HpZF/hf_20260716_105821_a3a669bf-4509-4c28-ab61-7a4c6f9e49d2.png",
     baslik: "Geçilmez Boğaz: Çanakkale 1915",
     donem: "yakincag",
     donemAdi: "Yakın Çağ",
@@ -769,6 +803,7 @@ const kitaplar = [
   },
   {
     id: "cumhuriyet",
+    kapak: "https://d8j0ntlcm91z4.cloudfront.net/user_307wLSX1tDNKgJWvmbjFeQ0HpZF/hf_20260716_105823_afa7d2f8-e9a9-4a1b-bf4a-07d2d8d539cf.png",
     baslik: "Yeni Bir Sabah: Cumhuriyet 1923",
     donem: "yakincag",
     donemAdi: "Yakın Çağ",
@@ -837,11 +872,12 @@ function rafiCiz(filtre) {
       <span class="sirt"></span>
       <span class="yapraklar"></span>
       <span class="kapak">
+        <img class="kapak-resim" src="${k.kapak}" alt="" loading="lazy" onerror="this.remove()">
+        <span class="kapak-golge"></span>
         <span class="cerceve">
           <span class="donem">${k.donemAdi}</span>
-          <span class="amblem">${k.amblem}</span>
           <h3>${k.baslik}</h3>
-          <span class="alt">${k.sayfalar.length} sayfa</span>
+          <span class="alt">${k.amblem}&ensp;${k.sayfalar.length} sayfa</span>
         </span>
       </span>`;
     btn.addEventListener("click", () => kitapAc(k));
@@ -854,6 +890,10 @@ function kitapAc(k) {
   sayfa = 0;
   kitapBaslik.textContent = k.baslik;
   dosyaNo.textContent = k.dosyaNo;
+  const kapakResmi = document.getElementById("okuyucuKapak");
+  kapakResmi.style.display = "";
+  kapakResmi.onerror = () => { kapakResmi.style.display = "none"; };
+  kapakResmi.src = k.kapak;
   noktaDizi.innerHTML = k.sayfalar.map(() => '<span class="nokta"></span>').join("");
   sayfayiGoster(false);
   okuyucu.classList.add("acik");
